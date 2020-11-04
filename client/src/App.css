@@ -2,6 +2,15 @@
   text-align: center;
 }
 
+body {
+  background-color: silver;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
 .container {
   border: 6px;
   border-width: 100%;

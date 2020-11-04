@@ -1,8 +1,8 @@
 import React from 'react';
-import './css/App.css';
-import Home from './general/Home'
-import Signup from './general/Signup'
-import Login from './general/Login'
+import Home from './general/Home/Home'
+import Signup from './general/Signup/Signup'
+import Login from './general/Login/Login'
+import './App.css';
 
 import {Route, Link} from "react-router-dom"
 

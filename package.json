@@ -6,6 +6,8 @@
   "dependencies": {
     "compression": "^1.7.4",
     "express": "^4.17.1",
+    "mongojs": "^3.1.0",
+    "mongoose": "^5.10.11",
     "nodemon": "^2.0.6",
     "object-path": "^0.11.5",
     "react": "^16.14.0",
@@ -19,7 +21,8 @@
     "start": "node app.js",
     "server": "nodemon app.js",
     "client": "cd client && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "seed": "cd seeders && node seed.js"
   },
   "repository": {
     "type": "git",

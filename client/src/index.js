@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './css/index.css';
+// import './index.css';
 import App from './App';
-import Nav from './general/Nav';
-import Footer from './general/Footer';
+import Nav from './general/Nav/Nav';
+import Footer from './general/Footer/Footer';
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter} from 'react-router-dom';
 

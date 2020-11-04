@@ -1,6 +1,16 @@
+const mongojs = require("mongojs");
+const db = require("../models")
 
 module.exports = function(app) {
-  app.get("/api/test", (req, res) => {
-    res.json({message: "Testing response to api"})
-  })
+
+  app.get("/api/products", (req, res) => {
+    db.Product.find({}, (err, product) => {
+      if (err) {
+        throw err;
+      } else {
+        res.json(product);
+      }
+    })
+  });
+  
 };
