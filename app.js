@@ -3,6 +3,8 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 const mongoose = require("mongoose");
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 require("./routes/api-routes.js")(app);
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/skyline", { useNewUrlParser: true });
 
