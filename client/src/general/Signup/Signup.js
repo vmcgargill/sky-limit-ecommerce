@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import LoginUser from "../Login/LoginUser"
 
 function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassowrd] = useState("");
 
-  const handleLogin = (event) => {
+  const handleSignup = (event) => {
     event.preventDefault();
-    // console.log(" Name: " + name + " email: " + email + " password: " + password)
     axios({
       method: "post",
       url: "/api/signup", 
@@ -17,7 +17,11 @@ function Signup() {
       email: email,
       password: password
     }}).then(function(response) {
-      console.log(response)
+      if (response.status === 200) {
+        LoginUser(email, password)
+      }
+    }).catch(function(err) {
+      console.log(err)
     })
   }
 
@@ -37,7 +41,7 @@ function Signup() {
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <h2>Sign Up Form</h2>
-        <form class="signup" onSubmit={handleLogin}>
+        <form class="signup" onSubmit={handleSignup}>
           <div class="form-group">
             <label for="name-input" >Name</label>
             <input type="text" class="form-control" id="name-input" placeholder="Name" value={name} onChange={handleNameChange}></input>

@@ -2,9 +2,8 @@ import React from "react";
 
 function ProductList(props) {
   const products = props.products;
-  console.log(props)
-  const listItems = products.map((products) =>
-    <li>Name: {products.name} Category: {products.category} price: {products.price} Desctiption: {products.description}</li>
+  const listItems = products.map((product) => 
+    <li>{product.name}, {product.category}, ${product.price}</li>
   );
   return (
     <ul>{listItems}</ul>

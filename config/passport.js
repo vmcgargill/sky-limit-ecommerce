@@ -2,23 +2,32 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const db = require("../models");
 
-// Create login middleware with passport-local strategy to handle failed login attempts
 passport.use(new LocalStrategy(
   {
     usernameField: "email"
   },
   function (email, password, done) {
-    db.User.findOne({email: email}).then(function (dbUser) {
-      if (!dbUser) {
+
+    db.User.findOne({ email: email }, function(error, user) {
+      if (error) throw error;
+
+      if (user === null) {
         return done(null, false, {
           message: "Incorrect email."
         });
-      } else if (!dbUser.validPassword(password)) {
-        return done(null, false, {
-          message: "Incorrect password."
-        });
       }
-      return done(null, dbUser);
+
+      user.comparePassword(password, function(err, match) {
+        if (err) throw err;
+        if (!match) {
+          return done(null, false, {
+            message: "Incorrect password."
+          });
+        } else {
+          return done(null, user);
+        }
+      });
+      
     });
   }
 ));
