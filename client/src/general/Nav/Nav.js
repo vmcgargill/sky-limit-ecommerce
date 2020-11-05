@@ -38,7 +38,7 @@ function Nav() {
                   <a className="dropdown-item" onClick={Logout}>Logout</a>
                 </div>
               </li>
-              <li claclassNamess="nav-item active" id="HomeItem">
+              <li className="nav-item active" id="HomeItem">
                 <a className="nav-link" href="/" id="HomeLink">Cart</a>
               </li>
             </ul>

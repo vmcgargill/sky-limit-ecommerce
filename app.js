@@ -11,8 +11,10 @@ app.use(express.static("upload"));
 app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+
 require("./routes/api-routes.js")(app);
 require("./routes/product-api-routes.js")(app);
+
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/skyline", { useNewUrlParser: true });
 
 app.listen(PORT, () => {

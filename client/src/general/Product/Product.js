@@ -11,18 +11,23 @@ function Product() {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("/Default.jpg");
+  const [seller, setSeller] = useState({});
 
   useEffect(() => {
     axios({
       method: "get",
       url: "/api/product/" + id
     }).then(function(response) {
+      console.log("---------------------------------------------")
       seName(response.data.name)
       setCategory(response.data.category)
       setPrice(response.data.price)
       setDescription(response.data.description)
+      setSeller(response.data.seller)
       if (response.data.image) {
-        setImage('data:image/jpeg;base64,' + ConvertImage(response.data.image.data.data))
+        setImage("data:image/jpeg;base64," + ConvertImage(response.data.image.data.data))
+      } else {
+        setImage("/Default.jpg")
       }
     });
   }, [])
@@ -34,7 +39,7 @@ function Product() {
           <div className="card-body">
             <h2 className="card-title"><a>{name}</a></h2>
             <img src={image} className="card-img-top productImg" alt='ProductImage'/>
-            <a href="#">Seller will go here</a>
+            <a href={"/merchant/" + seller._id}>Seller: {seller.name}</a>
           </div>
           <ul className="list-group list-group-flush">
             <li className="list-group-item">Category: <a>{category}</a></li>

@@ -17,18 +17,12 @@ module.exports = function(app) {
 
   app.get("/api/product/:id", (req, res) => {
     const id = req.params.id;
-    db.Product.findOne({ _id: id }, (err, product) => {
-      if (err) {
-        throw err;
-      } else {
-        res.json(product);
-      }
+    db.Product.findOne({ _id: id }).populate("seller").exec().then(product => {
+      res.json(product)
     })
   });
 
   app.post("/api/postProduct", upload.single("image"), (req, res) => {
-    console.log(req.user)
-    console.log(req.user._id)
     const product = new db.Product(req.body);
     product.assignSeller(req.user._id)
     if (req.file) {
