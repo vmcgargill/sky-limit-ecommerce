@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
+import './Product.css';
 
 function Product() {
   let { id } = useParams();
@@ -8,20 +9,25 @@ function Product() {
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const [image] = useState("");
+  const [image, setImage] = useState("");
+
+  function converImg(buffer) {
+    var binary = '';
+    var bytes = [].slice.call(new Uint8Array(buffer));
+    bytes.forEach((byte) => binary += String.fromCharCode(byte));
+    return window.btoa(binary);
+  };
 
   useEffect(() => {
     axios({
       method: "get",
       url: "/api/product/" + id
     }).then(function(response) {
-      // console.log(response.data)
       seName(response.data.name)
       setCategory(response.data.category)
       setPrice(response.data.price)
       setDescription(response.data.description)
-      // setImage(response.data.image)
-      console.log(response.data.image.data)
+      setImage('data:image/jpeg;base64,' + converImg(response.data.image.data.data))
     });
   }, [])
   
@@ -32,6 +38,7 @@ function Product() {
         <div className="card blogSearch">
           <div className="card-body">
             <h2 className="card-title"><a>{name}</a></h2>
+            <img src={image} className="card-img-top productImg" alt='Helpful alt text'/>
             <a href="#">Seller will go here</a>
           </div>
           <ul className="list-group list-group-flush">
@@ -41,7 +48,6 @@ function Product() {
           <div className="card-body">
             <pre className="card-text">{description}</pre>
           </div>
-          {image}
         </div>
       </div>
     </div>

@@ -1,0 +1,3 @@
+# Upload Directory
+
+This directory is for uploading files only.
