@@ -38,23 +38,23 @@ function Signup() {
   }
 
   return (
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
+    <div className="row">
+      <div className="col-md-6 col-md-offset-3">
         <h2>Sign Up Form</h2>
-        <form class="signup" onSubmit={handleSignup}>
-          <div class="form-group">
+        <form className="signup" onSubmit={handleSignup}>
+          <div className="form-group">
             <label for="name-input" >Name</label>
-            <input type="text" class="form-control" id="name-input" placeholder="Name" value={name} onChange={handleNameChange}></input>
+            <input type="text" className="form-control" id="name-input" placeholder="Name" value={name} onChange={handleNameChange}></input>
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label for="email-input">Email address</label>
-            <input type="email" class="form-control" id="email-input" placeholder="Email" value={email} onChange={handleEmailChange}></input>
+            <input type="email" className="form-control" id="email-input" placeholder="Email" value={email} onChange={handleEmailChange}></input>
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="password-input" placeholder="Password" value={password} onChange={handlePasswordChange}></input>
+            <input type="password" className="form-control" id="password-input" placeholder="Password" value={password} onChange={handlePasswordChange}></input>
           </div>
-          <button type="submit" class="btn btn-default">Sign Up</button>
+          <button type="submit" className="btn btn-default">Sign Up</button>
         </form>
         <br />
         <p>Or log in <a href="/login">here</a></p>

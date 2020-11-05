@@ -73,18 +73,18 @@ function PostProduct() {
   ]
 
   return (
-    <div class="row">
+    <div className="row">
       <form onSubmit={PostProduct}>
         <label for="name">Name:</label>
-				<input placeholder="Name of Product" type="text" class="form-control" maxlength="50" value={name} onChange={enterName}></input>
+				<input placeholder="Name of Product" type="text" className="form-control" maxlength="50" value={name} onChange={enterName}></input>
         <label for="description">Description:</label>
-				<textarea placeholder="Description of Product" class="form-control" rows="10" maxlength="100000" value={description} onChange={enterDescription}></textarea>
+				<textarea placeholder="Description of Product" className="form-control" rows="10" maxlength="100000" value={description} onChange={enterDescription}></textarea>
         <label for="category">Select Product Category</label>
 				<Select options={options} placeholder="Select Product Category" onChange={(value) => selectCategory(value)}/>
-        <input placeholder="Customer Category" type="text" class="form-control hidden" id="categoryInput" maxlength="20"></input>
+        <input placeholder="Customer Category" type="text" className="form-control hidden" id="categoryInput" maxlength="20"></input>
         $ <input type="number" min="0.01" step="0.01" value={price} onChange={enterPrice}></input>
         <input type="file" id="image" name="image" value={image} onChange={uploadImage}></input> 
-        <button type="submit" class="btn btn-success submit">Submit</button>
+        <button type="submit" className="btn btn-success submit">Submit</button>
       </form>
     </div>
   );

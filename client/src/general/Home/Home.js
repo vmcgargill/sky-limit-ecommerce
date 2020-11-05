@@ -11,7 +11,7 @@ function Home() {
   }, [])
 
   return (
-    <div class="row">
+    <div className="row">
       <ProductList products={state}/>
     </div>
   );
