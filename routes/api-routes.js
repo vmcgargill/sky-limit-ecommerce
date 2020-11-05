@@ -36,5 +36,14 @@ module.exports = function(app) {
       }
     })
   });
+
+  app.post("/api/postProduct", (req, res) => {
+    console.log("test")
+    db.Product.create(req.body, function(err, product) {
+      // res.json(product)
+      if (err) throw err;
+      console.log(product)
+    })
+  });
   
 };

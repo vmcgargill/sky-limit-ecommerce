@@ -21,7 +21,6 @@ function Nav() {
     url: "/api/user_data"
   }).then(function(response) {
     if (response.data.message) {
-      console.log("Logged in!")
       setLogin(
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
@@ -33,7 +32,7 @@ function Nav() {
                 <a class="dropdown-item" href="#">Orders</a>
                 <a class="dropdown-item" href="#">Wishlist</a>
                 <a class="dropdown-item" href="#">Account Settings</a>
-                <a class="dropdown-item" href="#">Sell</a>
+                <a class="dropdown-item" href="/postProduct">Sell</a>
                 <a class="dropdown-item" onClick={Logout}>Logout</a>
               </div>
             </li>
@@ -42,7 +41,7 @@ function Nav() {
             </li>
           </ul>
         </div>
-      )
+      , [])
     } else {
       setLogin(
         <div class="collapse navbar-collapse" id="navbarText">
@@ -55,7 +54,7 @@ function Nav() {
             </li>
           </ul>
         </div>
-      )
+      , [])
     }
   })
 
