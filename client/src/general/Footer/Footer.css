@@ -7,6 +7,6 @@
   margin: 2%;
 }
 
-.footer p, a, a:hover {
+.footer p, .footer a, .footer a:hover {
   color: white;
 }

@@ -37,6 +37,18 @@ module.exports = function(app) {
     })
   });
 
+  app.get("/api/product/:id", (req, res) => {
+    const id = req.params.id;
+
+    db.Product.findOne({ _id: id }, (err, product) => {
+      if (err) {
+        throw err;
+      } else {
+        res.json(product);
+      }
+    })
+  });
+
   app.post("/api/postProduct", (req, res) => {
     console.log("test")
     db.Product.create(req.body, function(err, product) {

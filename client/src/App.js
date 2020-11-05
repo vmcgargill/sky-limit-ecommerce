@@ -3,9 +3,10 @@ import Home from './general/Home/Home'
 import Signup from './general/Signup/Signup'
 import Login from './general/Login/Login'
 import PostProduct from './general/Product/PostProduct'
+import Product from './general/Product/Product'
 import './App.css';
 
-import {Route, Link} from "react-router-dom"
+import {Route} from "react-router-dom"
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/postProduct" component={PostProduct} />
+        <Route exact path="/product/:id" component={Product} />
     </div>
   );
 }
