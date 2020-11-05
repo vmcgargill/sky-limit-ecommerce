@@ -7,6 +7,7 @@ const passport = require("./config/passport");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static("upload"));
 app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());

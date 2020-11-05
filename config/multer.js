@@ -3,7 +3,7 @@ const multer = require("multer");
 // Storage defines the directory that the profile pictures are stared, in this case the uploads directory in the public layer.
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, "./public/upload/");
+    cb(null, "./upload/");
   },
   filename: function(req, file, cb) {
     console.log(new Date().toISOString());

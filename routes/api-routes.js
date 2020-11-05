@@ -1,6 +1,8 @@
-const mongojs = require("mongojs");
 const db = require("../models");
 const passport = require("../config/passport");
+const upload = require("../config/multer");
+const fs = require('fs');
+const path = require('path'); 
 
 module.exports = function(app) {
 
@@ -49,12 +51,20 @@ module.exports = function(app) {
     })
   });
 
-  app.post("/api/postProduct", (req, res) => {
-    console.log("test")
-    db.Product.create(req.body, function(err, product) {
-      // res.json(product)
+  app.post("/api/postProduct", upload.single("image"), (req, res) => {
+    console.log(req.file)
+    const product = req.body;
+    
+    if (req.file) {
+      product.image = {
+        data: fs.readFileSync(path.join(__dirname + '/../upload/' + req.file.filename)), 
+        contentType: req.file.mimetype
+      }
+    }
+
+    db.Product.create(product, function(err, product) {
       if (err) throw err;
-      console.log(product)
+      res.json(product)
     })
   });
   

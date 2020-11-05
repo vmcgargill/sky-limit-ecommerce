@@ -7,6 +7,7 @@ function PostProduct() {
   const [description, setDescription] = useState ("");
   const [category, setCategory] = useState ("");
   const [price, setPrice] = useState ("");
+  const [image, setImage] = useState ("");
 
   const enterName = (event) => {
     setName(event.target.value)
@@ -25,22 +26,34 @@ function PostProduct() {
     setPrice(event.target.value)
   }
 
-  const PostProduct = () => {
-    const product = {
-      name: name,
-      description: description,
-      category: category,
-      price: price
-    }
+  const uploadImage = (event) => {
+    setImage(event.target.value)
+  }
 
-    alert("Product is posted." + JSON.stringify(product))
+  const PostProduct = (event) => {
+    event.preventDefault()
+    let product = new FormData();
+    product.append("name", name);
+    product.append("description", description);
+    product.append("category", category);
+    product.append("price", price);
+
+    if (image !== "") {
+      const pic = document.getElementById("image");
+      product.append("image", pic.files[0]);
+    }
 
     axios({
       method: "post",
       url: "/api/postProduct",
-      data: product
+      data: product,
+      enctype: "multipart/form-data",
+      processData: false,
+      contentType: false,
+      cache: false,
+      timeout: 600000
     }).then(function(response) {
-      console.log(response)
+      window.location.href = "/product/" + response.data._id;
     });
   }
 
@@ -70,6 +83,7 @@ function PostProduct() {
 				<Select options={options} placeholder="Select Product Category" onChange={(value) => selectCategory(value)}/>
         <input placeholder="Customer Category" type="text" class="form-control hidden" id="categoryInput" maxlength="20"></input>
         $ <input type="number" min="0.01" step="0.01" value={price} onChange={enterPrice}></input>
+        <input type="file" id="image" name="image" value={image} onChange={uploadImage}></input> 
         <button type="submit" class="btn btn-success submit">Submit</button>
       </form>
     </div>
