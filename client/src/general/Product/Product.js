@@ -34,8 +34,8 @@ function Product() {
   
   return (
     <div className="row">
-      <div className="col" id="BlogList">
-        <div className="card blogSearch">
+      <div className="col">
+        <div className="card">
           <div className="card-body">
             <h2 className="card-title"><a>{name}</a></h2>
             <img src={image} className="card-img-top productImg" alt='ProductImage'/>
@@ -43,7 +43,7 @@ function Product() {
           </div>
           <ul className="list-group list-group-flush">
             <li className="list-group-item">Category: <a>{category}</a></li>
-            <li className="list-group-item">Price: $<a id="BlogMood">{price}</a></li>
+            <li className="list-group-item">Price: $<a>{price}</a></li>
           </ul>
           <div className="card-body">
             <pre className="card-text">{description}</pre>

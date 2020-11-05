@@ -14,6 +14,7 @@ app.use(passport.session());
 
 require("./routes/api-routes.js")(app);
 require("./routes/product-api-routes.js")(app);
+require("./routes/user-api-routes.js")(app);
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/skyline", { useNewUrlParser: true });
 

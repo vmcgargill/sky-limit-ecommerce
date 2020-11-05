@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-// const { mongooseAssociation } = require('mongoose-association');
-// mongooseAssociation(mongoose);
 
 const ProductSchema = new Schema({
   name: {
@@ -25,12 +23,6 @@ const ProductSchema = new Schema({
     ref: 'User' 
   }
 });
-
-// ProductSchema.belongsTo('User').index(1, { sparse: true })
-
-// ProductSchema.belongsTo('User', {
-//   as: 'seller'
-// })
 
 ProductSchema.methods.assignSeller = function(userId) {
   return this.seller = userId;

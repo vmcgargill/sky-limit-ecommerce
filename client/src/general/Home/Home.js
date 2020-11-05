@@ -6,6 +6,7 @@ function Home() {
 
   useEffect(() => {
     fetch("/api/products").then(res => res.json()).then((response) => {
+      console.log(response)
       setState(response)
     })
   }, [])

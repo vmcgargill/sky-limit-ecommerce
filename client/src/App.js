@@ -4,6 +4,7 @@ import Signup from './general/Signup/Signup'
 import Login from './general/Login/Login'
 import PostProduct from './general/Product/PostProduct'
 import Product from './general/Product/Product'
+import Merchant from './general/User/Merchant'
 import './App.css';
 
 import {Route} from "react-router-dom"
@@ -16,6 +17,7 @@ function App() {
         <Route exact path="/login" component={Login} />
         <Route exact path="/postProduct" component={PostProduct} />
         <Route exact path="/product/:id" component={Product} />
+        <Route exact path="/merchant/:id" component={Merchant} />
     </div>
   );
 }

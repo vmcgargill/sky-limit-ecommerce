@@ -8,7 +8,7 @@ function ProductList(props) {
   }
 
   const listItems = products.map((product) => 
-    <a href={"product/" + product._id}><div >  {product.name}, ${product.price}</div></a>
+    <a href={"/product/" + product._id}><div >  {product.name}, ${product.price}</div></a>
   );
   return (
     <ul>{listItems}</ul>

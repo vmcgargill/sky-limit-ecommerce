@@ -13,7 +13,15 @@ const UserSchema = new Schema({
     type: String, 
     required: true, 
     bcrypt: true 
-  }
+  },
+  cart: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Product'
+  }],
+  wishlist: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Product'
+  }]
 });
 
 UserSchema.plugin(require('mongoose-bcrypt'));
