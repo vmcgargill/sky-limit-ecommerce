@@ -17,8 +17,16 @@ const ProductSchema = new Schema({
   image: {
     data: Buffer, 
     contentType: String 
+  },
+  seller: { 
+    type: Schema.Types.ObjectId, 
+    ref: 'User' 
   }
 });
+
+ProductSchema.methods.assignSeller = function(userId) {
+  return this.seller = userId;
+};
 
 const Product = mongoose.model("Product", ProductSchema);
 
