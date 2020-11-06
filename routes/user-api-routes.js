@@ -16,10 +16,21 @@ module.exports = function(app) {
     })
   });
 
-  app.get("/api/userProfile/:id", (req, res) => {
+  app.get("/api/userProfile", (req, res) => {
+    const id = req.user._id;
+    db.User.findOne({ _id: id }, function(err, user) {
+      if (err) throw err;
+      db.Product.find({ seller: id }, function(error, products) {
+        if (error) throw error;
+        res.json({
+          user: user,
+          products: products
+        })
+      })
+    })
   });
 
-  app.get("/api/editProfile/:id", (req, res) => {
+  app.get("/api/editProfile", (req, res) => {
   });
 
 

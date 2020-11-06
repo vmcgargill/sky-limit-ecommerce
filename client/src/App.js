@@ -5,6 +5,8 @@ import Login from './general/Login/Login'
 import PostProduct from './general/Product/PostProduct'
 import Product from './general/Product/Product'
 import Merchant from './general/User/Merchant'
+import Profile from './general/User/Profile'
+import EditProfile from './general/User/EditProfile'
 import './App.css';
 
 import {Route} from "react-router-dom"
@@ -18,6 +20,8 @@ function App() {
         <Route exact path="/postProduct" component={PostProduct} />
         <Route exact path="/product/:id" component={Product} />
         <Route exact path="/merchant/:id" component={Merchant} />
+        <Route exact path="/userProfile" component={Profile} />
+        <Route exact path="/editProfile" component={EditProfile} />
     </div>
   );
 }

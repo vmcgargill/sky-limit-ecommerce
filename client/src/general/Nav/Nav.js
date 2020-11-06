@@ -33,7 +33,7 @@ function Nav() {
                 <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                   <a className="dropdown-item" href="#">Orders</a>
                   <a className="dropdown-item" href="#">Wishlist</a>
-                  <a className="dropdown-item" href="#">Account Settings</a>
+                  <a className="dropdown-item" href="/userProfile">Account Settings</a>
                   <a className="dropdown-item" href="/postProduct">Sell</a>
                   <a className="dropdown-item" onClick={Logout}>Logout</a>
                 </div>
@@ -69,10 +69,6 @@ function Nav() {
         <div>
           <input id="SearchInput" placeholder="Search" type="text"></input>
           <button id="SearchBtn" className="button">Search</button>
-          {/* <div style="display: none" id="searchAlert" class="alert alert-danger" role="alert">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                <span class="sr-only">Error:</span> <span class="msg"></span>
-          </div> */}
         </div>
         {Login}
     </nav>
