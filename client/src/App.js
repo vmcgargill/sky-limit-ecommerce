@@ -1,12 +1,12 @@
 import React from 'react';
-import Home from './general/Home/Home'
-import Signup from './general/Signup/Signup'
-import Login from './general/Login/Login'
-import PostProduct from './general/Product/PostProduct'
-import Product from './general/Product/Product'
-import Merchant from './general/User/Merchant'
-import Profile from './general/User/Profile'
-import EditProfile from './general/User/EditProfile'
+import Home from './components/Home/Home'
+import Signup from './components/Signup/Signup'
+import Login from './components/Login/Login'
+import PostProduct from './components/Product/PostProduct'
+import Product from './components/Product/Product'
+import Merchant from './components/User/Merchant'
+import Profile from './components/User/Profile'
+import EditProfile from './components/User/EditProfile'
 import './App.css';
 
 import {Route} from "react-router-dom"
