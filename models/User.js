@@ -3,17 +3,27 @@ const Schema = mongoose.Schema;
 const Bcrypt = require("bcryptjs");
 
 const UserSchema = new Schema({
+  email: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true,
+    bcrypt: true 
+  },
   name: {
     type: String
   },
-  email: {
+  phone: {
+    type: Number
+  },
+  address: {
     type: String
   },
-  password: {
-    type: String, 
-    required: true, 
-    bcrypt: true 
-  },
+  paymeny: [{
+    type: Number
+  }],
   cart: [{
     type: Schema.Types.ObjectId,
     ref: 'Product'

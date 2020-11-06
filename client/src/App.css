@@ -11,7 +11,7 @@ code {
     monospace;
 }
 
-.container {
+.mainContainer {
   border: 6px;
   border-width: 100%;
   border-color: rgb(30, 30, 97); 
