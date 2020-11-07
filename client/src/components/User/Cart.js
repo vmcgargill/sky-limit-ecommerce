@@ -1,41 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ConvertImage from '../../ConvertImage'
 import './User.css';
 
-const WishList = () => {
-  const [products, setProducts] = useState([]);
+const Cart = () => {
+  const [cart, setCart] = useState([]);
 
-  const addCart = (event) => {
-    const itemId = event.target.value
-    axios({
-      method: "post",
-      url: "/api/addCart/" + itemId
-    }).then(function() {
-      window.location.href = "/cartAdded/" + itemId
-    });
-  }
-
-  const removeWishList = (event) => {
+  const removeCart = (event) => {
     axios({
       method: "put",
-      url: "/api/removeWishList/" + event.target.value
+      url: "/api/removeCart/" + event.target.value
     }).then(function() {
       window.location.reload();
-    });
+    })
+  }
+
+  const placeOrder = (event) => {
+    const orderCart = event.target.value;
+    console.log(orderCart);
   }
 
   useEffect(() => {
     axios({
       method: "get",
-      url: "/api/userWishlist"
+      url: "/api/userCart"
     }).then(function(response) {
-      setProducts(response.data.products)
       console.log(response.data.products)
+      setCart(response.data.products)
     })
   }, [])
 
-  const wishListItems = products.map((product) => 
+  const cartItems = cart.map((product) => 
     <div class="card mb-3">
       <div class="row no-gutters">
         <div class="col-md-4">
@@ -50,17 +45,17 @@ const WishList = () => {
           </div>
         </div>
       </div>
-      <button class="btn btn-primary merchantBtn" value={product._id} onClick={addCart}>Add to Cart</button>
-      <button class="btn btn-danger merchantBtn" value={product._id} onClick={removeWishList}>Remove from Wishlist</button>
+      <button class="btn btn-danger merchantBtn" value={product._id} onClick={removeCart}>Remove from Cart</button>
     </div>
   );
 
   return (
     <div className="container">
-      {wishListItems}
+      {cartItems}
+      <button class="btn btn-primary merchantBtn" value={cart} onClick={placeOrder}>Place Order</button>
     </div>
-  );
+  )
 
 }
 
-export default WishList;
+export default Cart;

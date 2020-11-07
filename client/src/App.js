@@ -11,6 +11,8 @@ import Profile from './components/User/Profile'
 import EditProfile from './components/User/EditProfile'
 import SellingAccount from './components/User/SellingAccount'
 import WishList from './components/User/WishList'
+import Cart from './components/User/Cart'
+import CartAdded from './components/User/CartAdded'
 import './App.css';
 
 import {Route} from "react-router-dom"
@@ -30,6 +32,8 @@ function App() {
         <Route exact path="/editProfile" component={EditProfile} />
         <Route exact path="/sellingAccount" component={SellingAccount} />
         <Route exact path="/wishList" component={WishList} />
+        <Route exact path="/userCart" component={Cart} />
+        <Route exact path="/cartAdded/:id" component={CartAdded} />
     </div>
   );
 }

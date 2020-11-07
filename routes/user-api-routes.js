@@ -70,5 +70,33 @@ module.exports = function(app) {
     })
   });
 
+  app.post("/api/addCart/:id", (req, res) => {
+    const id = req.params.id;
+    const userId = req.user._id;
+    db.User.findByIdAndUpdate({
+      _id: userId
+    }, {
+      $push: { cart: id }
+    }, (err, updated) => {
+      if (err) throw err;
+      console.log(updated)
+      res.json({message: "Success!"})
+    })
+  });
+
+  app.put("/api/removeCart/:id", (req, res) => {
+    const id = req.params.id;
+    const userId = req.user._id;
+    db.User.findByIdAndUpdate({
+      _id: userId
+    }, {
+      $pull: { cart: id }
+    }, (err, updated) => {
+      if (err) throw err;
+      console.log(updated)
+      res.json({message: "Success!"})
+    })
+  });
+
 
 };

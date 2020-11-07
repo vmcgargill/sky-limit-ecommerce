@@ -14,8 +14,13 @@ function Product() {
   const [seller, setSeller] = useState({});
   const [wishlist, SetWhishlist] = useState("")
   
-  const Order = () => {
-    console.log("Place order")
+  const addCart = () => {
+    axios({
+      method: "post",
+      url: "/api/addCart/" + id
+    }).then(function() {
+      window.location.href = "/cartAdded/" + id
+    });
   }
   
   const addWishList = () => {
@@ -82,7 +87,7 @@ function Product() {
             <pre className="card-text">{description}</pre>
           </div>
           <div className="card-body">
-            <a href="#" onClick={Order} class="btn btn-primary">Add to Cart</a><br/><br/>
+            <a href="#" onClick={addCart} class="btn btn-primary">Add to Cart</a><br/><br/>
             {wishlist}
           </div>
         </div>

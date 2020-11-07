@@ -54,7 +54,18 @@ module.exports = function(app) {
       const WishList = user.wishlist;
       db.Product.find().where('_id').in(WishList).exec((error, products) => {
         if (error) throw err;
-        console.log(products)
+        res.json({products});
+      });
+    })
+  })
+
+  app.get("/api/userCart", (req, res) => {
+    const userId = req.user._id;
+    db.User.findOne({ _id: userId }, (err, user) => {
+      if (err) throw err;
+      const Cart = user.cart;
+      db.Product.find().where('_id').in(Cart).exec((error, products) => {
+        if (error) throw err;
         res.json({products});
       });
     })

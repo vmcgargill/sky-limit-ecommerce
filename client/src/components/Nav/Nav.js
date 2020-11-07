@@ -37,7 +37,7 @@ function Nav() {
                 </div>
               </li>
               <li className="nav-item active" id="HomeItem">
-                <a className="nav-link" href="/" id="HomeLink">Cart</a>
+                <a className="nav-link" href="/userCart" id="HomeLink">Cart</a>
               </li>
             </ul>
           </div>
