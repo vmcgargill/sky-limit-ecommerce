@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import LoginUser from "./LoginUser";
+import LoginUser from "./LoginUser"
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -17,7 +17,6 @@ function Login() {
   const handlePasswordChange = (event) => {
     setPassowrd(event.target.value)
   }
-
 
   return (
     <div class="row">

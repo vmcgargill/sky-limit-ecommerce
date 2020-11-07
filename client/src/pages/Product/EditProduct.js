@@ -1,5 +1,5 @@
 import React from "react";
-import PostProduct from "./PostProduct";
+import PostProduct from "../../components/Product/PostProduct"
 
 const EditProduct = () => {
   return (

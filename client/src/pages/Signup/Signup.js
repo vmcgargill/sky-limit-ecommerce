@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import LoginUser from "../Login/LoginUser"
+import LoginUser from "../Login/LoginUser.js"
 
 function Signup() {
   const [name, setName] = useState("");

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import ProductList from "../Product/ProductList";
+import ProductList from "../../components/Product/ProductList";
 import axios from "axios";
 
 const Merchant = () => {

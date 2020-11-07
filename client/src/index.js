@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import Nav from './components/Nav/Nav';
 import Footer from './components/Footer/Footer';
-import * as serviceWorker from './serviceWorker';
 import {BrowserRouter} from 'react-router-dom';
 
 ReactDOM.render(
@@ -28,5 +27,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('footer')
 );
-
-serviceWorker.unregister();

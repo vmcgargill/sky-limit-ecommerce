@@ -1,21 +1,21 @@
 import React from 'react';
-import Home from './components/Home/Home'
-import Signup from './components/Signup/Signup'
-import Login from './components/Login/Login'
-import PostNewProduct from './components/Product/PostNewProduct'
-import EditProduct from './components/Product/EditProduct'
-import DeleteProduct from './components/Product/DeleteProduct'
-import Product from './components/Product/Product'
-import Merchant from './components/User/Merchant'
-import Profile from './components/User/Profile'
-import EditProfile from './components/User/EditProfile'
-import SellingAccount from './components/User/SellingAccount'
-import WishList from './components/User/WishList'
-import Cart from './components/User/Cart'
-import CartAdded from './components/User/CartAdded'
+import Home from './pages/Home/Home'
+import Signup from './pages/Signup/Signup'
+import Login from './pages/Login/Login'
+import PostNewProduct from './pages/Product/PostNewProduct'
+import EditProduct from './pages/Product/EditProduct'
+import DeleteProduct from './pages/Product/DeleteProduct'
+import Product from './pages/Product/Product'
+import Merchant from './pages/User/Merchant'
+import Profile from './pages/User/Profile'
+import EditProfile from './pages/User/EditProfile'
+import SellingAccount from './pages/User/SellingAccount'
+import WishList from './pages/User/WishList'
+import Cart from './pages/User/Cart'
+import CartAdded from './pages/User/CartAdded'
 import './App.css';
 
-import {Route} from "react-router-dom"
+import {Route} from "react-router-dom" 
 
 function App() {
   return (
