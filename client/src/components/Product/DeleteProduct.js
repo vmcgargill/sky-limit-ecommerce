@@ -16,7 +16,7 @@ function DeleteProduct() {
       axios({
         method: "delete",
         url: "/api/deleteProduct/" + id
-      }).then(function(response) {
+      }).then(function() {
         window.location.href = "/sellingAccount";
       })
     }

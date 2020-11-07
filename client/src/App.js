@@ -10,6 +10,7 @@ import Merchant from './components/User/Merchant'
 import Profile from './components/User/Profile'
 import EditProfile from './components/User/EditProfile'
 import SellingAccount from './components/User/SellingAccount'
+import WishList from './components/User/WishList'
 import './App.css';
 
 import {Route} from "react-router-dom"
@@ -28,6 +29,7 @@ function App() {
         <Route exact path="/userProfile" component={Profile} />
         <Route exact path="/editProfile" component={EditProfile} />
         <Route exact path="/sellingAccount" component={SellingAccount} />
+        <Route exact path="/wishList" component={WishList} />
     </div>
   );
 }

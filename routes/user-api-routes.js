@@ -3,7 +3,6 @@ const db = require("../models");
 module.exports = function(app) {
 
   app.get("/api/merchant/:id", (req, res) => {
-    console.log(req.params.id)
     db.User.findOne({ _id: req.params.id }, function(err, merchant) {
       if (err) throw err;
       db.Product.find({ seller: req.params.id }, function(error, products) {
@@ -37,12 +36,25 @@ module.exports = function(app) {
     const id = req.user._id;
     db.Product.find({ seller: id }, function(err, products) {
       if (err) throw err;
-      console.log(products)
       res.json({
         products: products
       })
     })
   })
+
+  app.post("/api/wishList/:id", (req, res) => {
+    const id = req.params.id;
+    const userId = req.user._id;
+    db.User.findByIdAndUpdate({
+      _id: userId
+    }, {
+      $push: { wishlist: id }
+    }, (err, updated) => {
+      if (err) throw err;
+      console.log(updated)
+      res.json({message: "Success!"})
+    })
+  });
 
 
 };

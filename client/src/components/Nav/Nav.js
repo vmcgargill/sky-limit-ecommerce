@@ -30,7 +30,7 @@ function Nav() {
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                   <a className="dropdown-item" href="#">Orders</a>
-                  <a className="dropdown-item" href="#">Wishlist</a>
+                  <a className="dropdown-item" href="/wishList">Wishlist</a>
                   <a className="dropdown-item" href="/userProfile">Account Settings</a>
                   <a className="dropdown-item" href="/postProduct">Sell</a>
                   <a className="dropdown-item" onClick={Logout}>Logout</a>

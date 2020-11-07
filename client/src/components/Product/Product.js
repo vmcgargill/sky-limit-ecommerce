@@ -12,22 +12,55 @@ function Product() {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("/Default.jpg");
   const [seller, setSeller] = useState({});
+  const [wishlist, SetWhishlist] = useState("")
+  
+  const Order = () => {
+    console.log("Place order")
+  }
+  
+  const addWishList = () => {
+    axios({
+      method: "post",
+      url: "/api/wishList/" + id
+    }).then(function() {
+      SetWhishlist(btnRemoveWishlist)
+    });
+  }
+  
+  const removeWishList = () => {
+    axios({
+      method: "post",
+      url: "/api/wishList/" + id
+    }).then(function() {
+      SetWhishlist(btnAddWishList)
+    });
+  }
 
+  const btnAddWishList = (<a href="#" onClick={addWishList} class="btn btn-primary">Add to wishlist</a>);
+  const btnRemoveWishlist = (<a href="#" onClick={removeWishList} class="btn btn-primary">Remove From Wishlist</a>);
+  
   useEffect(() => {
     axios({
       method: "get",
       url: "/api/product/" + id
     }).then(function(response) {
-      console.log("---------------------------------------------")
-      seName(response.data.name)
-      setCategory(response.data.category)
-      setPrice(response.data.price)
-      setDescription(response.data.description)
-      setSeller(response.data.seller)
-      if (response.data.image) {
-        setImage("data:image/jpeg;base64," + ConvertImage(response.data.image.data.data))
+      const product = response.data.product;
+      seName(product.name)
+      setCategory(product.category)
+      setPrice(product.price)
+      setDescription(product.description)
+      setSeller(product.seller)
+      if (product.image) {
+        setImage("data:image/jpeg;base64," + ConvertImage(product.image.data.data))
       } else {
         setImage("/Default.jpg")
+      }
+      if (response.data.signedin) {
+        if (response.data.wishlist) {
+          SetWhishlist(btnRemoveWishlist)
+        } else {
+          SetWhishlist(btnAddWishList)
+        }
       }
     });
   }, [])
@@ -47,6 +80,10 @@ function Product() {
           </ul>
           <div className="card-body">
             <pre className="card-text">{description}</pre>
+          </div>
+          <div className="card-body">
+            <a href="#" onClick={Order} class="btn btn-primary">Add to Cart</a><br/><br/>
+            {wishlist}
           </div>
         </div>
       </div>

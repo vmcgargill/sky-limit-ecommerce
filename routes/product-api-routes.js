@@ -18,7 +18,24 @@ module.exports = function(app) {
   app.get("/api/product/:id", (req, res) => {
     const id = req.params.id;
     db.Product.findOne({ _id: id }).populate("seller").exec().then(product => {
-      res.json(product)
+      if (req.user) {
+        db.User.findOne({ _id: req.user._id }, (err, user) => {
+          if (err) throw err;
+          const WishList = user.wishlist;
+          const dbResponse = {
+            product: product,
+            signedin: true
+          }
+          if (WishList.indexOf(id) > -1) {
+            dbResponse.wishlist = true
+          } else {
+            dbResponse.wishlist = false
+          }
+          res.json(dbResponse)
+        })
+      } else {
+        res.json({product: product, signedin: false})
+      }
     })
   });
 
@@ -27,6 +44,19 @@ module.exports = function(app) {
     db.Product.findOne({ _id: id }, (err, product) => {
       if (err) throw err;
       res.json(product)
+    });
+  });
+
+  app.get("/api/userWishlist", (req, res) => {
+    const userId = req.user._id;
+    db.User.findOne({ _id: userId }, (err, user) => {
+      if (err) throw err;
+      const WishList = user.wishlist;
+      db.Product.find().where('_id').in(WishList).exec((error, products) => {
+        if (error) throw err;
+        console.log(products)
+        res.json({products});
+      });
     })
   })
 
