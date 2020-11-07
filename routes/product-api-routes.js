@@ -82,6 +82,9 @@ module.exports = function(app) {
     }
     db.Product.create(product, function(err, created) {
       if (err) throw err;
+      if (req.file) {
+        fs.unlinkSync(path.join(__dirname + '/../upload/' + req.file.filename));
+      }
       res.json(created)
     })
   });
@@ -97,6 +100,9 @@ module.exports = function(app) {
     }
     db.Product.findByIdAndUpdate(id, {$set: product}, function(err, updated) {
       if (err) throw err;
+      if (req.file) {
+        fs.unlinkSync(path.join(__dirname + '/../upload/' + req.file.filename));
+      }
       res.json(updated)
     });
   });

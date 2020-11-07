@@ -4,6 +4,13 @@ const PORT = process.env.PORT || 8000;
 const mongoose = require("mongoose");
 const session = require("express-session");
 const passport = require("./config/passport");
+const fs = require("fs");
+const path = require("path");
+const OUTPUT_DIR = path.resolve(__dirname, "upload");
+
+if (!fs.existsSync(OUTPUT_DIR)) {
+  fs.mkdirSync(OUTPUT_DIR)
+}
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
