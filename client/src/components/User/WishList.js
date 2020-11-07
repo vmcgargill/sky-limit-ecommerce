@@ -10,9 +10,15 @@ const WishList = () => {
     console.log("Item added to cart.")
   }
 
-  const removeWishList = () => {
-    console.log("Removed from wishlist")
+  const removeWishList = (event) => {
+    axios({
+      method: "put",
+      url: "/api/removeWishList/" + event.target.value
+    }).then(function() {
+      window.location.reload();
+    });
   }
+
 
   useEffect(() => {
     axios({

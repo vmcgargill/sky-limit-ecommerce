@@ -56,5 +56,19 @@ module.exports = function(app) {
     })
   });
 
+  app.put("/api/removeWishList/:id", (req, res) => {
+    const id = req.params.id;
+    const userId = req.user._id;
+    db.User.findByIdAndUpdate({
+      _id: userId
+    }, {
+      $pull: { wishlist: id }
+    }, (err, updated) => {
+      if (err) throw err;
+      console.log(updated)
+      res.json({message: "Success!"})
+    })
+  });
+
 
 };

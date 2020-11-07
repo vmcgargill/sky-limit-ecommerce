@@ -29,8 +29,8 @@ function Product() {
   
   const removeWishList = () => {
     axios({
-      method: "post",
-      url: "/api/wishList/" + id
+      method: "put",
+      url: "/api/removeWishList/" + id
     }).then(function() {
       SetWhishlist(btnAddWishList)
     });
