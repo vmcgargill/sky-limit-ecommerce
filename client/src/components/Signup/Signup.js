@@ -39,7 +39,7 @@ function Signup() {
 
   return (
     <div className="row">
-      <div className="col-md-6 col-md-offset-3">
+      <div className="col-sm-12 col-md-12 col-lg-12">
         <h2>Sign Up Form</h2>
         <form className="signup" onSubmit={handleSignup}>
           <div className="form-group">

@@ -21,7 +21,7 @@ function Login() {
 
   return (
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-sm-12 col-md-12 col-lg-12">
         <h2>Login Form</h2>
         <form class="login" onSubmit={handleLogin}>
           <div class="form-group">
