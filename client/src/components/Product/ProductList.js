@@ -16,8 +16,8 @@ function ProductList(props) {
           <div class="card-body">
             <h5 class="card-title">{product.name}</h5>
             <p class="card-text">${product.price}</p>
-            <p class="card-text">{product.description}</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <p class="card-text"><a class="productDescription">{product.description}</a></p>
+            <p class="card-text"><small class="text-muted">Posted 2 days ago</small></p>
           </div>
         </div>
       </div>

@@ -22,3 +22,7 @@ code {
   min-height: 350px;
   padding: 30px;
 }
+
+.hidden {
+  display: none;
+}

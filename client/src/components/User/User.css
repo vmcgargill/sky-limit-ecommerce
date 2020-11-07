@@ -5,3 +5,22 @@
 .edit-profile {
   min-height: 250px;
 }
+
+.merchantListImg {
+  max-width: 200px; 
+  max-height: 200px;
+}
+
+.merchantDescription {
+  display: block;
+  width: 500px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.merchantBtn {
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}

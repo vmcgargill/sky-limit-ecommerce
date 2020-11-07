@@ -9,7 +9,7 @@ function Nav() {
     axios({
       method: "get",
       url: "/api/logout"
-    }).then(function(response) {
+    }).then(function() {
       window.location.replace("/");
     });
   }
@@ -24,7 +24,7 @@ function Nav() {
         setLogin(
           <div className="collapse navbar-collapse" id="navbarText">
             <ul className="navbar-nav mr-auto">
-              <li className="nav-item dropdown hidden" id="LoggedInMenu">
+              <li className="nav-item dropdown" id="LoggedInMenu">
                 <a className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Account
                 </a>
@@ -49,7 +49,7 @@ function Nav() {
               <li className="nav-item" stlye="display: none" id="Login">
                 <a className="nav-link" href="/login" id="RoleLink">Login</a>
               </li>
-              <li className="nav-item" display="hidden" id="Signup">
+              <li className="nav-item" id="Signup">
                 <a className="nav-link" href="/signup" id="RoleLink">Signup</a>
               </li>
             </ul>

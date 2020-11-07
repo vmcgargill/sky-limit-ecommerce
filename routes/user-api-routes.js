@@ -33,5 +33,16 @@ module.exports = function(app) {
   app.get("/api/editProfile", (req, res) => {
   });
 
+  app.get("/api/merchantProducts", (req, res) => {
+    const id = req.user._id;
+    db.Product.find({ seller: id }, function(err, products) {
+      if (err) throw err;
+      console.log(products)
+      res.json({
+        products: products
+      })
+    })
+  })
+
 
 };

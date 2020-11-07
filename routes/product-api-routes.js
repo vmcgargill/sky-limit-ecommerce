@@ -22,6 +22,14 @@ module.exports = function(app) {
     })
   });
 
+  app.get("/api/productDetails/:id", (req, res) => {
+    const id = req.params.id;
+    db.Product.findOne({ _id: id }, (err, product) => {
+      if (err) throw err;
+      res.json(product)
+    })
+  })
+
   app.post("/api/postProduct", upload.single("image"), (req, res) => {
     const product = new db.Product(req.body);
     product.assignSeller(req.user._id)
@@ -31,10 +39,25 @@ module.exports = function(app) {
         contentType: req.file.mimetype
       }
     }
-    db.Product.create(product, function(err, product) {
+    db.Product.create(product, function(err, created) {
       if (err) throw err;
-      res.json(product)
+      res.json(created)
     })
+  });
+
+  app.put("/api/editProduct/:id", upload.single("image"), (req, res) => {
+    const id = req.params.id;
+    const product = req.body;
+    if (req.file) {
+      product.image = {
+        data: fs.readFileSync(path.join(__dirname + '/../upload/' + req.file.filename)), 
+        contentType: req.file.mimetype
+      }
+    }
+    db.Product.findByIdAndUpdate(id, {$set: product}, function(err, updated) {
+      if (err) throw err;
+      res.json(updated)
+    });
   });
 
 };

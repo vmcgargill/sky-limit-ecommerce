@@ -19,6 +19,10 @@ const Profile = () => {
   const editProfile = () => {
     window.location.href = "/editProfile";
   }
+
+  const SellingAccount = () => {
+    window.location.href = "/sellingAccount";
+  }
   
   return (
     <div>
@@ -56,7 +60,7 @@ const Profile = () => {
             <div className="card-body edit-profile">
               <h5 className="card-title">Selling Account</h5>
               <p className="card-text">Manage your selling account, change items listed, details, and prices.</p>
-              <a href="#" className="btn btn-primary">Selling Account</a>
+              <a href="#" onClick={SellingAccount} className="btn btn-primary">Selling Account</a>
             </div>
           </div>
         </div>
