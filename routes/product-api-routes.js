@@ -60,4 +60,12 @@ module.exports = function(app) {
     });
   });
 
+  app.delete("/api/deleteProduct/:id", function(req, res) {
+    const id = req.params.id;
+    db.Product.deleteOne({ _id: id }, function(err, deleted) {
+      if (err) throw err;
+      res.json(deleted)
+    })
+  })
+
 };
