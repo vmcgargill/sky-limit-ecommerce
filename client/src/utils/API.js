@@ -32,6 +32,9 @@ export default {
   updateUserProfile: (data) => {
     return axios.put("/api/updateUser", data)
   },
+  updatePassword: (data) => {
+    return axios.put("/api/updatePassword", data)
+  },
   searchProducts: (search) => {
     return axios.get("/api/searcProducts/" + search)
   },

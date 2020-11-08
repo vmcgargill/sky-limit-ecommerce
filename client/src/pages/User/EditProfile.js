@@ -41,7 +41,7 @@ const EditProfile = () => {
         <div class="card-body">
           <h5 class="card-title">Password</h5>
           <p class="card-text">********</p>
-          <a href="#" class="btn btn-primary">Edit Password</a>
+          <a href="/updatePassword" class="btn btn-primary">Edit Password</a>
         </div>
         <div class="card-body">
           <h5 class="card-title">Phone</h5>

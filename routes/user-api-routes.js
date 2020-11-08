@@ -25,6 +25,26 @@ module.exports = function(app) {
     })
   })
 
+  app.put("/api/updatePassword", (req, res) => {
+    const id = req.user._id;
+    const oldPassword = req.body.oldPassword;
+    const newPassword = req.body.newPassword;
+    db.User.findOne({_id: id}, (err, user) => {
+      if (err) throw err;
+      user.comparePassword(oldPassword, (error, match) => {
+        if (error) throw error;
+        if (!match) {
+          res.json(401, {error: "Wrong password"})
+        } else {
+          db.User.findByIdAndUpdate(id, {$set: {password: newPassword}}, (errorMsg, resUser) => {
+            if (errorMsg) throw errorMsg;
+            res.json(200, {message: "Password Changed"})
+          })
+        }
+      })
+    })
+  })
+
   app.get("/api/merchant/:id", (req, res) => {
     db.User.findOne({ _id: req.params.id }, function(err, merchant) {
       if (err) throw err;
