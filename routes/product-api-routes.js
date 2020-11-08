@@ -20,9 +20,21 @@ module.exports = function(app) {
     const search = req.params.search;
     console.log(search);
     db.Product.find({
-      name: {
-        $regex: new RegExp(search, "i")
-      }
+      $or: [
+        {
+          name: {
+            $regex: new RegExp(search, "i")
+          }
+        }, {
+          description: {
+            $regex: new RegExp(search, "i")
+          }
+        }, {
+          category: {
+            $regex: new RegExp(search, "i")
+          }
+        }
+      ]
     }, (err, products) => {
       if (err) throw err;
       res.json(products)
