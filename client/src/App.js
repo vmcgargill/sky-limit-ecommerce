@@ -13,6 +13,7 @@ import SellingAccount from './pages/User/SellingAccount'
 import WishList from './pages/User/WishList'
 import Cart from './pages/User/Cart'
 import CartAdded from './pages/User/CartAdded'
+import SearchResualts from "./pages/Product/SearchResults"
 import './App.css';
 
 import {Route} from "react-router-dom" 
@@ -34,6 +35,7 @@ function App() {
         <Route exact path="/wishList" component={WishList} />
         <Route exact path="/userCart" component={Cart} />
         <Route exact path="/cartAdded/:id" component={CartAdded} />
+        <Route exact path="/searchResults/:search" component={SearchResualts} />
     </div>
   );
 }

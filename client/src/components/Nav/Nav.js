@@ -4,11 +4,17 @@ import './Nav.css';
 
 function Nav() {
   const [NavOptions, setNavOptions] = useState("");
+  const [search, setSearch] = useState("");
 
   const Logout = () => {
     API.Logout().then(() => {
       window.location.replace("/");
     });
+  }
+
+  const submitSearch = (event) => {
+    event.preventDefault();
+    window.location.href = "/searchResults/" + search
   }
 
   const LoggedInNav = (
@@ -62,8 +68,8 @@ function Nav() {
         <a className="navbar-brand" href="/">Sky Line Ecommerce</a>
         <div>
           <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
-            <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={search} onChange={(event) => {setSearch(event.target.value)}}></input>
+            <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" onClick={submitSearch}>Search</button>
           </form>
         </div>
         {NavOptions}

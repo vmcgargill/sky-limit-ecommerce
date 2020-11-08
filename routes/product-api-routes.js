@@ -15,6 +15,19 @@ module.exports = function(app) {
     })
   });
 
+  app.get("/api/searProducts/:search", (req, res) => {
+    const search = req.params.search;
+    console.log(search);
+    db.Product.find({
+      name: {
+        $regex: new RegExp(search, "i")
+      }
+    }, (err, products) => {
+      if (err) throw err;
+      res.json(products)
+    })
+  });
+
   app.get("/api/product/:id", (req, res) => {
     const id = req.params.id;
     db.Product.findOne({ _id: id }).populate("seller").exec().then(product => {

@@ -29,6 +29,9 @@ export default {
   getUserProfile: () => {
     return axios.get("/api/userProfile");
   },
+  searchProducts: (search) => {
+    return axios.get("/api/searProducts/" + search)
+  },
   getProducts: (query) => {
     return axios.get(query);
   },
