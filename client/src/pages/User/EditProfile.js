@@ -36,7 +36,7 @@ const EditProfile = () => {
         <div class="card-body">
           <h5 class="card-title">Email</h5>
           <p class="card-text">{user.email}</p>
-          <a href="#" class="btn btn-primary">Edit Email</a>
+          <a href="/updateEmail" class="btn btn-primary">Edit Email</a>
         </div>
         <div class="card-body">
           <h5 class="card-title">Password</h5>

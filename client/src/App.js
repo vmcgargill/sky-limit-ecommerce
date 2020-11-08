@@ -10,6 +10,7 @@ import Merchant from './pages/User/Merchant'
 import AccountSettings from './pages/User/AccountSettings'
 import EditProfile from './pages/User/EditProfile'
 import UpdateName from './pages/User/UpdateName';
+import UpdateEmail from './pages/User/UpdateEmail';
 import SellingAccount from './pages/User/SellingAccount'
 import WishList from './pages/User/WishList'
 import Cart from './pages/User/Cart'
@@ -33,6 +34,7 @@ function App() {
         <Route exact path="/accountSettings" component={AccountSettings} />
         <Route exact path="/editProfile" component={EditProfile} />
         <Route exact path="/updateName" component={UpdateName} />
+        <Route exact path="/updateEmail" component={UpdateEmail} />
         <Route exact path="/sellingAccount" component={SellingAccount} />
         <Route exact path="/wishList" component={WishList} />
         <Route exact path="/userCart" component={Cart} />

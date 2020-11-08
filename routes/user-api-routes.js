@@ -19,7 +19,6 @@ module.exports = function(app) {
   app.put("/api/updateUser", (req, res) => {
     const id = req.user._id;
     const data = req.body;
-    console.log(data);
     db.User.findByIdAndUpdate(id, {$set: data}, (err, user) => {
       if (err) throw err;
       res.json({message: "Success!"})
