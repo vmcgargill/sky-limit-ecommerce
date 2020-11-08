@@ -1,4 +1,5 @@
 const db = require("../models");
+const isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function(app) {
 
@@ -15,7 +16,7 @@ module.exports = function(app) {
     })
   });
 
-  app.get("/api/userProfile", (req, res) => {
+  app.get("/api/userProfile", isAuthenticated, (req, res) => {
     const id = req.user._id;
     db.User.findOne({ _id: id }, function(err, user) {
       if (err) throw err;
@@ -29,10 +30,7 @@ module.exports = function(app) {
     })
   });
 
-  app.get("/api/editProfile", (req, res) => {
-  });
-
-  app.get("/api/merchantProducts", (req, res) => {
+  app.get("/api/merchantProducts", isAuthenticated, (req, res) => {
     const id = req.user._id;
     db.Product.find({ seller: id }, function(err, products) {
       if (err) throw err;
@@ -42,7 +40,7 @@ module.exports = function(app) {
     })
   })
 
-  app.post("/api/wishList/:id", (req, res) => {
+  app.post("/api/wishList/:id", isAuthenticated, (req, res) => {
     const id = req.params.id;
     const userId = req.user._id;
     db.User.findByIdAndUpdate({
@@ -56,7 +54,7 @@ module.exports = function(app) {
     })
   });
 
-  app.put("/api/removeWishList/:id", (req, res) => {
+  app.put("/api/removeWishList/:id", isAuthenticated, (req, res) => {
     const id = req.params.id;
     const userId = req.user._id;
     db.User.findByIdAndUpdate({
@@ -70,7 +68,7 @@ module.exports = function(app) {
     })
   });
 
-  app.post("/api/addCart/:id", (req, res) => {
+  app.post("/api/addCart/:id", isAuthenticated, (req, res) => {
     const id = req.params.id;
     const userId = req.user._id;
     db.User.findByIdAndUpdate({
@@ -84,7 +82,7 @@ module.exports = function(app) {
     })
   });
 
-  app.put("/api/removeCart/:id", (req, res) => {
+  app.put("/api/removeCart/:id", isAuthenticated, (req, res) => {
     const id = req.params.id;
     const userId = req.user._id;
     db.User.findByIdAndUpdate({

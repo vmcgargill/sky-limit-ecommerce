@@ -30,7 +30,7 @@ export default {
     return axios.get("/api/userProfile");
   },
   searchProducts: (search) => {
-    return axios.get("/api/searProducts/" + search)
+    return axios.get("/api/searcProducts/" + search)
   },
   getProducts: (query) => {
     return axios.get(query);

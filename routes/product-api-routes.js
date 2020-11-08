@@ -2,6 +2,7 @@ const db = require("../models");
 const upload = require("../config/multer");
 const fs = require('fs');
 const path = require('path'); 
+const isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function(app) {
 
@@ -15,7 +16,7 @@ module.exports = function(app) {
     })
   });
 
-  app.get("/api/searProducts/:search", (req, res) => {
+  app.get("/api/searcProducts/:search", (req, res) => {
     const search = req.params.search;
     console.log(search);
     db.Product.find({
@@ -60,7 +61,7 @@ module.exports = function(app) {
     });
   });
 
-  app.get("/api/userWishlist", (req, res) => {
+  app.get("/api/userWishlist", isAuthenticated, (req, res) => {
     const userId = req.user._id;
     db.User.findOne({ _id: userId }, (err, user) => {
       if (err) throw err;
@@ -72,7 +73,7 @@ module.exports = function(app) {
     })
   })
 
-  app.get("/api/userCart", (req, res) => {
+  app.get("/api/userCart", isAuthenticated, (req, res) => {
     const userId = req.user._id;
     db.User.findOne({ _id: userId }, (err, user) => {
       if (err) throw err;
@@ -84,7 +85,7 @@ module.exports = function(app) {
     })
   })
 
-  app.post("/api/postProduct", upload.single("image"), (req, res) => {
+  app.post("/api/postProduct", isAuthenticated, upload.single("image"), (req, res) => {
     const product = new db.Product(req.body);
     product.assignSeller(req.user._id)
     if (req.file) {
@@ -102,7 +103,7 @@ module.exports = function(app) {
     })
   });
 
-  app.put("/api/editProduct/:id", upload.single("image"), (req, res) => {
+  app.put("/api/editProduct/:id", isAuthenticated, upload.single("image"), (req, res) => {
     const id = req.params.id;
     const product = req.body;
     if (req.file) {
@@ -120,7 +121,7 @@ module.exports = function(app) {
     });
   });
 
-  app.delete("/api/deleteProduct/:id", function(req, res) {
+  app.delete("/api/deleteProduct/:id", isAuthenticated, function(req, res) {
     const id = req.params.id;
     db.Product.deleteOne({ _id: id }, function(err, deleted) {
       if (err) throw err;
