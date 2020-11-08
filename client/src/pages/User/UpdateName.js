@@ -1,0 +1,38 @@
+import React, { useEffect, useState } from "react";
+import API from "../../utils/API";
+
+const UpdateName = () => {
+  const [name, setName] = useState ("");
+
+  useEffect(() => {
+    API.getUserProfile().then(res => {
+      setName(res.data.user.name);
+    })
+  }, [])
+
+  const updateName = () => {
+    const data = {name: name}
+    API.updateUserProfile(data).then(res => {
+      window.location.href = "/editProfile"
+    })
+  }
+
+  return (
+    <div>
+      <h2>Update Name</h2>
+      <div className="row">
+        <div className="col-sm-12 col-md-12 col-lg-12">
+          <div className="card edit-profile">
+            <div className="card-body ">
+              <input placeholder="Enter Name" type="text" className="form-control" maxlength="50" value={name} onChange={(ev) => {setName(ev.target.value)}}></input><br/>
+              <a href="#" onClick={updateName} className="btn btn-primary">Update Name</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+
+}
+
+export default UpdateName;

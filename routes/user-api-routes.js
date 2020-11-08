@@ -2,19 +2,6 @@ const db = require("../models");
 
 module.exports = function(app) {
 
-  app.get("/api/merchant/:id", (req, res) => {
-    db.User.findOne({ _id: req.params.id }, function(err, merchant) {
-      if (err) throw err;
-      db.Product.find({ seller: req.params.id }, function(error, products) {
-        if (error) throw error;
-        res.json({
-          merchant: merchant,
-          products: products
-        })
-      })
-    })
-  });
-
   app.get("/api/userProfile", (req, res) => {
     const id = req.user._id;
     db.User.findOne({ _id: id }, function(err, user) {
@@ -23,6 +10,29 @@ module.exports = function(app) {
         if (error) throw error;
         res.json({
           user: user,
+          products: products
+        })
+      })
+    })
+  });
+
+  app.put("/api/updateUser", (req, res) => {
+    const id = req.user._id;
+    const data = req.body;
+    console.log(data);
+    db.User.findByIdAndUpdate(id, {$set: data}, (err, user) => {
+      if (err) throw err;
+      res.json({message: "Success!"})
+    })
+  })
+
+  app.get("/api/merchant/:id", (req, res) => {
+    db.User.findOne({ _id: req.params.id }, function(err, merchant) {
+      if (err) throw err;
+      db.Product.find({ seller: req.params.id }, function(error, products) {
+        if (error) throw error;
+        res.json({
+          merchant: merchant,
           products: products
         })
       })
