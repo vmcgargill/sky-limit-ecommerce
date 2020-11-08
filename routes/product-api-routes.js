@@ -2,7 +2,6 @@ const db = require("../models");
 const upload = require("../config/multer");
 const fs = require('fs');
 const path = require('path'); 
-const isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function(app) {
 
