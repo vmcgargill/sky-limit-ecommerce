@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import API from "../../utils/API";
 import './User.css';
 
 const Profile = () => {
@@ -7,22 +7,11 @@ const Profile = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios({
-      method: "get",
-      url: "/api/userProfile"
-    }).then(function(response) {
-      setUser(response.data.user)
-      setProducts(response.data.products)
+    API.getUserProfile().then(res => {
+      setUser(res.data.user)
+      setProducts(res.data.products)
     });
   }, []);
-
-  const editProfile = () => {
-    window.location.href = "/editProfile";
-  }
-
-  const SellingAccount = () => {
-    window.location.href = "/sellingAccount";
-  }
   
   return (
     <div>
@@ -33,7 +22,7 @@ const Profile = () => {
             <div className="card-body ">
               <h5 className="card-title">Profile</h5>
               <p className="card-text">Manage your personal information: name, email, payment details, default shipping address, or password.</p>
-              <a href="#" onClick={editProfile} className="btn btn-primary">Edit Profile</a>
+              <a href="#" onClick={() => {window.location.href = "/editProfile";}} className="btn btn-primary">Edit Profile</a>
             </div>
           </div>
         </div>
@@ -60,7 +49,7 @@ const Profile = () => {
             <div className="card-body edit-profile">
               <h5 className="card-title">Selling Account</h5>
               <p className="card-text">Manage your selling account, change items listed, details, and prices.</p>
-              <a href="#" onClick={SellingAccount} className="btn btn-primary">Selling Account</a>
+              <a href="#" onClick={() => {window.location.href = "/sellingAccount";}} className="btn btn-primary">Selling Account</a>
             </div>
           </div>
         </div>

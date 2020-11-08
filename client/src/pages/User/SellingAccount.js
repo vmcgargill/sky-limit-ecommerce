@@ -1,27 +1,14 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../utils/API";
 import ConvertImage from '../../ConvertImage'
 import './User.css';
 
 const SellingAccount = () => {
   const [products, setProducts] = useState([]);
 
-  const editProduct = (event) => {
-    const id = event.target.value;
-    window.location.href = "/editProduct/" + id;
-  }
-
-  const deleteProduct = (event) => {
-    const id = event.target.value;
-    window.location.href = "/deleteProduct/" + id;
-  }
-
   useEffect(() => {
-    axios({
-      method: "get",
-      url: "/api/merchantProducts"
-    }).then(function(response) {
-      setProducts(response.data.products)
+    API.getMerchantProducts().then(res => {
+      setProducts(res.data.products)
     })
   }, [])
 
@@ -40,8 +27,8 @@ const SellingAccount = () => {
           </div>
         </div>
       </div>
-      <button class="btn btn-primary merchantBtn" value={product._id} onClick={editProduct}>Edit Product</button>
-      <button class="btn btn-danger merchantBtn" value={product._id} onClick={deleteProduct}>Delete Product</button>
+      <button class="btn btn-primary merchantBtn" onClick={() => {window.location.href = "/editProduct/" + product._id;}}>Edit Product</button>
+      <button class="btn btn-danger merchantBtn" onClick={() => {window.location.href = "/deleteProduct/" + product._id;}}>Delete Product</button>
     </div>
   );
 

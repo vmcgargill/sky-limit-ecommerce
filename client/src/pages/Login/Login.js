@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import LoginUser from "./LoginUser"
+import API from "../../utils/API";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -7,7 +7,14 @@ function Login() {
 
   const handleLogin = (event) => {
     event.preventDefault();
-    LoginUser(email, password);
+    API.Login(email, password).then(res => {
+      console.log(res)
+      if (res.status === 200) {
+        window.location.href = "/";
+      }
+    }).catch(err => {
+      console.log(err)
+    });
   }
 
   const handleEmailChange = (event) => {

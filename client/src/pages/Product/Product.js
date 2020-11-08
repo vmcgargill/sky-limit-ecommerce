@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import axios from "axios";
 import ConvertImage from '../../ConvertImage'
+import API from "../../utils/API";
 import './Product.css';
 
 function Product() {
@@ -15,28 +15,19 @@ function Product() {
   const [wishlist, SetWhishlist] = useState("")
   
   const addCart = () => {
-    axios({
-      method: "post",
-      url: "/api/addCart/" + id
-    }).then(function() {
+    API.addCart(id).then(() => {
       window.location.href = "/cartAdded/" + id
     });
   }
   
   const addWishList = () => {
-    axios({
-      method: "post",
-      url: "/api/wishList/" + id
-    }).then(function() {
+    API.addWishlist(id).then(() => {
       SetWhishlist(btnRemoveWishlist)
     });
   }
   
   const removeWishList = () => {
-    axios({
-      method: "put",
-      url: "/api/removeWishList/" + id
-    }).then(function() {
+    API.removeWishlist(id).then(() => {
       SetWhishlist(btnAddWishList)
     });
   }
@@ -45,10 +36,7 @@ function Product() {
   const btnRemoveWishlist = (<a href="#" onClick={removeWishList} class="btn btn-primary">Remove From Wishlist</a>);
   
   useEffect(() => {
-    axios({
-      method: "get",
-      url: "/api/product/" + id
-    }).then(function(response) {
+    API.getProduct(id).then(response => {
       const product = response.data.product;
       seName(product.name)
       setCategory(product.category)
@@ -60,12 +48,10 @@ function Product() {
       } else {
         setImage("/Default.jpg")
       }
-      if (response.data.signedin) {
-        if (response.data.wishlist) {
-          SetWhishlist(btnRemoveWishlist)
-        } else {
-          SetWhishlist(btnAddWishList)
-        }
+      if (response.data.signedin && response.data.wishlist) {
+        SetWhishlist(btnRemoveWishlist);
+      } else {
+        SetWhishlist(btnAddWishList);
       }
     });
   }, [])

@@ -1,39 +1,33 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../utils/API";
 import ConvertImage from '../../ConvertImage'
 import './User.css';
 
 const WishList = () => {
   const [products, setProducts] = useState([]);
 
-  const addCart = (event) => {
-    const itemId = event.target.value
-    axios({
-      method: "post",
-      url: "/api/addCart/" + itemId
-    }).then(function() {
-      window.location.href = "/cartAdded/" + itemId
+  const addCart = (id) => {
+    API.addCart(id).then(() => {
+      window.location.href = "/cartAdded/" + id
     });
   }
 
-  const removeWishList = (event) => {
-    axios({
-      method: "put",
-      url: "/api/removeWishList/" + event.target.value
-    }).then(function() {
-      window.location.reload();
+  const removeWishList = (id) => {
+    API.removeWishlist(id).then(() => {
+      LoadWishlist();
     });
   }
 
   useEffect(() => {
-    axios({
-      method: "get",
-      url: "/api/userWishlist"
-    }).then(function(response) {
-      setProducts(response.data.products)
-      console.log(response.data.products)
-    })
+    LoadWishlist();
   }, [])
+
+  const LoadWishlist = () => {
+    API.loadWishlist().then((res) => {
+      setProducts(res.data.products)
+      console.log(res.data.products)
+    })
+  }
 
   const wishListItems = products.map((product) => 
     <div class="card mb-3">
@@ -50,8 +44,8 @@ const WishList = () => {
           </div>
         </div>
       </div>
-      <button class="btn btn-primary merchantBtn" value={product._id} onClick={addCart}>Add to Cart</button>
-      <button class="btn btn-danger merchantBtn" value={product._id} onClick={removeWishList}>Remove from Wishlist</button>
+      <button class="btn btn-primary merchantBtn" onClick={() => {addCart(product._id)}}>Add to Cart</button>
+      <button class="btn btn-danger merchantBtn" onClick={() => {removeWishList(product._id)}}>Remove from Wishlist</button>
     </div>
   );
 

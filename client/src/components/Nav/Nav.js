@@ -1,63 +1,59 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import API from "../../utils/API";
 import './Nav.css';
 
 function Nav() {
-  const [Login, setLogin] = useState("");
+  const [NavOptions, setNavOptions] = useState("");
 
   const Logout = () => {
-    axios({
-      method: "get",
-      url: "/api/logout"
-    }).then(function() {
+    API.Logout().then(() => {
       window.location.replace("/");
     });
   }
 
+  const LoggedInNav = (
+    <div className="collapse navbar-collapse" id="navbarText">
+      <ul className="navbar-nav mr-auto">
+        <li className="nav-item dropdown" id="LoggedInMenu">
+          <a className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Account
+          </a>
+          <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a className="dropdown-item" href="#">Orders</a>
+            <a className="dropdown-item" href="/wishList">Wishlist</a>
+            <a className="dropdown-item" href="/userProfile">Account Settings</a>
+            <a className="dropdown-item" href="/postProduct">Sell</a>
+            <a className="dropdown-item" onClick={Logout}>Logout</a>
+          </div>
+        </li>
+        <li className="nav-item active" id="HomeItem">
+          <a className="nav-link" href="/userCart" id="HomeLink">Cart</a>
+        </li>
+      </ul>
+    </div>
+  )
+
+  const LoggedOutNav = (
+    <div className="collapse navbar-collapse" id="navbarText">
+      <ul className="navbar-nav mr-auto">
+        <li className="nav-item" stlye="display: none" id="Login">
+          <a className="nav-link" href="/login" id="RoleLink">Login</a>
+        </li>
+        <li className="nav-item" id="Signup">
+          <a className="nav-link" href="/signup" id="RoleLink">Signup</a>
+        </li>
+      </ul>
+    </div>
+  )
+
   useEffect(() => {
-
-    axios({
-      method: "get",
-      url: "/api/user_data"
-    }).then(function(response) {
-      if (response.data.message) {
-        setLogin(
-          <div className="collapse navbar-collapse" id="navbarText">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item dropdown" id="LoggedInMenu">
-                <a className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Account
-                </a>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a className="dropdown-item" href="#">Orders</a>
-                  <a className="dropdown-item" href="/wishList">Wishlist</a>
-                  <a className="dropdown-item" href="/userProfile">Account Settings</a>
-                  <a className="dropdown-item" href="/postProduct">Sell</a>
-                  <a className="dropdown-item" onClick={Logout}>Logout</a>
-                </div>
-              </li>
-              <li className="nav-item active" id="HomeItem">
-                <a className="nav-link" href="/userCart" id="HomeLink">Cart</a>
-              </li>
-            </ul>
-          </div>
-        , [])
+    API.getUserLoginStatus().then((res) => {
+      if (res.data.message) {
+        setNavOptions(LoggedInNav);
       } else {
-        setLogin(
-          <div className="collapse navbar-collapse" id="navbarText">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item" stlye="display: none" id="Login">
-                <a className="nav-link" href="/login" id="RoleLink">Login</a>
-              </li>
-              <li className="nav-item" id="Signup">
-                <a className="nav-link" href="/signup" id="RoleLink">Signup</a>
-              </li>
-            </ul>
-          </div>
-        , [])
+        setNavOptions(LoggedOutNav)
       }
-    })
-
+    });
   }, [])
 
 
@@ -70,7 +66,7 @@ function Nav() {
             <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
           </form>
         </div>
-        {Login}
+        {NavOptions}
     </nav>
   );
 }

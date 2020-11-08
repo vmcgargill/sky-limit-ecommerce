@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import ProductList from "../../components/Product/ProductList"
+import API from "../../utils/API";
 
 function Home() {
-  const [state, setState] = useState ([]);
+  const [products, setProducts] = useState ([]);
 
   useEffect(() => {
-    fetch("/api/products").then(res => res.json()).then((response) => {
-      console.log(response)
-      setState(response)
-    })
+    API.getProducts("/api/products").then(res => {
+      setProducts(res.data);
+    });
   }, [])
 
   return (
     <div className="row">
-      <ProductList products={state}/>
+      <ProductList products={products}/>
     </div>
   );
 }

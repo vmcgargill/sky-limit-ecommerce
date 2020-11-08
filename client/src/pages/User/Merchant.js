@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import ProductList from "../../components/Product/ProductList";
-import axios from "axios";
+import API from "../../utils/API";
 
 const Merchant = () => {
   let { id } = useParams();
@@ -9,12 +9,9 @@ const Merchant = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios({
-      method: "get",
-      url: "/api/merchant/" + id
-    }).then(function(response) {
-      setMerchant(response.data.merchant);
-      setProducts(response.data.products);
+    API.getMerchant(id).then(res => {
+      setMerchant(res.data.merchant);
+      setProducts(res.data.products);
     });
   }, []);
   

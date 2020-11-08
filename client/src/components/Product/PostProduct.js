@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import CreatableSelect from 'react-select/creatable';
 import { useParams } from "react-router";
+import API from "../../utils/API"
 
 function PostProduct(props) {
   const { id } = useParams();
@@ -26,16 +26,14 @@ function PostProduct(props) {
   ]
   
   useEffect(() => {
-  if (!props.new) {
-      axios({
-        method: "get",
-        url: "/api/productDetails/" + id
-      }).then(function(response) {
-        setName(response.data.name);
-        setDescription(response.data.description);
-        setPrice(response.data.price);
-        const currentCategory = {value: response.data.category, label: response.data.category}
-        options.push(options);
+    if (!props.new) {
+      API.getProduct(id).then(response => {
+        const editingProduct = response.data.product;
+        setName(editingProduct.name);
+        setDescription(editingProduct.description);
+        setPrice(editingProduct.price);
+        const currentCategory = {value: editingProduct.category, label: editingProduct.category}
+        options.push(currentCategory);
         setCategory(currentCategory)
       })
     }
@@ -75,26 +73,24 @@ function PostProduct(props) {
       product.append("image", pic.files[0]);
     }
 
-    let API = "/api/postProduct";
-    let method = "post";
-
-    if (props.new === false) {
-      API = "/api/editProduct/" + id;
-      method = "put";
-    }
-
-    axios({
-      method: method,
-      url: API,
+    const query =  {
       data: product,
       enctype: "multipart/form-data",
       processData: false,
       contentType: false,
       cache: false,
       timeout: 600000
-    }).then(function(response) {
-      window.location.href = "/product/" + response.data._id;
-    });
+    }
+
+    if (props.new) {
+      API.postProduct(query).then(res => {
+        window.location.href = "/product/" + res.data._id;
+      })
+    } else {
+      API.updateProduct(id, query).then(res => {
+        window.location.href = "/product/" + res.data._id;
+      })
+    }
   }
 
   return (

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import axios from "axios";
+import API from "../../utils/API";
 
 function DeleteProduct() {
   let { id } = useParams();
@@ -13,20 +13,14 @@ function DeleteProduct() {
 
   const deleteProduct = () => {
     if (name === confirmName) {
-      axios({
-        method: "delete",
-        url: "/api/deleteProduct/" + id
-      }).then(function() {
+      API.deleteProduct(id).then(() => {
         window.location.href = "/sellingAccount";
-      })
+      });
     }
   }
   
   useEffect(() => {
-    axios({
-      method: "get",
-      url: "/api/productDetails/" + id
-    }).then(function(response) {
+    API.getProduct(id).then((response) => {
       setName(response.data.name);
     })
   }, [])

@@ -1,34 +1,30 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import API from "../../utils/API";
 import ConvertImage from '../../ConvertImage'
 import './User.css';
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
 
-  const removeCart = (event) => {
-    axios({
-      method: "put",
-      url: "/api/removeCart/" + event.target.value
-    }).then(function() {
-      window.location.reload();
+  const removeCart = (id) => {
+    API.removeCart(id).then(function() {
+      LoadCart();
     })
   }
 
-  const placeOrder = (event) => {
-    const orderCart = event.target.value;
-    console.log(orderCart);
+  const placeOrder = (orderCart) => {
+    console.log("Order has been placed: " + orderCart);
   }
 
   useEffect(() => {
-    axios({
-      method: "get",
-      url: "/api/userCart"
-    }).then(function(response) {
-      console.log(response.data.products)
-      setCart(response.data.products)
-    })
+    LoadCart();
   }, [])
+
+  const LoadCart = () => {
+    API.loadCart().then(res => {
+      setCart(res.data.products)
+    })
+  }
 
   const cartItems = cart.map((product) => 
     <div class="card mb-3">
@@ -45,14 +41,14 @@ const Cart = () => {
           </div>
         </div>
       </div>
-      <button class="btn btn-danger merchantBtn" value={product._id} onClick={removeCart}>Remove from Cart</button>
+      <button class="btn btn-danger merchantBtn" onClick={() => {removeCart(product._id)}}>Remove from Cart</button>
     </div>
   );
 
   return (
     <div className="container">
       {cartItems}
-      <button class="btn btn-primary merchantBtn" value={cart} onClick={placeOrder}>Place Order</button>
+      <button class="btn btn-primary merchantBtn" onClick={() => {placeOrder(cart)}}>Place Order</button>
     </div>
   )
 

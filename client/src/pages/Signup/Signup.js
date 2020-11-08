@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
-import LoginUser from "../Login/LoginUser.js"
+import API from "../../utils/API";
 
 function Signup() {
   const [name, setName] = useState("");
@@ -9,16 +8,13 @@ function Signup() {
 
   const handleSignup = (event) => {
     event.preventDefault();
-    axios({
-      method: "post",
-      url: "/api/signup", 
-      data: {
-      name: name,
-      email: email,
-      password: password
-    }}).then(function(response) {
+    API.Signup(name, email, password).then((response) => {
       if (response.status === 200) {
-        LoginUser(email, password)
+        API.Login(email, password).then(res => {
+          if (res.status === 200) {
+            window.location.href = "/";
+          }
+        })
       }
     }).catch(function(err) {
       console.log(err)
