@@ -21,9 +21,9 @@ const UserSchema = new Schema({
   address: {
     type: String
   },
-  paymeny: [{
+  paymeny: {
     type: Number
-  }],
+  },
   cart: [{
     type: Schema.Types.ObjectId,
     ref: 'Product'

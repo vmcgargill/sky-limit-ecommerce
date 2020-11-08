@@ -27,6 +27,7 @@ export default {
     return axios.get("/api/merchantProducts");
   },
   getUserProfile: () => {
+    console.log("Made api call")
     return axios.get("/api/userProfile");
   },
   searchProducts: (search) => {

@@ -7,7 +7,7 @@ import EditProduct from './pages/Product/EditProduct'
 import DeleteProduct from './pages/Product/DeleteProduct'
 import Product from './pages/Product/Product'
 import Merchant from './pages/User/Merchant'
-import Profile from './pages/User/Profile'
+import AccountSettings from './pages/User/AccountSettings'
 import EditProfile from './pages/User/EditProfile'
 import SellingAccount from './pages/User/SellingAccount'
 import WishList from './pages/User/WishList'
@@ -29,7 +29,7 @@ function App() {
         <Route exact path="/editProduct/:id" component={EditProduct} />
         <Route exact path="/deleteProduct/:id" component={DeleteProduct} />
         <Route exact path="/merchant/:id" component={Merchant} />
-        <Route exact path="/userProfile" component={Profile} />
+        <Route exact path="/accountSettings" component={AccountSettings} />
         <Route exact path="/editProfile" component={EditProfile} />
         <Route exact path="/sellingAccount" component={SellingAccount} />
         <Route exact path="/wishList" component={WishList} />

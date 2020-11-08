@@ -4,18 +4,38 @@ import './User.css';
 
 const Profile = () => {
   const [user, setUser] = useState({});
-  const [products, setProducts] = useState([]);
+  const [merchant, setMerchant] = useState("");
+
+  const merchantCard = (
+    <div className="card-body edit-profile">
+      <h5 className="card-title">Selling Account</h5>
+      <p className="card-text">Manage your selling account, change items listed, details, and prices.</p>
+      <a href="#" onClick={() => {window.location.href = "/sellingAccount";}} className="btn btn-primary">Selling Account</a>
+    </div>
+  )
+
+  const userCard = (
+    <div className="card-body edit-profile">
+      <h5 className="card-title">Create Selling Account</h5>
+      <p className="card-text">Create a selling account to sell your own products.</p>
+      <a href="#" onClick={() => {window.location.href = "/postProduct";}} className="btn btn-primary">Selling Account</a>
+    </div>
+  )
 
   useEffect(() => {
     API.getUserProfile().then(res => {
       setUser(res.data.user)
-      setProducts(res.data.products)
+      if (res.data.products.length > 0) {
+        setMerchant(merchantCard)
+      } else {
+        setMerchant(userCard);
+      }
     });
   }, []);
-  
+
   return (
     <div>
-      <h2>Account Settings</h2>
+      <h2>Account Settings for {user.name}</h2>
       <div className="row">
         <div className="col-sm-6">
           <div className="card edit-profile">
@@ -46,11 +66,7 @@ const Profile = () => {
         </div>
         <div className="col-sm-6">
           <div className="card">
-            <div className="card-body edit-profile">
-              <h5 className="card-title">Selling Account</h5>
-              <p className="card-text">Manage your selling account, change items listed, details, and prices.</p>
-              <a href="#" onClick={() => {window.location.href = "/sellingAccount";}} className="btn btn-primary">Selling Account</a>
-            </div>
+            {merchant}
           </div>
         </div>
       </div>
