@@ -20,6 +20,7 @@ import WishList from './pages/User/WishList'
 import Cart from './pages/User/Cart'
 import CartAdded from './pages/User/CartAdded'
 import SearchResualts from "./pages/Product/SearchResults"
+import NoMatch from "./pages/NoMatch";
 import './App.css';
 
 function App() {
@@ -29,24 +30,63 @@ function App() {
       <div class="container mainContainer">
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/signup" component={Signup} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/postProduct" component={PostNewProduct} />
-            <Route exact path="/product/:id" component={Product} />
-            <Route exact path="/editProduct/:id" component={EditProduct} />
-            <Route exact path="/deleteProduct/:id" component={DeleteProduct} />
-            <Route exact path="/merchant/:id" component={Merchant} />
-            <Route exact path="/accountSettings" component={AccountSettings} />
-            <Route exact path="/editProfile" component={EditProfile} />
-            <Route exact path="/updateName" component={UpdateName} />
-            <Route exact path="/updateEmail" component={UpdateEmail} />
-            <Route exact path="/updatePassword" component={UpdatePassword} />
-            <Route exact path="/sellingAccount" component={SellingAccount} />
-            <Route exact path="/wishList" component={WishList} />
-            <Route exact path="/userCart" component={Cart} />
-            <Route exact path="/cartAdded/:id" component={CartAdded} />
-            <Route exact path="/searchResults/:search" component={SearchResualts} />
+            <Route exact path="/" >
+              <Home/>
+            </Route>
+            <Route exact path="/signup" >
+              <Signup/>
+            </Route>
+            <Route exact path="/login" >
+              <Login/>
+            </Route>
+            <Route exact path="/postProduct" >
+              <PostNewProduct/>
+            </Route>
+            <Route exact path="/product/:id" >
+              <Product/>
+            </Route>
+            <Route exact path="/editProduct/:id" >
+              <EditProduct/>
+            </Route>
+            <Route exact path="/deleteProduct/:id" >
+              <DeleteProduct/>
+            </Route>
+            <Route exact path="/merchant/:id" >
+              <Merchant/>
+            </Route>
+            <Route exact path="/accountSettings" >
+              <AccountSettings/>
+            </Route>
+            <Route exact path="/editProfile" >
+              <EditProfile/>
+            </Route>
+            <Route exact path="/updateName" >
+              <UpdateName/>
+            </Route>
+            <Route exact path="/updateEmail" >
+              <UpdateEmail/>
+            </Route>
+            <Route exact path="/updatePassword" >
+              <UpdatePassword/>
+            </Route>
+            <Route exact path="/sellingAccount" >
+              <SellingAccount/>
+            </Route>
+            <Route exact path="/wishList" >
+              <WishList/>
+            </Route>
+            <Route exact path="/userCart" >
+              <Cart/>
+            </Route>
+            <Route exact path="/cartAdded/:id" >
+              <CartAdded/>
+            </Route>
+            <Route exact path="/searchResults/:search" >
+              <SearchResualts/>
+            </Route>
+            <Route>
+            <NoMatch />
+          </Route>
           </Switch>
         </BrowserRouter>
       </div>
