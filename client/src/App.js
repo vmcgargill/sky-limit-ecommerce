@@ -1,4 +1,7 @@
 import React from 'react';
+import {Route, BrowserRouter, Switch} from "react-router-dom" 
+import Nav from './components/Nav/Nav';
+import Footer from './components/Footer/Footer';
 import Home from './pages/Home/Home'
 import Signup from './pages/Signup/Signup'
 import Login from './pages/Login/Login'
@@ -19,29 +22,35 @@ import CartAdded from './pages/User/CartAdded'
 import SearchResualts from "./pages/Product/SearchResults"
 import './App.css';
 
-import {Route} from "react-router-dom" 
-
 function App() {
   return (
     <div className="App">
-        <Route exact path="/" component={Home} />
-        <Route exact path="/signup" component={Signup} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/postProduct" component={PostNewProduct} />
-        <Route exact path="/product/:id" component={Product} />
-        <Route exact path="/editProduct/:id" component={EditProduct} />
-        <Route exact path="/deleteProduct/:id" component={DeleteProduct} />
-        <Route exact path="/merchant/:id" component={Merchant} />
-        <Route exact path="/accountSettings" component={AccountSettings} />
-        <Route exact path="/editProfile" component={EditProfile} />
-        <Route exact path="/updateName" component={UpdateName} />
-        <Route exact path="/updateEmail" component={UpdateEmail} />
-        <Route exact path="/updatePassword" component={UpdatePassword} />
-        <Route exact path="/sellingAccount" component={SellingAccount} />
-        <Route exact path="/wishList" component={WishList} />
-        <Route exact path="/userCart" component={Cart} />
-        <Route exact path="/cartAdded/:id" component={CartAdded} />
-        <Route exact path="/searchResults/:search" component={SearchResualts} />
+      <Nav />
+      <div class="container mainContainer">
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/signup" component={Signup} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/postProduct" component={PostNewProduct} />
+            <Route exact path="/product/:id" component={Product} />
+            <Route exact path="/editProduct/:id" component={EditProduct} />
+            <Route exact path="/deleteProduct/:id" component={DeleteProduct} />
+            <Route exact path="/merchant/:id" component={Merchant} />
+            <Route exact path="/accountSettings" component={AccountSettings} />
+            <Route exact path="/editProfile" component={EditProfile} />
+            <Route exact path="/updateName" component={UpdateName} />
+            <Route exact path="/updateEmail" component={UpdateEmail} />
+            <Route exact path="/updatePassword" component={UpdatePassword} />
+            <Route exact path="/sellingAccount" component={SellingAccount} />
+            <Route exact path="/wishList" component={WishList} />
+            <Route exact path="/userCart" component={Cart} />
+            <Route exact path="/cartAdded/:id" component={CartAdded} />
+            <Route exact path="/searchResults/:search" component={SearchResualts} />
+          </Switch>
+        </BrowserRouter>
+      </div>
+      <Footer />
     </div>
   );
 }
