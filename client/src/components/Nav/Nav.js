@@ -65,7 +65,7 @@ function Nav() {
 
   return (
     <nav className="navbar navbar-expand">
-        <a className="navbar-brand" href="/">Sky Line Ecommerce</a>
+        <a className="navbar-brand" href="/">Sky Limit Ecommerce</a>
         <div>
           <form class="form-inline my-2 my-lg-0">
             <input id="SearchInput" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={search} onChange={(event) => {setSearch(event.target.value)}}></input>
