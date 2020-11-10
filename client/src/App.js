@@ -26,7 +26,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <BrowserRouter basename="/">
+      <BrowserRouter>
       <Nav />
       <div class="container mainContainer">
         <Switch>
