@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from "react";
 import ProductList from "../../components/Product/ProductList"
 import API from "../../utils/API";
+import "./Home.css"
 
 function Home() {
   const [products, setProducts] = useState ([]);
 
   useEffect(() => {
     API.getProducts("/api/products").then(res => {
-      console.log(res.data[0].image.data.data)
-      setProducts(res.data);
+      if (res.data) {
+        setProducts(res.data);
+      }
     });
   }, [])
 
   return (
-    <div className="row">
-      <h1>Home</h1>
-      <ProductList products={products}/>
+    <div class="home">
+      <h2>Shop for the Holidays</h2>
+      <div className="row">
+        <ProductList products={products}/>
+      </div>
     </div>
   );
 }

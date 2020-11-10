@@ -51,7 +51,7 @@ const Profile = () => {
             <div className="card-body ">
               <h5 className="card-title">Wishlist</h5>
               <p className="card-text">View your wishlist. Add or remove items.</p>
-              <a href="#" className="btn btn-primary">View Wishlist</a>
+              <a href="#" onClick={() => {window.location.href = "/wishList";}} className="btn btn-primary">View Wishlist</a>
             </div>
           </div>
         </div>
