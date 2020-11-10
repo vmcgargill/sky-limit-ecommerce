@@ -55,7 +55,7 @@ function Nav() {
   useEffect(() => {
     console.log("------------------------------------")
     API.getUserLoginStatus().then((res) => {
-      console.log("====================================" + JSON.stringify(res.data.message))
+      console.log("====================================" + JSON.stringify(res))
       if (res.data.message) {
         setNavOptions(LoggedInNav);
       } else {
