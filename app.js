@@ -20,11 +20,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(__dirname + "client/build"));
+  app.use(express.static(__dirname + "/client/build"));
 }
 
 app.get('*', (req, res) => {
-  res.sendFile("./client/build/index.html");
+  res.sendFile(path.join(__dirname, "/client/build/index.html"));
 });
 
 require("./routes/api-routes.js")(app);
