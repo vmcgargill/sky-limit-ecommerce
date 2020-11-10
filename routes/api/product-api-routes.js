@@ -1,11 +1,12 @@
-const db = require("../models");
-const upload = require("../config/multer");
+const db = require("../../models");
+const upload = require("../../config/multer");
 const fs = require('fs');
 const path = require('path'); 
+const router = require("express").Router();
 
-module.exports = function(app) {
+// module.exports = function(app) {
 
-  app.get("/api/products", (req, res) => {
+  router.get("/api/products", (req, res) => {
     db.Product.find({}, (err, product) => {
       if (err) {
         throw err;
@@ -15,7 +16,7 @@ module.exports = function(app) {
     })
   });
 
-  app.get("/api/searcProducts/:search", (req, res) => {
+  router.get("/api/searcProducts/:search", (req, res) => {
     const search = req.params.search;
     console.log(search);
     db.Product.find({
@@ -40,7 +41,7 @@ module.exports = function(app) {
     })
   });
 
-  app.get("/api/product/:id", (req, res) => {
+  router.get("/api/product/:id", (req, res) => {
     const id = req.params.id;
     db.Product.findOne({ _id: id }).populate("seller").exec().then(product => {
       if (req.user) {
@@ -64,7 +65,7 @@ module.exports = function(app) {
     })
   });
 
-  app.get("/api/productDetails/:id", (req, res) => {
+  router.get("/api/productDetails/:id", (req, res) => {
     const id = req.params.id;
     db.Product.findOne({ _id: id }, (err, product) => {
       if (err) throw err;
@@ -72,7 +73,7 @@ module.exports = function(app) {
     });
   });
 
-  app.get("/api/userWishlist", (req, res) => {
+  router.get("/api/userWishlist", (req, res) => {
     const userId = req.user._id;
     db.User.findOne({ _id: userId }, (err, user) => {
       if (err) throw err;
@@ -84,7 +85,7 @@ module.exports = function(app) {
     })
   })
 
-  app.get("/api/userCart", (req, res) => {
+  router.get("/api/userCart", (req, res) => {
     const userId = req.user._id;
     db.User.findOne({ _id: userId }, (err, user) => {
       if (err) throw err;
@@ -96,43 +97,43 @@ module.exports = function(app) {
     })
   })
 
-  app.post("/api/postProduct", upload.single("image"), (req, res) => {
+  router.post("/api/postProduct", upload.single("image"), (req, res) => {
     const product = new db.Product(req.body);
     product.assignSeller(req.user._id)
     if (req.file) {
       product.image = {
-        data: fs.readFileSync(path.join(__dirname + '/../upload/' + req.file.filename)), 
+        data: fs.readFileSync(path.join(__dirname + '/../../upload/' + req.file.filename)), 
         contentType: req.file.mimetype
       }
     }
     db.Product.create(product, function(err, created) {
       if (err) throw err;
       if (req.file) {
-        fs.unlinkSync(path.join(__dirname + '/../upload/' + req.file.filename));
+        fs.unlinkSync(path.join(__dirname + '/../../upload/' + req.file.filename));
       }
       res.json(created)
     })
   });
 
-  app.put("/api/editProduct/:id", upload.single("image"), (req, res) => {
+  router.put("/api/editProduct/:id", upload.single("image"), (req, res) => {
     const id = req.params.id;
     const product = req.body;
     if (req.file) {
       product.image = {
-        data: fs.readFileSync(path.join(__dirname + '/../upload/' + req.file.filename)), 
+        data: fs.readFileSync(path.join(__dirname + '/../../upload/' + req.file.filename)), 
         contentType: req.file.mimetype
       }
     }
     db.Product.findByIdAndUpdate(id, {$set: product}, function(err, updated) {
       if (err) throw err;
       if (req.file) {
-        fs.unlinkSync(path.join(__dirname + '/../upload/' + req.file.filename));
+        fs.unlinkSync(path.join(__dirname + '/../../upload/' + req.file.filename));
       }
       res.json(updated)
     });
   });
 
-  app.delete("/api/deleteProduct/:id", function(req, res) {
+  router.delete("/api/deleteProduct/:id", function(req, res) {
     const id = req.params.id;
     db.Product.deleteOne({ _id: id }, function(err, deleted) {
       if (err) throw err;
@@ -140,4 +141,6 @@ module.exports = function(app) {
     })
   })
 
-};
+// };
+
+module.exports = router;

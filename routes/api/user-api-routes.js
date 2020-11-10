@@ -1,8 +1,9 @@
-const db = require("../models");
+const db = require("../../models");
+const router = require("express").Router();
 
-module.exports = function(app) {
+// module.exports = function(app) {
 
-  app.get("/api/userProfile", (req, res) => {
+  router.get("/api/userProfile", (req, res) => {
     const id = req.user._id;
     db.User.findOne({ _id: id }, function(err, user) {
       if (err) throw err;
@@ -16,7 +17,7 @@ module.exports = function(app) {
     })
   });
 
-  app.put("/api/updateUser", (req, res) => {
+  router.put("/api/updateUser", (req, res) => {
     const id = req.user._id;
     const data = req.body;
     db.User.findByIdAndUpdate(id, {$set: data}, (err, user) => {
@@ -25,7 +26,7 @@ module.exports = function(app) {
     })
   })
 
-  app.put("/api/updatePassword", (req, res) => {
+  router.put("/api/updatePassword", (req, res) => {
     const id = req.user._id;
     const oldPassword = req.body.oldPassword;
     const newPassword = req.body.newPassword;
@@ -45,7 +46,7 @@ module.exports = function(app) {
     })
   })
 
-  app.get("/api/merchant/:id", (req, res) => {
+  router.get("/api/merchant/:id", (req, res) => {
     db.User.findOne({ _id: req.params.id }, function(err, merchant) {
       if (err) throw err;
       db.Product.find({ seller: req.params.id }, function(error, products) {
@@ -58,7 +59,7 @@ module.exports = function(app) {
     })
   });
 
-  app.get("/api/merchantProducts", (req, res) => {
+  router.get("/api/merchantProducts", (req, res) => {
     const id = req.user._id;
     db.Product.find({ seller: id }, function(err, products) {
       if (err) throw err;
@@ -68,7 +69,7 @@ module.exports = function(app) {
     })
   })
 
-  app.post("/api/wishList/:id", (req, res) => {
+  router.post("/api/wishList/:id", (req, res) => {
     const id = req.params.id;
     const userId = req.user._id;
     db.User.findByIdAndUpdate({
@@ -82,7 +83,7 @@ module.exports = function(app) {
     })
   });
 
-  app.put("/api/removeWishList/:id", (req, res) => {
+  router.put("/api/removeWishList/:id", (req, res) => {
     const id = req.params.id;
     const userId = req.user._id;
     db.User.findByIdAndUpdate({
@@ -96,7 +97,7 @@ module.exports = function(app) {
     })
   });
 
-  app.post("/api/addCart/:id", (req, res) => {
+  router.post("/api/addCart/:id", (req, res) => {
     const id = req.params.id;
     const userId = req.user._id;
     db.User.findByIdAndUpdate({
@@ -110,7 +111,7 @@ module.exports = function(app) {
     })
   });
 
-  app.put("/api/removeCart/:id", (req, res) => {
+  router.put("/api/removeCart/:id", (req, res) => {
     const id = req.params.id;
     const userId = req.user._id;
     db.User.findByIdAndUpdate({
@@ -124,5 +125,5 @@ module.exports = function(app) {
     })
   });
 
-
-};
+  module.exports = router;
+// };

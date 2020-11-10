@@ -14,6 +14,7 @@ function Home() {
 
   return (
     <div className="row">
+      <h1>Home</h1>
       {/* <ProductList products={products}/> */}
     </div>
   );
