@@ -8,6 +8,7 @@ const SellingAccount = () => {
 
   useEffect(() => {
     API.getMerchantProducts().then(res => {
+      console.log(res.data.products)
       setProducts(res.data.products)
     })
   }, [])
@@ -16,7 +17,7 @@ const SellingAccount = () => {
     <div class="card mb-3">
       <div class="row no-gutters">
         <div class="col-md-4">
-        {/* <img src={"data:image/jpeg;base64," + ConvertImage(product.image.data.data)} class="card-img merchantListImg" alt="..."></img> */}
+        <img src={"data:image/jpeg;base64," + ConvertImage(product.image.data.data)} class="card-img merchantListImg" alt="..."></img>
         </div>
         <div class="col-md-8">
           <div class="card-body">

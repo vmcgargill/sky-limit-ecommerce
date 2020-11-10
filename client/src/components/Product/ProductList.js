@@ -11,6 +11,7 @@ function ProductList(props) {
       <a href={"/product/" + product._id}>
       <div class="row no-gutters">
         <div class="col-md-4">
+          {/* TODO: Fix bug where app crashes if phot is not uploaded */}
         <img src={"data:image/jpeg;base64," + ConvertImage(product.image.data.data)} class="card-img productListImg" alt="..."></img>
         </div>
         <div class="col-md-8">

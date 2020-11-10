@@ -8,7 +8,6 @@ const fs = require("fs");
 const path = require("path");
 const OUTPUT_DIR = path.resolve(__dirname, "upload");
 const routes = require("./routes");
-// const router = require("express").Router();
 
 if (!fs.existsSync(OUTPUT_DIR)) {
   fs.mkdirSync(OUTPUT_DIR)
@@ -23,20 +22,9 @@ app.use(passport.session());
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(__dirname + "/client/build"));
-
-  // router.use(function(req, res) {
-  //   res.sendFile(path.join(__dirname, "/client/build/index.html"));
-  // });
 }
 
 app.use(routes)
-
-// require("./routes/api-routes.js")(app);
-// require("./routes/product-api-routes.js")(app);
-// require("./routes/user-api-routes.js")(app);
-// router.use("/api", apiRoutes);
-// router.use("/api", apiRoutes);
-// router.use("/api", apiRoutes);
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/skyline", { useNewUrlParser: true });
 

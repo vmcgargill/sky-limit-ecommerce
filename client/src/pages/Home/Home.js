@@ -7,15 +7,15 @@ function Home() {
 
   useEffect(() => {
     API.getProducts("/api/products").then(res => {
-      console.log(res.data)
-      // setProducts(res.data);
+      console.log(res.data[0].image.data.data)
+      setProducts(res.data);
     });
   }, [])
 
   return (
     <div className="row">
       <h1>Home</h1>
-      {/* <ProductList products={products}/> */}
+      <ProductList products={products}/>
     </div>
   );
 }
