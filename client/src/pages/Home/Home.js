@@ -7,13 +7,14 @@ function Home() {
 
   useEffect(() => {
     API.getProducts("/api/products").then(res => {
-      setProducts(res.data);
+      console.log(res.data)
+      // setProducts(res.data);
     });
   }, [])
 
   return (
     <div className="row">
-      <ProductList products={products}/>
+      {/* <ProductList products={products}/> */}
     </div>
   );
 }
