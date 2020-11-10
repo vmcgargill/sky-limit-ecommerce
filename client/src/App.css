@@ -11,6 +11,14 @@ code {
     monospace;
 }
 
+.imageDiv {
+  height: 80px;
+  width: 120px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2%;
+}
+
 .mainContainer {
   border: 6px;
   border-width: 100%;

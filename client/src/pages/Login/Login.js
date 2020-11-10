@@ -9,7 +9,7 @@ function Login() {
     event.preventDefault();
     API.Login(email, password).then(res => {
       console.log(res)
-      if (res.status === 200) {
+      if (res.data.status === 200) {
         window.location.href = "/";
       }
     }).catch(err => {
@@ -26,19 +26,19 @@ function Login() {
   }
 
   return (
-    <div class="row">
-      <div class="col-sm-12 col-md-12 col-lg-12">
+    <div className="row">
+      <div className="col-sm-12 col-md-12 col-lg-12">
         <h2>Login Form</h2>
-        <form class="login" onSubmit={handleLogin}>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="email-input" placeholder="Email" value={email} onChange={handleEmailChange}></input>
+        <form className="login" onSubmit={handleLogin}>
+          <div className="form-group">
+            <label htmlFor="exampleInputEmail1">Email address</label>
+            <input type="email" className="form-control" id="email-input" placeholder="Email" value={email} onChange={handleEmailChange}></input>
           </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="password-input" placeholder="Password" value={password} onChange={handlePasswordChange}></input>
+          <div className="form-group">
+            <label htmlFor="exampleInputPassword1">Password</label>
+            <input type="password" className="form-control" id="password-input" placeholder="Password" value={password} onChange={handlePasswordChange}></input>
           </div>
-          <button type="submit" class="btn btn-default">Login</button>
+          <button type="submit" className="btn btn-default">Login</button>
         </form>
         <br/>
         <p>Or sign up <a href="/signup">here</a></p>

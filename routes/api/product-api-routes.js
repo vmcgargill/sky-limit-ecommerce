@@ -16,7 +16,6 @@ router.get("/api/products", (req, res) => {
 
 router.get("/api/searcProducts/:search", (req, res) => {
   const search = req.params.search;
-  console.log(search);
   db.Product.find({
     $or: [
       {

@@ -26,7 +26,7 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(routes)
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/skyline", { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/skyline", { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.listen(PORT, () => {
   console.log("Listening on port %s. Visit http://localhost:%s/ in your browser.", PORT, PORT);

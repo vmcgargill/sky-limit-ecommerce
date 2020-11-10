@@ -21,9 +21,9 @@ function DeleteProduct() {
   
   useEffect(() => {
     API.getProduct(id).then((response) => {
-      setName(response.data.name);
+      setName(response.data.product.name);
     })
-  }, [])
+  }, [id])
 
   return (
     <div>

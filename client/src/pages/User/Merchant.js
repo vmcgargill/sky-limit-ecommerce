@@ -13,24 +13,24 @@ const Merchant = () => {
       setMerchant(res.data.merchant);
       setProducts(res.data.products);
     });
-  }, []);
+  }, [id]);
   
   return(
     <div>
-      <div class="card">
-      <h5 class="card-header">Merchant</h5>
-      <div class="card-body">
-        <h5 class="card-title">Contact Information</h5>
-        <p class="card-text">Name: {merchant.name}</p>
-        <p class="card-text">Email: {merchant.email}</p>
-        <a href={"mailto:" + merchant.email} class="btn btn-primary">Contact</a>
+      <div className="card">
+      <h5 className="card-header">Merchant</h5>
+      <div className="card-body merchantCard">
+        <h5 className="card-title">Contact Information</h5>
+        <p className="card-text">Name: {merchant.name}</p>
+        <p className="card-text">Email: {merchant.email}</p>
+        <a href={"mailto:" + merchant.email} className="btn btn-primary">Contact</a>
       </div>
-      <div class="card-body">
-        <h5 class="card-title">Overall Seller Rating</h5>
-        <p class="card-text">5/5 Stars</p>
+      <div className="card-body merchantCard">
+        <h5 className="card-title">Overall Seller Rating</h5>
+        <p className="card-text">5/5 Stars</p>
       </div>
-      <div class="card-body">
-          <h5 class="card-title">Current Products:</h5>
+      <div className="card-body">
+          <h5 className="card-title">Current Products:</h5>
           <ProductList products={products}/>
         </div>
       </div>

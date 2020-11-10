@@ -39,15 +39,15 @@ function Signup() {
         <h2>Sign Up Form</h2>
         <form className="signup" onSubmit={handleSignup}>
           <div className="form-group">
-            <label for="name-input" >Name</label>
+            <label htmlFor="name-input" >Name</label>
             <input type="text" className="form-control" id="name-input" placeholder="Name" value={name} onChange={handleNameChange}></input>
           </div>
           <div className="form-group">
-            <label for="email-input">Email address</label>
+            <label htmlFor="email-input">Email address</label>
             <input type="email" className="form-control" id="email-input" placeholder="Email" value={email} onChange={handleEmailChange}></input>
           </div>
           <div className="form-group">
-            <label for="exampleInputPassword1">Password</label>
+            <label htmlFor="exampleInputPassword1">Password</label>
             <input type="password" className="form-control" id="password-input" placeholder="Password" value={password} onChange={handlePasswordChange}></input>
           </div>
           <button type="submit" className="btn btn-default">Sign Up</button>

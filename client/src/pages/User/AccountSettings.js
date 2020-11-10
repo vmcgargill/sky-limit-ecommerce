@@ -6,23 +6,24 @@ const Profile = () => {
   const [user, setUser] = useState({});
   const [merchant, setMerchant] = useState("");
 
-  const merchantCard = (
-    <div className="card-body edit-profile">
-      <h5 className="card-title">Selling Account</h5>
-      <p className="card-text">Manage your selling account, change items listed, details, and prices.</p>
-      <a href="#" onClick={() => {window.location.href = "/sellingAccount";}} className="btn btn-primary">Selling Account</a>
-    </div>
-  )
-
-  const userCard = (
-    <div className="card-body edit-profile">
-      <h5 className="card-title">Create Selling Account</h5>
-      <p className="card-text">Create a selling account to sell your own products.</p>
-      <a href="#" onClick={() => {window.location.href = "/postProduct";}} className="btn btn-primary">Selling Account</a>
-    </div>
-  )
-
+  
   useEffect(() => {
+    const merchantCard = (
+      <div className="card-body edit-profile">
+        <h5 className="card-title">Selling Account</h5>
+        <p className="card-text">Manage your selling account, change items listed, details, and prices.</p>
+        <button href="#" onClick={() => {window.location.href = "/sellingAccount";}} className="btn btn-primary">Selling Account</button>
+      </div>
+    )
+  
+    const userCard = (
+      <div className="card-body edit-profile">
+        <h5 className="card-title">Create Selling Account</h5>
+        <p className="card-text">Create a selling account to sell your own products.</p>
+        <button href="#" onClick={() => {window.location.href = "/postProduct";}} className="btn btn-primary">Selling Account</button>
+      </div>
+    )
+    
     API.getUserProfile().then(res => {
       setUser(res.data.user)
       if (res.data.products.length > 0) {
@@ -42,16 +43,16 @@ const Profile = () => {
             <div className="card-body ">
               <h5 className="card-title">Profile</h5>
               <p className="card-text">Manage your personal information: name, email, payment details, default shipping address, or password.</p>
-              <a href="#" onClick={() => {window.location.href = "/editProfile";}} className="btn btn-primary">Edit Profile</a>
+              <button href="#" onClick={() => {window.location.href = "/editProfile";}} className="btn btn-primary">Edit Profile</button>
             </div>
           </div>
         </div>
         <div className="col-sm-6">
-          <div class="card edit-profile">
+          <div className="card edit-profile">
             <div className="card-body ">
               <h5 className="card-title">Wishlist</h5>
               <p className="card-text">View your wishlist. Add or remove items.</p>
-              <a href="#" onClick={() => {window.location.href = "/wishList";}} className="btn btn-primary">View Wishlist</a>
+              <button href="#" onClick={() => {window.location.href = "/wishList";}} className="btn btn-primary">View Wishlist</button>
             </div>
           </div>
         </div>
@@ -60,7 +61,7 @@ const Profile = () => {
             <div className="card-body edit-profile">
               <h5 className="card-title">Orders</h5>
               <p className="card-text">View current and previous order history.</p>
-              <a href="#" className="btn btn-primary">View Orders</a>
+              <button href="#" className="btn btn-primary">View Orders</button>
             </div>
           </div>
         </div>

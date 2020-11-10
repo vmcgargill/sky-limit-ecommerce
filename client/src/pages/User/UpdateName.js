@@ -24,8 +24,8 @@ const UpdateName = () => {
         <div className="col-sm-12 col-md-12 col-lg-12">
           <div className="card edit-profile">
             <div className="card-body ">
-              <input placeholder="Enter Name" type="text" className="form-control" maxlength="50" value={name} onChange={(ev) => {setName(ev.target.value)}}></input><br/>
-              <a href="#" onClick={updateName} className="btn btn-primary">Update Name</a>
+              <input placeholder="Enter Name" type="text" className="form-control" maxLength="50" value={name} onChange={(ev) => {setName(ev.target.value)}}></input><br/>
+              <button href="#" onClick={updateName} className="btn btn-primary">Update Name</button>
             </div>
           </div>
         </div>

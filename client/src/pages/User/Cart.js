@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
 import ConvertImage from '../../ConvertImage'
-import './User.css';
+import './Cart.css';
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
+  const [order, setOrder] = useState("");
 
   const removeCart = (id) => {
     API.removeCart(id).then(function() {
@@ -16,16 +17,18 @@ const Cart = () => {
     console.log("Order has been placed: " + orderCart);
   }
 
-  useEffect(() => {
-    LoadCart();
-  }, [])
-
   const LoadCart = () => {
     API.loadCart().then(res => {
-      setCart(res.data.products)
-    })
+      if (res.data.products.length === 0) {
+        setCart([]);
+        setOrder(<h5>Your cart is currently empty.</h5>);
+      } else {
+        setCart(res.data.products);
+        setOrder(<button className="btn btn-primary merchantBtn" onClick={() => {placeOrder(cart)}}>Place Order</button>);
+      }
+    });
   }
-
+  
   const cartItems = cart.map((product) => {
     let productImg = "";
 
@@ -36,30 +39,33 @@ const Cart = () => {
     }
 
     return (
-      <div class="card mb-3">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-          <img src={productImg} class="card-img merchantListImg" alt="..."></img>
+      <div className="card mb-3" key={product._id}>
+        <div className="row no-gutters">
+          <div className="col-md-4">
+          <div className="imageDiv"><img src={productImg} className="card-img cartListImg" alt="..."></img></div>
           </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">{product.name}</h5>
-              <p class="card-text">${product.price}</p>
-              <p class="card-text"><a class="merchantDescription">{product.description}</a></p>
-              <p class="card-text"><small class="text-muted">Added to wishlist 10 days ago.</small></p>
-              <button class="btn btn-danger merchantBtn" onClick={() => {removeCart(product._id)}}>Remove from Cart</button>
+          <div className="col-md-8">
+            <div className="card-body">
+              <h5 className="card-title">{product.name}</h5>
+              <p className="card-text">${product.price}</p>
+              <p className="card-text merchantDescription">{product.description}</p>
+              <p className="card-text"><small className="text-muted">Added to cart 10 days ago.</small></p>
+              <button className="btn btn-danger merchantBtn" onClick={() => {removeCart(product._id)}}>Remove from Cart</button>
             </div>
           </div>
         </div>
       </div>
     )
-  }
-  );
+  });
+
+  useEffect(LoadCart, [])
 
   return (
     <div className="container">
+      <h2>Cart</h2>
       {cartItems}
-      <button class="btn btn-primary merchantBtn" onClick={() => {placeOrder(cart)}}>Place Order</button>
+      <h5>Cart Total: $100</h5>
+      {order}
     </div>
   )
 

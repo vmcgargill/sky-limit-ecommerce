@@ -11,7 +11,7 @@ const SearchResults = () => {
     API.searchProducts(search).then(res => {
       setProducts(res.data);
     });
-  }, [])
+  }, [search])
 
   return (
     <div>

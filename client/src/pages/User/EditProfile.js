@@ -24,44 +24,44 @@ const EditProfile = () => {
 
   return(
     <div>
-      <div class="card text-center">
-        <div class="card-header">
+      <div className="card text-center">
+        <div className="card-header">
           <h2>Edit Profile</h2>
         </div>
-        <div class="card-body">
-          <h5 class="card-title">Name</h5>
-          <p class="card-text">{user.name}</p>
-          <a href="/updateName" class="btn btn-primary">Edit Name</a>
+        <div className="card-body editProfileOpt">
+          <h5 className="card-title">Name</h5>
+          <p className="card-text">{user.name}</p>
+          <button onClick={() => {window.location.href="/updateName"}} className="btn btn-primary">Edit Name</button>
         </div>
-        <div class="card-body">
-          <h5 class="card-title">Email</h5>
-          <p class="card-text">{user.email}</p>
-          <a href="/updateEmail" class="btn btn-primary">Edit Email</a>
+        <div className="card-body editProfileOpt">
+          <h5 className="card-title">Email</h5>
+          <p className="card-text">{user.email}</p>
+          <button onClick={() => {window.location.href="/updateEmail"}} className="btn btn-primary">Edit Email</button>
         </div>
-        <div class="card-body">
-          <h5 class="card-title">Password</h5>
-          <p class="card-text">********</p>
-          <a href="/updatePassword" class="btn btn-primary">Edit Password</a>
+        <div className="card-body editProfileOpt">
+          <h5 className="card-title">Password</h5>
+          <p className="card-text">********</p>
+          <button onClick={() => {window.location.href="/updatePassword"}} className="btn btn-primary">Edit Password</button>
         </div>
-        <div class="card-body">
-          <h5 class="card-title">Phone</h5>
-          <p class="card-text">{user.phone}</p>
-          <a href="#" class="btn btn-primary">Edit Phone Number</a>
+        <div className="card-body editProfileOpt">
+          <h5 className="card-title">Phone</h5>
+          <p className="card-text">{user.phone}</p>
+          <button href="#" className="btn btn-primary">Edit Phone Number</button>
         </div>
-        <div class="card-body">
-          <h5 class="card-title">Default Shipping Address</h5>
-          <p class="card-text">{user.address}</p>
-          <a href="#" class="btn btn-primary">Change Default Address</a>
+        <div className="card-body editProfileOpt">
+          <h5 className="card-title">Default Shipping Address</h5>
+          <p className="card-text">{user.address}</p>
+          <button href="#" className="btn btn-primary">Change Default Address</button>
         </div>
-        <div class="card-body">
-          <h5 class="card-title">Payment Methods</h5>
-          <p class="card-text">Default Payment Method:</p>
-          <p class="card-text">{user.payment}</p>
-          <a href="#" class="btn btn-primary">Manage Payment Methods</a>
+        <div className="card-body editProfileOpt">
+          <h5 className="card-title">Payment Methods</h5>
+          <p className="card-text">Default Payment Method:</p>
+          <p className="card-text">{user.payment}</p>
+          <button href="#" className="btn btn-primary">Manage Payment Methods</button>
         </div>
-        <div class="card-body">
-          <h5 class="card-title">Delete Account</h5>
-          <a href="#" class="btn btn-danger">Delete my Account</a>
+        <div className="card-body editProfileOpt">
+          <h5 className="card-title">Delete Account</h5>
+          <button href="#" className="btn btn-danger">Delete my Account</button>
         </div>
       </div>
     </div>

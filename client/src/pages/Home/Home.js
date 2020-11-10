@@ -15,7 +15,7 @@ function Home() {
   }, [])
 
   return (
-    <div class="home">
+    <div className="home">
       <h2>Shop for the Holidays</h2>
       <div className="row">
         <ProductList products={products}/>

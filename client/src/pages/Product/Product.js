@@ -12,7 +12,7 @@ function Product() {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("/Default.jpg");
   const [seller, setSeller] = useState({});
-  const [wishlist, SetWhishlist] = useState("")
+  const [wishlist, SetWhishlist] = useState("");
   
   const addCart = () => {
     API.addCart(id).then(() => {
@@ -32,8 +32,8 @@ function Product() {
     });
   }
 
-  const btnAddWishList = (<a href="#" onClick={addWishList} class="btn btn-primary">Add to wishlist</a>);
-  const btnRemoveWishlist = (<a href="#" onClick={removeWishList} class="btn btn-primary">Remove From Wishlist</a>);
+  const btnAddWishList = (<button onClick={addWishList} className="btn btn-primary">Add to wishlist</button>);
+  const btnRemoveWishlist = (<button onClick={removeWishList} className="btn btn-primary">Remove From Wishlist</button>);
   
   useEffect(() => {
     API.getProduct(id).then(response => {
@@ -54,26 +54,26 @@ function Product() {
         SetWhishlist(btnAddWishList);
       }
     });
-  }, [])
+  }, [btnAddWishList, btnRemoveWishlist, id])
   
   return (
     <div className="row">
       <div className="col">
         <div className="card">
           <div className="card-body">
-            <h2 className="card-title"><a>{name}</a></h2>
+            <h2 className="card-title">{name}</h2>
             <img src={image} className="card-img-top productImg" alt='ProductImage'/>
             <a href={"/merchant/" + seller._id}>Seller: {seller.name}</a>
           </div>
           <ul className="list-group list-group-flush">
-            <li className="list-group-item">Category: <a>{category}</a></li>
-            <li className="list-group-item">Price: $<a>{price}</a></li>
+            <li className="list-group-item">Category: {category}</li>
+            <li className="list-group-item">Price: ${price}</li>
           </ul>
           <div className="card-body">
             <pre className="card-text">{description}</pre>
           </div>
           <div className="card-body">
-            <a href="#" onClick={addCart} class="btn btn-primary">Add to Cart</a><br/><br/>
+            <button onClick={addCart} className="btn btn-primary">Add to Cart</button><br/><br/>
             {wishlist}
           </div>
         </div>

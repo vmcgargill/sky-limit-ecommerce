@@ -5,6 +5,7 @@ import './User.css';
 
 const WishList = () => {
   const [products, setProducts] = useState([]);
+  const [wishlistMsg, setWishListMsg] = useState("");
 
   const addCart = (id) => {
     API.addCart(id).then(() => {
@@ -24,8 +25,13 @@ const WishList = () => {
 
   const LoadWishlist = () => {
     API.loadWishlist().then((res) => {
-      setProducts(res.data.products)
-      console.log(res.data.products)
+      if (res.data.products.length === 0) {
+        setProducts([]);
+        setWishListMsg(<h5>Your wishlist is currently empty.</h5>);
+      } else {
+        setProducts(res.data.products);
+        setWishListMsg("");
+      }
     })
   }
 
@@ -39,19 +45,19 @@ const WishList = () => {
     }
 
     return (
-    <div class="card mb-3">
-      <div class="row no-gutters">
-        <div class="col-md-4">
-        <img src={productImg} class="card-img merchantListImg" alt="..."></img>
+    <div className="card mb-3" key={product._id}>
+      <div className="row no-gutters">
+        <div className="col-md-4">
+        <div className="imageDiv"><img src={productImg} className="card-img merchantListImg" alt="..."></img></div>
         </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title">{product.name}</h5>
-            <p class="card-text">${product.price}</p>
-            <p class="card-text"><a class="merchantDescription">{product.description}</a></p>
-            <p class="card-text"><small class="text-muted">Added to wishlist 10 days ago.</small></p>
-            <button class="btn btn-primary merchantBtn" onClick={() => {addCart(product._id)}}>Add to Cart</button>
-            <button class="btn btn-danger merchantBtn" onClick={() => {removeWishList(product._id)}}>Remove from Wishlist</button>
+        <div className="col-md-8">
+          <div className="card-body">
+            <h5 className="card-title">{product.name}</h5>
+            <p className="card-text">${product.price}</p>
+            <p className="card-text merchantDescription">{product.description}</p>
+            <p className="card-text"><small className="text-muted">Added to wishlist 10 days ago.</small></p>
+            <button className="btn btn-primary merchantBtn" onClick={() => {addCart(product._id)}}>Add to Cart</button>
+            <button className="btn btn-danger merchantBtn" onClick={() => {removeWishList(product._id)}}>Remove from Wishlist</button>
           </div>
         </div>
       </div>
@@ -62,7 +68,9 @@ const WishList = () => {
 
   return (
     <div className="container">
+      <h2>Wishlist</h2>
       {wishListItems}
+      {wishlistMsg}
     </div>
   );
 

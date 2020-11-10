@@ -1,5 +1,6 @@
 import React from "react";
 import ConvertImage from '../../ConvertImage'
+import {Link} from "react-router-dom"
 import './Product.css';
 
 function ProductList(props) {
@@ -15,22 +16,22 @@ function ProductList(props) {
     }
 
     return (
-      <div class="card mb-3">
-        <a href={"/product/" + product._id}>
-        <div class="row no-gutters">
-          <div class="col-md-4">
-          <img src={productImg} class="card-img productListImg" alt="..."></img>
+      <div className="card mb-3" key={product._id}>
+        <Link to={"/product/" + product._id}>
+        <div className="row no-gutters">
+          <div className="col-md-4">
+          <div className="imageDiv"><img src={productImg} className="card-img" alt="..."></img></div>
           </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">{product.name}</h5>
-              <p class="card-text">${product.price}</p>
-              <p class="card-text"><a class="productDescription">{product.description}</a></p>
-              <p class="card-text"><small class="text-muted">Posted 2 days ago</small></p>
+          <div className="col-md-8">
+            <div className="card-body">
+              <h5 className="card-title">{product.name}</h5>
+              <p className="card-text">${product.price}</p>
+              <p className="card-text productDescription">{product.description}</p>
+              <p className="card-text"><small className="text-muted">Posted 2 days ago</small></p>
             </div>
           </div>
         </div>
-        </a>
+        </Link>
       </div>
     )
   })

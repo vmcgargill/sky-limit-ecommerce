@@ -73,10 +73,9 @@ router.post("/api/wishList/:id", (req, res) => {
   db.User.findByIdAndUpdate({
     _id: userId
   }, {
-    $push: { wishlist: id }
+    $addToSet: { wishlist: id }
   }, (err, updated) => {
     if (err) throw err;
-    console.log(updated)
     res.json({message: "Success!"})
   })
 });
@@ -90,7 +89,6 @@ router.put("/api/removeWishList/:id", (req, res) => {
     $pull: { wishlist: id }
   }, (err, updated) => {
     if (err) throw err;
-    console.log(updated)
     res.json({message: "Success!"})
   })
 });
@@ -101,10 +99,9 @@ router.post("/api/addCart/:id", (req, res) => {
   db.User.findByIdAndUpdate({
     _id: userId
   }, {
-    $push: { cart: id }
+    $addToSet: { cart: id }
   }, (err, updated) => {
     if (err) throw err;
-    console.log(updated)
     res.json({message: "Success!"})
   })
 });
@@ -118,7 +115,6 @@ router.put("/api/removeCart/:id", (req, res) => {
     $pull: { cart: id }
   }, (err, updated) => {
     if (err) throw err;
-    console.log(updated)
     res.json({message: "Success!"})
   })
 });
