@@ -60,7 +60,7 @@ const Cart = () => {
     )
   });
 
-  useEffect(LoadCart, [])
+  useEffect(LoadCart, [cart])
 
   return (
     <div className="container">

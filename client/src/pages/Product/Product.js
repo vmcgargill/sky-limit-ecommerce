@@ -12,28 +12,28 @@ function Product() {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("/Default.jpg");
   const [seller, setSeller] = useState({});
-  const [wishlist, SetWhishlist] = useState("");
+  const [wishlist, SetWhishlist] = useState({
+    btnName: "", 
+    onWishlist: false
+  });
   
   const addCart = () => {
     API.addCart(id).then(() => {
       window.location.href = "/cartAdded/" + id
     });
   }
-  
-  const addWishList = () => {
-    API.addWishlist(id).then(() => {
-      SetWhishlist(btnRemoveWishlist)
-    });
-  }
-  
-  const removeWishList = () => {
-    API.removeWishlist(id).then(() => {
-      SetWhishlist(btnAddWishList)
-    });
-  }
 
-  const btnAddWishList = (<button onClick={addWishList} className="btn btn-primary">Add to wishlist</button>);
-  const btnRemoveWishlist = (<button onClick={removeWishList} className="btn btn-primary">Remove From Wishlist</button>);
+  const updateWishlist = () => {
+    if (wishlist.onWishlist) {
+      API.removeWishlist(id).then(() => {
+        SetWhishlist({btnName: "Add to Wishlist", onWishlist: true})
+      });
+    } else {
+      API.addWishlist(id).then(() => {
+        SetWhishlist({btnName: "Remove from Wishlist", onWishlist: false})
+      });
+    }
+  }
   
   useEffect(() => {
     API.getProduct(id).then(response => {
@@ -49,12 +49,12 @@ function Product() {
         setImage("/Default.jpg")
       }
       if (response.data.signedin && response.data.wishlist) {
-        SetWhishlist(btnRemoveWishlist);
+        SetWhishlist({btnName: "Remove from Wishlist", onWishlist: false})
       } else {
-        SetWhishlist(btnAddWishList);
+        SetWhishlist({btnName: "Add to Wishlist", onWishlist: true})
       }
     });
-  }, [btnAddWishList, btnRemoveWishlist, id])
+  }, [id])
   
   return (
     <div className="row">
@@ -74,7 +74,7 @@ function Product() {
           </div>
           <div className="card-body">
             <button onClick={addCart} className="btn btn-primary">Add to Cart</button><br/><br/>
-            {wishlist}
+            <button onClick={updateWishlist} className="btn btn-primary">{wishlist.btnName}</button>
           </div>
         </div>
       </div>
