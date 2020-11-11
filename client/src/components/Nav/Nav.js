@@ -3,7 +3,7 @@ import {Link} from "react-router-dom"
 import API from "../../utils/API";
 import './Nav.css';
 
-function Nav() {
+function Nav({authStatus}) {
   const [NavOptions, setNavOptions] = useState("");
   const [search, setSearch] = useState("");
 
@@ -55,14 +55,14 @@ function Nav() {
       </div>
     )
 
-    API.getUserLoginStatus().then((res) => {
-      if (res.data.message) {
-        setNavOptions(LoggedInNav);
-      } else {
-        setNavOptions(LoggedOutNav)
-      }
-    });
-  }, [])
+    if (authStatus === undefined) {
+      setNavOptions("")
+    } else if (authStatus) {
+      setNavOptions(LoggedInNav)
+    } else if (!authStatus) {
+      setNavOptions(LoggedOutNav)
+    }
+  }, [setNavOptions, authStatus])
 
 
   return (

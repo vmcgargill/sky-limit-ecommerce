@@ -1,5 +1,6 @@
-import React from 'react';
-import {Route, BrowserRouter, Switch} from "react-router-dom" 
+import React, { useState, useEffect } from "react";
+import {Route, BrowserRouter, Switch, Redirect} from "react-router-dom" 
+import API from "./utils/API";
 import Nav from './components/Nav/Nav';
 import Footer from './components/Footer/Footer';
 import Home from './pages/Home/Home'
@@ -23,11 +24,28 @@ import SearchResualts from "./pages/Product/SearchResults"
 import NoMatch from "./pages/NoMatch";
 import './App.css';
 
-function App() {
+const  App = () => {
+  const [authStatus, setAuthStatus] = useState(true);
+  const [navStatus, setNavStatus] = useState(undefined);
+  
+  const getLoginStatus = async () => {
+    const res = await API.getUserData();
+    if (await res.data.message) {
+      await setAuthStatus(true)
+      await setNavStatus(true)
+    }
+    else {
+      await setAuthStatus(false)
+      await setNavStatus(false)
+    }
+  }
+  
+  useEffect(getLoginStatus, [])
+
   return (
     <div className="App">
       <BrowserRouter basename="/">
-      <Nav />
+      <Nav authStatus={navStatus} />
       <div className="container mainContainer">
         <Switch>
           <Route exact path="/" >
@@ -40,46 +58,46 @@ function App() {
             <Login/>
           </Route>
           <Route exact path="/postProduct" >
-            <PostNewProduct/>
+            {!authStatus ? <Redirect to="/login" /> : <PostNewProduct/>}
           </Route>
           <Route exact path="/product/:id" >
             <Product/>
           </Route>
           <Route exact path="/editProduct/:id" >
-            <EditProduct/>
+            {!authStatus ? <Redirect to="/login" /> : <EditProduct/>}
           </Route>
           <Route exact path="/deleteProduct/:id" >
-            <DeleteProduct/>
+            {!authStatus ? <Redirect to="/login" /> : <DeleteProduct/>}
           </Route>
           <Route exact path="/merchant/:id" >
             <Merchant/>
           </Route>
           <Route exact path="/accountSettings" >
-            <AccountSettings/>
+            {!authStatus ? <Redirect to="/login" /> : <AccountSettings/>}
           </Route>
           <Route exact path="/editProfile" >
-            <EditProfile/>
+            {!authStatus ? <Redirect to="/login" /> : <EditProfile/> }
           </Route>
           <Route exact path="/updateName" >
-            <UpdateName/>
+            {!authStatus ? <Redirect to="/login" /> : <UpdateName/>}
           </Route>
           <Route exact path="/updateEmail" >
-            <UpdateEmail/>
+            {!authStatus ? <Redirect to="/login" /> : <UpdateEmail/>}
           </Route>
           <Route exact path="/updatePassword" >
-            <UpdatePassword/>
+            {!authStatus ? <Redirect to="/login" /> : <UpdatePassword/>}
           </Route>
           <Route exact path="/sellingAccount" >
-            <SellingAccount/>
+            {!authStatus ? <Redirect to="/login" /> : <SellingAccount/>}
           </Route>
           <Route exact path="/wishList" >
-            <WishList/>
+            {!authStatus ? <Redirect to="/login" /> : <WishList/>}
           </Route>
           <Route exact path="/userCart" >
-            <Cart/>
+            {!authStatus ? <Redirect to="/login" /> : <Cart/>}
           </Route>
           <Route exact path="/cartAdded/:id" >
-            <CartAdded/>
+            {!authStatus ? <Redirect to="/login" /> : <CartAdded/>}
           </Route>
           <Route exact path="/searchResults/:search" >
             <SearchResualts/>

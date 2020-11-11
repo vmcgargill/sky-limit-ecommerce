@@ -17,7 +17,7 @@ export default {
   Logout: () => {
     return axios.get("/api/logout");
   },
-  getUserLoginStatus: () => {
+  getUserData: () => {
     return axios.get("/api/user_data");
   },
   getMerchant: (id) => {
