@@ -104,7 +104,7 @@ router.post("/api/postProduct", isAuthenticated, upload.single("image"), (req, r
       contentType: req.file.mimetype
     }
   }
-  db.Product.create(product, function(err, created) {
+  db.Product.create(product, (err, created) => {
     if (err) throw err;
     if (req.file) {
       fs.unlinkSync(path.join(__dirname + '/../../upload/' + req.file.filename));
@@ -122,7 +122,7 @@ router.put("/api/editProduct/:id", isAuthenticated, upload.single("image"), (req
       contentType: req.file.mimetype
     }
   }
-  db.Product.findByIdAndUpdate(id, {$set: product}, function(err, updated) {
+  db.Product.findByIdAndUpdate(id, {$set: product}, (err, updated) => {
     if (err) throw err;
     if (req.file) {
       fs.unlinkSync(path.join(__dirname + '/../../upload/' + req.file.filename));
@@ -131,9 +131,9 @@ router.put("/api/editProduct/:id", isAuthenticated, upload.single("image"), (req
   });
 });
 
-router.delete("/api/deleteProduct/:id", isAuthenticated, function(req, res) {
+router.delete("/api/deleteProduct/:id", isAuthenticated, (req, res) => {
   const id = req.params.id;
-  db.Product.deleteOne({ _id: id }, function(err, deleted) {
+  db.Product.deleteOne({ _id: id }, (err, deleted) => {
     if (err) throw err;
     res.json(deleted)
   })

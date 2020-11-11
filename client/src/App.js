@@ -54,11 +54,11 @@ const  App = () => {
           <Route exact path="/signup" >
             <Signup/>
           </Route>
-          <Route exact path="/login" >
+          <Route exact path={["/login", "/login/:redirect"]} >
             <Login/>
           </Route>
           <Route exact path="/postProduct" >
-            {!authStatus ? <Redirect to="/login" /> : <PostNewProduct/>}
+            {!authStatus ? <Redirect to="/login/:redirect" /> : <PostNewProduct/>}
           </Route>
           <Route exact path="/product/:id" >
             <Product/>

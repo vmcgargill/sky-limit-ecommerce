@@ -4,9 +4,9 @@ const isAuthenticated = require("../../config/middleware/isAuthenticated");
 
 router.get("/api/userProfile", isAuthenticated, (req, res) => {
   const id = req.user._id;
-  db.User.findOne({ _id: id }, function(err, user) {
+  db.User.findOne({ _id: id }, (err, user) => {
     if (err) throw err;
-    db.Product.find({ seller: id }, function(error, products) {
+    db.Product.find({ seller: id }, (error, products) => {
       if (error) throw error;
       res.json({
         user: user,
@@ -46,9 +46,9 @@ router.put("/api/updatePassword", isAuthenticated, (req, res) => {
 })
 
 router.get("/api/merchant/:id", (req, res) => {
-  db.User.findOne({ _id: req.params.id }, function(err, merchant) {
+  db.User.findOne({ _id: req.params.id }, (err, merchant) => {
     if (err) throw err;
-    db.Product.find({ seller: req.params.id }, function(error, products) {
+    db.Product.find({ seller: req.params.id }, (error, products) => {
       if (error) throw error;
       res.json({
         merchant: merchant,
@@ -60,7 +60,7 @@ router.get("/api/merchant/:id", (req, res) => {
 
 router.get("/api/merchantProducts", isAuthenticated, (req, res) => {
   const id = req.user._id;
-  db.Product.find({ seller: id }, function(err, products) {
+  db.Product.find({ seller: id }, (err, products) => {
     if (err) throw err;
     res.json({
       products: products
@@ -77,7 +77,9 @@ router.post("/api/wishList/:id", isAuthenticated, (req, res) => {
     $addToSet: { wishlist: id }
   }, (err, updated) => {
     if (err) throw err;
-    res.json({message: "Success!"})
+    if (updated) {
+      res.json({message: "Success!"})
+    }
   })
 });
 
@@ -90,7 +92,9 @@ router.put("/api/removeWishList/:id", isAuthenticated, (req, res) => {
     $pull: { wishlist: id }
   }, (err, updated) => {
     if (err) throw err;
-    res.json({message: "Success!"})
+    if (updated) {
+      res.json({message: "Success!"})
+    }
   })
 });
 
@@ -103,7 +107,9 @@ router.post("/api/addCart/:id", isAuthenticated, (req, res) => {
     $addToSet: { cart: id }
   }, (err, updated) => {
     if (err) throw err;
-    res.json({message: "Success!"})
+    if (updated) {
+      res.json({message: "Success!"})
+    }
   })
 });
 
@@ -116,7 +122,9 @@ router.put("/api/removeCart/:id", isAuthenticated, (req, res) => {
     $pull: { cart: id }
   }, (err, updated) => {
     if (err) throw err;
-    res.json({message: "Success!"})
+    if (updated) {
+      res.json({message: "Success!"})
+    }
   })
 });
 

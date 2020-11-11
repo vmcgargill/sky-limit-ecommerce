@@ -2,24 +2,26 @@ const db = require("../../models");
 const passport = require("../../config/passport");
 const router = require("express").Router();
 
-router.post("/api/login", passport.authenticate("local"), function (req, res) {
+router.post("/api/login", passport.authenticate("local"), (req, res) => {
   if (req.user) {
     res.json({status: 200})
   }
 });
 
-router.post("/api/signup", function (req, res) {
-  db.User.create(req.body, function(err, user) {
+router.post("/api/signup", (req, res) => {
+  db.User.create(req.body, (err, user) => {
     res.json({})
   })
 });
 
-router.get("/api/logout", function (req, res) {
+router.get("/api/logout", (req, res) => {
   req.logout();
-  res.json({message: false})
+  if (!req.user) {
+    res.json({message: false})
+  }
 });
 
-router.get("/api/user_data", function (req, res) {
+router.get("/api/user_data", (req, res) => {
   if (req.user) {
     res.json({message: true})
   } else {
