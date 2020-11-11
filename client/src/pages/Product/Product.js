@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import ConvertImage from '../../ConvertImage'
 import API from "../../utils/API";
+import Success from "../../components/Success/Success"
 import './Product.css';
 
 function Product() {
   let { id } = useParams();
+  const [message, setMessage] = useState("")
   const [name, seName] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
@@ -16,22 +18,37 @@ function Product() {
     btnName: "Wishlist", 
     onWishlist: false
   });
+  const [cart, SetCart] = useState({
+    btnName: "Cart", 
+    onCart: false
+  });
   
-  const addCart = () => {
-    API.addCart(id).then(() => {
-      window.location.href = "/cartAdded/" + id
-    });
+  const updateCart = (event) => {
+    console.log(event.target.value)
+    console.log(cart.onCart) 
+    if (cart.onCart) {
+      API.removeCart(id).then(() => {
+        setMessage(<Success message={"Removed from Cart"}/>)
+        return SetCart({btnName: "Add to Cart", onCart: false})
+      })
+    } else if (!cart.onCart) {
+      API.addCart(id).then(() => {
+        window.location.href = "/cartAdded/" + id
+      });
+    }
   }
 
   const updateWishlist = () => {
     console.log(wishlist.onWishlist)
     if (wishlist.onWishlist) {
       API.removeWishlist(id).then(() => {
-        SetWhishlist({btnName: "Add to Wishlist", onWishlist: true})
+        SetWhishlist({btnName: "Add to Wishlist", onWishlist: false})
+        setMessage(<Success message={"Removed from Wishlist"}/>)
       });
     } else if (!wishlist.onWishlist) {
       API.addWishlist(id).then(() => {
-        SetWhishlist({btnName: "Remove from Wishlist", onWishlist: false})
+        SetWhishlist({btnName: "Remove from Wishlist", onWishlist: true})
+        setMessage(<Success message={"Added to Wishlist"}/>)
       });
     }
   }
@@ -49,10 +66,17 @@ function Product() {
       } else {
         setImage("/Default.jpg")
       }
-      if (response.data.signedin && response.data.wishlist) {
-        SetWhishlist({btnName: "Remove from Wishlist", onWishlist: true})
-      } else {
-        SetWhishlist({btnName: "Add to Wishlist", onWishlist: false})
+      if (response.data.signedin) {
+        if (response.data.wishlist) {
+          SetWhishlist({btnName: "Remove from Wishlist", onWishlist: true})
+        } else {
+          SetWhishlist({btnName: "Add to Wishlist", onWishlist: false})
+        }
+        if (response.data.cart) {
+          SetCart({btnName: "Remove from Cart", onCart: true})
+        } else {
+          SetCart({btnName: "Add to Cart", onCart: false})
+        }
       }
     });
   }, [id])
@@ -74,8 +98,9 @@ function Product() {
             <pre className="card-text">{description}</pre>
           </div>
           <div className="card-body">
-            <button onClick={addCart} className="btn btn-primary">Add to Cart</button><br/><br/>
-            <button onClick={updateWishlist} className="btn btn-primary">{wishlist.btnName}</button>
+            {message}
+            <button onClick={updateCart} className="btn btn-primary">{cart.btnName}</button><br/><br/>
+            <button onClick={updateWishlist} className="btn btn-primary" value={wishlist.onWishlist}>{wishlist.btnName}</button>
           </div>
         </div>
       </div>

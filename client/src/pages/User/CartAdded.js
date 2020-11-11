@@ -41,9 +41,9 @@ const Cart = () => {
       <h5>$ {price}</h5>
       <div className="cartAdded"><img className="productImg" alt="..." src={image}></img></div><br/>
       <h5>New Cart Total: $1,000,000</h5><br/>
-      <button class="btn btn-primary" onClick={checkOut}>Go to Checkout</button><br/><br/>
-      <button class="btn btn-primary" onClick={() => {window.location.href = "/userCart"}}>Go to Cart</button><br/><br/>
-      <button class="btn btn-danger" onClick={removeCart}>Remove from Cart</button>
+      <button className="btn btn-primary" onClick={checkOut}>Go to Checkout</button><br/><br/>
+      <button className="btn btn-primary" onClick={() => {window.location.href = "/userCart"}}>Go to Cart</button><br/><br/>
+      <button className="btn btn-danger" onClick={removeCart}>Remove from Cart</button>
     </div>
   )
 

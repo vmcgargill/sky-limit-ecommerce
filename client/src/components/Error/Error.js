@@ -2,9 +2,9 @@ import React from "react";
 
 const Error = ({message}) => {
   return (
-    <div class="alert alert-danger" role="alert">
-      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-      <span class="sr-only">Error:</span> <span class="msg">{message}</span>
+    <div className="alert alert-danger" role="alert">
+      <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+      <span className="sr-only">Error:</span> <span className="msg">{message}</span>
     </div>
   )
 }

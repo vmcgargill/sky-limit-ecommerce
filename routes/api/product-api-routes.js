@@ -55,6 +55,12 @@ router.get("/api/product/:id", (req, res) => {
         } else {
           dbResponse.wishlist = false
         }
+        const Cart = user.cart;
+        if (Cart.indexOf(id) > -1) {
+          dbResponse.cart = true
+        } else {
+          dbResponse.cart = false
+        }
         res.json(dbResponse)
       })
     } else {
