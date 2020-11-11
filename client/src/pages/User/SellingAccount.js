@@ -46,6 +46,7 @@ const SellingAccount = () => {
 
   return (
     <div className="container">
+      <h2>Selling Account</h2>
       {merchantItems}
     </div>
   );

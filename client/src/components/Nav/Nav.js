@@ -29,7 +29,7 @@ function Nav({authStatus}) {
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <Link to={`/accountSettings`} className="dropdown-item">Account Settings</Link>
-              <Link to={`#`} className="dropdown-item">Orders</Link>
+              <Link to={`/userOrders`} className="dropdown-item">Orders</Link>
               <Link to={`/wishList`} className="dropdown-item">Wishlist</Link>
               <Link to={`/postProduct`} className="dropdown-item">Sell</Link>
               <Link onClick={Logout} to="#section" className="dropdown-item">Logout</Link>

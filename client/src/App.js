@@ -21,6 +21,7 @@ import WishList from './pages/User/WishList';
 import Cart from './pages/User/Cart';
 import CartAdded from './pages/User/CartAdded';
 import SearchResualts from "./pages/Product/SearchResults";
+import UserOrders from "./pages/User/UserOrders";
 import NoMatch from "./pages/NoMatch";
 import './App.css';
 
@@ -100,6 +101,9 @@ const  App = () => {
           </Route>
           <Route exact path="/cartAdded/:id" >
             {!authStatus ? <Redirect to="/login" /> : <CartAdded/>}
+          </Route>
+          <Route exact path="/userOrders" >
+            {!authStatus ? <Redirect to="/login/userOrders" /> : <UserOrders/>}
           </Route>
           <Route exact path="/searchResults/:search" >
             <SearchResualts/>

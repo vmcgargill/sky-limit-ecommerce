@@ -63,7 +63,7 @@ const Profile = () => {
             <div className="card-body edit-profile">
               <h5 className="card-title">Orders</h5>
               <p className="card-text">View current and previous order history.</p>
-              <button href="#" className="btn btn-primary">View Orders</button>
+              <button href="#" onClick={() => {window.location.href = "/userOrders"}} className="btn btn-primary">View Orders</button>
             </div>
           </div>
         </div>
