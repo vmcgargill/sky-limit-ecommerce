@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from "react";
-import {Route, BrowserRouter, Switch, Redirect} from "react-router-dom" 
+import {Route, BrowserRouter, Switch, Redirect} from "react-router-dom";
 import API from "./utils/API";
 import Nav from './components/Nav/Nav';
 import Footer from './components/Footer/Footer';
-import Home from './pages/Home/Home'
-import Signup from './pages/Signup/Signup'
-import Login from './pages/Login/Login'
-import PostNewProduct from './pages/Product/PostNewProduct'
-import EditProduct from './pages/Product/EditProduct'
-import DeleteProduct from './pages/Product/DeleteProduct'
-import Product from './pages/Product/Product'
-import Merchant from './pages/User/Merchant'
-import AccountSettings from './pages/User/AccountSettings'
-import EditProfile from './pages/User/EditProfile'
+import Home from './pages/Home/Home';
+import Signup from './pages/Signup/Signup';
+import Login from './pages/Login/Login';
+import PostNewProduct from './pages/Product/PostNewProduct';
+import EditProduct from './pages/Product/EditProduct';
+import DeleteProduct from './pages/Product/DeleteProduct';
+import Product from './pages/Product/Product';
+import Merchant from './pages/User/Merchant';
+import AccountSettings from './pages/User/AccountSettings';
+import EditProfile from './pages/User/EditProfile';
 import UpdateName from './pages/User/UpdateName';
 import UpdateEmail from './pages/User/UpdateEmail';
 import UpdatePassword from './pages/User/UpdatePassword';
-import SellingAccount from './pages/User/SellingAccount'
-import WishList from './pages/User/WishList'
-import Cart from './pages/User/Cart'
-import CartAdded from './pages/User/CartAdded'
-import SearchResualts from "./pages/Product/SearchResults"
+import SellingAccount from './pages/User/SellingAccount';
+import WishList from './pages/User/WishList';
+import Cart from './pages/User/Cart';
+import CartAdded from './pages/User/CartAdded';
+import SearchResualts from "./pages/Product/SearchResults";
 import NoMatch from "./pages/NoMatch";
 import './App.css';
 
@@ -28,19 +28,21 @@ const  App = () => {
   const [authStatus, setAuthStatus] = useState(true);
   const [navStatus, setNavStatus] = useState(undefined);
   
-  const getLoginStatus = async () => {
-    const res = await API.getUserData();
-    if (await res.data.message) {
-      await setAuthStatus(true)
-      await setNavStatus(true)
-    }
-    else {
-      await setAuthStatus(false)
-      await setNavStatus(false)
-    }
-  }
   
-  useEffect(getLoginStatus, [])
+  useEffect(() => {
+    const getLoginStatus = async () => {
+      const res = await API.getUserData();
+      if (await res.data.message) {
+        await setAuthStatus(true)
+        await setNavStatus(true)
+      }
+      else {
+        await setAuthStatus(false)
+        await setNavStatus(false)
+      }
+    }
+    getLoginStatus()
+  }, [])
 
   return (
     <div className="App">
