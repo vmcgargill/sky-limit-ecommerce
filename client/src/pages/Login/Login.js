@@ -1,16 +1,23 @@
 import React, { useState } from "react";
 import API from "../../utils/API";
+import { useParams } from "react-router";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassowrd] = useState("");
+  let { redirect } = useParams();
 
   const handleLogin = (event) => {
     event.preventDefault();
+    console.log(redirect)
     API.Login(email, password).then(res => {
       console.log(res)
       if (res.data.status === 200) {
-        window.location.href = "/";
+        if (redirect) {
+          window.location.href = "/" + redirect;
+        } else {
+          window.location.href = "/";
+        }
       }
     }).catch(err => {
       console.log(err)

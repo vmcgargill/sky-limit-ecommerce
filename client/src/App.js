@@ -58,7 +58,7 @@ const  App = () => {
             <Login/>
           </Route>
           <Route exact path="/postProduct" >
-            {!authStatus ? <Redirect to="/login/:redirect" /> : <PostNewProduct/>}
+            {!authStatus ? <Redirect to="/login/postProduct" /> : <PostNewProduct/>}
           </Route>
           <Route exact path="/product/:id" >
             <Product/>
@@ -73,28 +73,28 @@ const  App = () => {
             <Merchant/>
           </Route>
           <Route exact path="/accountSettings" >
-            {!authStatus ? <Redirect to="/login" /> : <AccountSettings/>}
+            {!authStatus ? <Redirect to="/login/accountSettings" /> : <AccountSettings/>}
           </Route>
           <Route exact path="/editProfile" >
-            {!authStatus ? <Redirect to="/login" /> : <EditProfile/> }
+            {!authStatus ? <Redirect to="/login/editProfile" /> : <EditProfile/> }
           </Route>
           <Route exact path="/updateName" >
-            {!authStatus ? <Redirect to="/login" /> : <UpdateName/>}
+            {!authStatus ? <Redirect to="/login/updateName" /> : <UpdateName/>}
           </Route>
           <Route exact path="/updateEmail" >
-            {!authStatus ? <Redirect to="/login" /> : <UpdateEmail/>}
+            {!authStatus ? <Redirect to="/login/updateEmail" /> : <UpdateEmail/>}
           </Route>
           <Route exact path="/updatePassword" >
-            {!authStatus ? <Redirect to="/login" /> : <UpdatePassword/>}
+            {!authStatus ? <Redirect to="/login/updatePassword" /> : <UpdatePassword/>}
           </Route>
           <Route exact path="/sellingAccount" >
-            {!authStatus ? <Redirect to="/login" /> : <SellingAccount/>}
+            {!authStatus ? <Redirect to="/login/sellingAccount" /> : <SellingAccount/>}
           </Route>
           <Route exact path="/wishList" >
-            {!authStatus ? <Redirect to="/login" /> : <WishList/>}
+            {!authStatus ? <Redirect to="/login/wishList" /> : <WishList/>}
           </Route>
           <Route exact path="/userCart" >
-            {!authStatus ? <Redirect to="/login" /> : <Cart/>}
+            {!authStatus ? <Redirect to="/login/userCart" /> : <Cart/>}
           </Route>
           <Route exact path="/cartAdded/:id" >
             {!authStatus ? <Redirect to="/login" /> : <CartAdded/>}
