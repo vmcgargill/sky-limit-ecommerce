@@ -13,7 +13,7 @@ function Product() {
   const [image, setImage] = useState("/Default.jpg");
   const [seller, setSeller] = useState({});
   const [wishlist, SetWhishlist] = useState({
-    btnName: "", 
+    btnName: "Wishlist", 
     onWishlist: false
   });
   
@@ -24,11 +24,12 @@ function Product() {
   }
 
   const updateWishlist = () => {
+    console.log(wishlist.onWishlist)
     if (wishlist.onWishlist) {
       API.removeWishlist(id).then(() => {
         SetWhishlist({btnName: "Add to Wishlist", onWishlist: true})
       });
-    } else {
+    } else if (!wishlist.onWishlist) {
       API.addWishlist(id).then(() => {
         SetWhishlist({btnName: "Remove from Wishlist", onWishlist: false})
       });
@@ -49,9 +50,9 @@ function Product() {
         setImage("/Default.jpg")
       }
       if (response.data.signedin && response.data.wishlist) {
-        SetWhishlist({btnName: "Remove from Wishlist", onWishlist: false})
+        SetWhishlist({btnName: "Remove from Wishlist", onWishlist: true})
       } else {
-        SetWhishlist({btnName: "Add to Wishlist", onWishlist: true})
+        SetWhishlist({btnName: "Add to Wishlist", onWishlist: false})
       }
     });
   }, [id])

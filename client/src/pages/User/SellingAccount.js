@@ -30,7 +30,7 @@ const SellingAccount = () => {
           <div className="imageDiv"><img src={productImg} className="card-img" alt="..."></img></div>
           </div>
           <div className="col-md-8">
-            <div className="card-body">
+            <div className="card-body productListBody">
               <h5 className="card-title">{product.name}</h5>
               <p className="card-text">${product.price}</p>
               <p className="card-text merchantDescription">{product.description}</p>

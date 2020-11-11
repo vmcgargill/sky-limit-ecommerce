@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import ProductList from "../../components/Product/ProductList";
 import API from "../../utils/API";
+import "./User.css";
 
 const Merchant = () => {
   let { id } = useParams();

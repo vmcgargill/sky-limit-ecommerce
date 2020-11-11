@@ -38,7 +38,7 @@ const Cart = () => {
                     <div className="imageDiv"><img src={productImg} className="card-img cartListImg" alt="..."></img></div>
                     </div>
                     <div className="col-md-4">
-                      <div className="card-body">
+                      <div className="card-body productListBody">
                         <h5 className="card-title">{product.name}</h5>
                         <button className="btn btn-danger merchantBtn" onClick={() => {
                           API.removeCart(product._id).then(() => {

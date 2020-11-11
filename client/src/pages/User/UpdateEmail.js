@@ -25,7 +25,7 @@ const UpdateEmail = () => {
       <div className="row">
         <div className="col-sm-12 col-md-12 col-lg-12">
           <div className="card edit-profile">
-            <div className="card-body ">
+            <div className="card-body">
               <input placeholder="Enter Name" type="email" className="form-control" maxLength="50" value={email} onChange={(ev) => {setEmail(ev.target.value)}}></input><br/>
               <button href="#" onClick={updateEmail} className="btn btn-primary">Update Email</button>
             </div>
