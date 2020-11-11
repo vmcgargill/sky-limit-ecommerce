@@ -10,7 +10,10 @@ router.post("/api/login", passport.authenticate("local"), (req, res) => {
 
 router.post("/api/signup", (req, res) => {
   db.User.create(req.body, (err, user) => {
-    res.json({})
+    if (err) throw err;
+    if (user) {
+      res.json({status: 200})
+    }
   })
 });
 
@@ -22,11 +25,23 @@ router.get("/api/logout", (req, res) => {
 });
 
 router.get("/api/user_data", (req, res) => {
-  if (req.user) {
-    res.json({message: true})
-  } else {
-    res.json({message: false})
-  }
+  db.Product.find({}, (err, products) => {
+    if (err) throw err;
+
+    let SearchArray = [...new Set(products.map((product) => product.name))];
+
+    if (req.user) {
+      res.json({
+        message: true,
+        SearchSuggestions: SearchArray
+      })
+    } else {
+      res.json({
+        message: false,
+        SearchSuggestions: SearchArray
+      })
+    }
+  })
 });
 
 module.exports = router;

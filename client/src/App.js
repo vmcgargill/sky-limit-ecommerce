@@ -28,11 +28,13 @@ import './App.css';
 const  App = () => {
   const [authStatus, setAuthStatus] = useState(true);
   const [navStatus, setNavStatus] = useState(undefined);
-  
+  const [Suggestions, setSuggestions] = useState([]);
   
   useEffect(() => {
     const getLoginStatus = async () => {
       const res = await API.getUserData();
+      setSuggestions(res.data.SearchSuggestions);
+
       if (await res.data.message) {
         await setAuthStatus(true)
         await setNavStatus(true)
@@ -48,7 +50,7 @@ const  App = () => {
   return (
     <div className="App">
       <BrowserRouter basename="/">
-      <Nav authStatus={navStatus} />
+      <Nav authStatus={navStatus} Suggestions={Suggestions} />
       <div className="container mainContainer">
         <Switch>
           <Route exact path="/" >

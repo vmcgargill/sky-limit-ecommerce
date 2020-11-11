@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 import API from "../../utils/API";
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import SearchSuggestions from "./SearchSuggestions"
 import './Nav.css';
 
-function Nav({authStatus}) {
+function Nav({authStatus, Suggestions}) {
   const [NavOptions, setNavOptions] = useState("");
-  const [search, setSearch] = useState("");
+  const [NavSearchSuggestions, setNavSearchSuggestions] = useState(SearchSuggestions);
 
   const Logout = () => {
     API.Logout().then(() => {
@@ -15,10 +18,11 @@ function Nav({authStatus}) {
 
   const submitSearch = (event) => {
     event.preventDefault();
-    window.location.href = "/searchResults/" + search
+    window.location.href = "/searchResults/" + document.getElementById("testinput").value
   }
 
   useEffect(() => {
+
     const LoggedInNav = (
       <div className="collapse navbar-collapse" id="navbarText">
         <ul className="navbar-nav mr-auto">
@@ -62,7 +66,14 @@ function Nav({authStatus}) {
     } else if (!authStatus) {
       setNavOptions(LoggedOutNav)
     }
-  }, [setNavOptions, authStatus])
+
+    if (authStatus || !authStatus) {
+      let SearchArray = [...SearchSuggestions, ...Suggestions];
+      setNavSearchSuggestions([...new Set(SearchArray)])
+    }
+
+
+  }, [setNavOptions, authStatus, Suggestions])
 
 
   return (
@@ -70,7 +81,22 @@ function Nav({authStatus}) {
         <a className="navbar-brand" href="/">Sky Limit Ecommerce</a>
         <div>
           <form className="form-inline my-2 my-lg-0">
-            <input id="SearchInput" className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={search} onChange={(event) => {setSearch(event.target.value)}}></input>
+          <Autocomplete
+            freeSolo
+            className="SearchBar"
+            id="testinput"
+            options={NavSearchSuggestions}
+            renderInput={(params) => (
+              <TextField
+                className="SearchInput"
+                {...params}
+                placeholder="Search input"
+                margin="normal"
+                variant="outlined"
+                InputProps={{ ...params.InputProps, type: 'search' }}
+              />
+            )}
+          />
             <button className="btn btn-outline-secondary my-2 my-sm-0" type="submit" onClick={submitSearch}>Search</button>
           </form>
         </div>
