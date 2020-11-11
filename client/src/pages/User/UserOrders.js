@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import LoadingIcon from "../../components/LoadingIcon/LoadingIcon"
 
 const UserOrder = () => {
-  const [products, setProducts] = useState([]);
+  const [products] = useState(LoadingIcon);
 
-  useEffect(() => {
-    // Add something here
-    setProducts([])
-  }, [setProducts])
+  // useEffect(() => {
+  //   // Add something here
+  //   setProducts([])
+  // }, [setProducts])
 
 
   return (
