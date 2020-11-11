@@ -11,7 +11,11 @@ const Merchant = () => {
   useEffect(() => {
     API.getMerchant(id).then(res => {
       setMerchant(res.data.merchant);
-      setProducts(res.data.products);
+      if (res.data.products) {
+        setProducts(res.data.products);
+      } else {
+        setProducts(<p className="card-text">User does no currently have any products.</p>);
+      }
     });
   }, [id]);
   

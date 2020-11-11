@@ -12,15 +12,16 @@ const Cart = () => {
 
   const removeCart = () => {
     API.removeCart(id).then(() => {
-      window.location.href = "/userCart"
-    })
+      window.location.href = "/userCart";
+    });
   }
 
   const checkOut = () => {
-    console.log("Going to checkout...")
+    console.log("Going to checkout...");
   }
 
   useEffect(() => {
+    // TODO: Change this API call to get updated cart.
     API.getProduct(id).then(res => {
       const product = res.data.product;
       seName(product.name)

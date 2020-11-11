@@ -1,7 +1,8 @@
 const db = require("../../models");
 const router = require("express").Router();
+const isAuthenticated = require("../../config/middleware/isAuthenticated");
 
-router.get("/api/userProfile", (req, res) => {
+router.get("/api/userProfile", isAuthenticated, (req, res) => {
   const id = req.user._id;
   db.User.findOne({ _id: id }, function(err, user) {
     if (err) throw err;
@@ -15,7 +16,7 @@ router.get("/api/userProfile", (req, res) => {
   })
 });
 
-router.put("/api/updateUser", (req, res) => {
+router.put("/api/updateUser", isAuthenticated, (req, res) => {
   const id = req.user._id;
   const data = req.body;
   db.User.findByIdAndUpdate(id, {$set: data}, (err, user) => {
@@ -24,7 +25,7 @@ router.put("/api/updateUser", (req, res) => {
   })
 })
 
-router.put("/api/updatePassword", (req, res) => {
+router.put("/api/updatePassword", isAuthenticated, (req, res) => {
   const id = req.user._id;
   const oldPassword = req.body.oldPassword;
   const newPassword = req.body.newPassword;
@@ -57,7 +58,7 @@ router.get("/api/merchant/:id", (req, res) => {
   })
 });
 
-router.get("/api/merchantProducts", (req, res) => {
+router.get("/api/merchantProducts", isAuthenticated, (req, res) => {
   const id = req.user._id;
   db.Product.find({ seller: id }, function(err, products) {
     if (err) throw err;
@@ -67,7 +68,7 @@ router.get("/api/merchantProducts", (req, res) => {
   })
 })
 
-router.post("/api/wishList/:id", (req, res) => {
+router.post("/api/wishList/:id", isAuthenticated, (req, res) => {
   const id = req.params.id;
   const userId = req.user._id;
   db.User.findByIdAndUpdate({
@@ -80,7 +81,7 @@ router.post("/api/wishList/:id", (req, res) => {
   })
 });
 
-router.put("/api/removeWishList/:id", (req, res) => {
+router.put("/api/removeWishList/:id", isAuthenticated, (req, res) => {
   const id = req.params.id;
   const userId = req.user._id;
   db.User.findByIdAndUpdate({
@@ -93,7 +94,7 @@ router.put("/api/removeWishList/:id", (req, res) => {
   })
 });
 
-router.post("/api/addCart/:id", (req, res) => {
+router.post("/api/addCart/:id", isAuthenticated, (req, res) => {
   const id = req.params.id;
   const userId = req.user._id;
   db.User.findByIdAndUpdate({
@@ -106,7 +107,7 @@ router.post("/api/addCart/:id", (req, res) => {
   })
 });
 
-router.put("/api/removeCart/:id", (req, res) => {
+router.put("/api/removeCart/:id", isAuthenticated, (req, res) => {
   const id = req.params.id;
   const userId = req.user._id;
   db.User.findByIdAndUpdate({

@@ -19,12 +19,14 @@ const Cart = () => {
 
   const LoadCart = () => {
     API.loadCart().then(res => {
-      if (res.data.products.length === 0) {
-        setCart([]);
-        setOrder(<h5>Your cart is currently empty.</h5>);
-      } else {
-        setCart(res.data.products);
-        setOrder(<button className="btn btn-primary merchantBtn" onClick={() => {placeOrder(cart)}}>Place Order</button>);
+      if (res.data.products) {
+        if (res.data.products.length === 0) {
+          setCart([]);
+          setOrder(<h5>Your cart is currently empty.</h5>);
+        } else {
+          setCart(res.data.products);
+          setOrder(<button className="btn btn-primary merchantBtn" onClick={() => {placeOrder(cart)}}>Place Order</button>);
+        }
       }
     });
   }

@@ -6,7 +6,9 @@ const UpdateEmail = () => {
 
   useEffect(() => {
     API.getUserProfile().then(res => {
-      setEmail(res.data.user.email);
+      if (res.data.user) {
+        setEmail(res.data.user.email);
+      }
     })
   }, [])
 

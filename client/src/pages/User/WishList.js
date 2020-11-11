@@ -25,12 +25,14 @@ const WishList = () => {
 
   const LoadWishlist = () => {
     API.loadWishlist().then((res) => {
-      if (res.data.products.length === 0) {
-        setProducts([]);
-        setWishListMsg(<h5>Your wishlist is currently empty.</h5>);
-      } else {
-        setProducts(res.data.products);
-        setWishListMsg("");
+      if (res.data.products) {
+        if (res.data.products.length === 0) {
+          setProducts([]);
+          setWishListMsg(<h5>Your wishlist is currently empty.</h5>);
+        } else {
+          setProducts(res.data.products);
+          setWishListMsg("");
+        }
       }
     })
   }

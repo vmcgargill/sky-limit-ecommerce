@@ -8,7 +8,9 @@ const SellingAccount = () => {
 
   useEffect(() => {
     API.getMerchantProducts().then(res => {
-      setProducts(res.data.products)
+      if (res.data.products) {
+        setProducts(res.data.products)
+      }
     })
   }, [])
 

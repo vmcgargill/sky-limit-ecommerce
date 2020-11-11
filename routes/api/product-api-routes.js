@@ -3,6 +3,7 @@ const upload = require("../../config/multer");
 const fs = require('fs');
 const path = require('path'); 
 const router = require("express").Router();
+const isAuthenticated = require("../../config/middleware/isAuthenticated");
 
 router.get("/api/products", (req, res) => {
   db.Product.find({}, (err, product) => {
@@ -70,7 +71,7 @@ router.get("/api/productDetails/:id", (req, res) => {
   });
 });
 
-router.get("/api/userWishlist", (req, res) => {
+router.get("/api/userWishlist", isAuthenticated, (req, res) => {
   const userId = req.user._id;
   db.User.findOne({ _id: userId }, (err, user) => {
     if (err) throw err;
@@ -82,7 +83,7 @@ router.get("/api/userWishlist", (req, res) => {
   })
 })
 
-router.get("/api/userCart", (req, res) => {
+router.get("/api/userCart", isAuthenticated, (req, res) => {
   const userId = req.user._id;
   db.User.findOne({ _id: userId }, (err, user) => {
     if (err) throw err;
@@ -94,7 +95,7 @@ router.get("/api/userCart", (req, res) => {
   })
 })
 
-router.post("/api/postProduct", upload.single("image"), (req, res) => {
+router.post("/api/postProduct", isAuthenticated, upload.single("image"), (req, res) => {
   const product = new db.Product(req.body);
   product.assignSeller(req.user._id)
   if (req.file) {
@@ -112,7 +113,7 @@ router.post("/api/postProduct", upload.single("image"), (req, res) => {
   })
 });
 
-router.put("/api/editProduct/:id", upload.single("image"), (req, res) => {
+router.put("/api/editProduct/:id", isAuthenticated, upload.single("image"), (req, res) => {
   const id = req.params.id;
   const product = req.body;
   if (req.file) {
@@ -130,7 +131,7 @@ router.put("/api/editProduct/:id", upload.single("image"), (req, res) => {
   });
 });
 
-router.delete("/api/deleteProduct/:id", function(req, res) {
+router.delete("/api/deleteProduct/:id", isAuthenticated, function(req, res) {
   const id = req.params.id;
   db.Product.deleteOne({ _id: id }, function(err, deleted) {
     if (err) throw err;

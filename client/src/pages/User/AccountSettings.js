@@ -11,7 +11,7 @@ const Profile = () => {
     const merchantCard = (
       <div className="card-body edit-profile">
         <h5 className="card-title">Selling Account</h5>
-        <p className="card-text">Manage your selling account, change items listed, details, and prices.</p>
+        <p className="card-text">Manage your selling account. Change items listed, details, and prices.</p>
         <button href="#" onClick={() => {window.location.href = "/sellingAccount";}} className="btn btn-primary">Selling Account</button>
       </div>
     )
@@ -25,11 +25,13 @@ const Profile = () => {
     )
     
     API.getUserProfile().then(res => {
-      setUser(res.data.user)
-      if (res.data.products.length > 0) {
-        setMerchant(merchantCard)
-      } else {
-        setMerchant(userCard);
+      if (res.data.user) {
+        setUser(res.data.user)
+        if (res.data.products.length > 0) {
+          setMerchant(merchantCard)
+        } else {
+          setMerchant(userCard);
+        }
       }
     });
   }, []);

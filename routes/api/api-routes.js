@@ -3,7 +3,9 @@ const passport = require("../../config/passport");
 const router = require("express").Router();
 
 router.post("/api/login", passport.authenticate("local"), function (req, res) {
-  res.json({status: 200})
+  if (req.user) {
+    res.json({status: 200})
+  }
 });
 
 router.post("/api/signup", function (req, res) {

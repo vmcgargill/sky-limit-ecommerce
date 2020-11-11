@@ -6,19 +6,21 @@ const EditProfile = () => {
 
   useEffect(() => {
     API.getUserProfile().then(res => {
-      const userData = {}
-      userData.name = res.data.user.name;
-      userData.email = res.data.user.email;
-      if (res.data.user.phone === undefined) {
-        userData.phone = "Add phone number"
+      if (res.data.user) {
+        const userData = {}
+        userData.name = res.data.user.name;
+        userData.email = res.data.user.email;
+        if (res.data.user.phone === undefined) {
+          userData.phone = "Add phone number"
+        }
+        if (res.data.user.address === undefined) {
+          userData.address = "Add address"
+        }
+        if (res.data.user.payment === undefined) {
+          userData.payment = "Add payment method"
+        }
+        setUser(userData)
       }
-      if (res.data.user.address === undefined) {
-        userData.address = "Add address"
-      }
-      if (res.data.user.payment === undefined) {
-        userData.payment = "Add payment method"
-      }
-      setUser(userData)
     });
   }, []);
 

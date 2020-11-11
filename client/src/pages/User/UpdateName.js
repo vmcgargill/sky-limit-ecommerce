@@ -6,7 +6,9 @@ const UpdateName = () => {
 
   useEffect(() => {
     API.getUserProfile().then(res => {
-      setName(res.data.user.name);
+      if (res.data.user) {
+        setName(res.data.user.name);
+      }
     })
   }, [])
 
