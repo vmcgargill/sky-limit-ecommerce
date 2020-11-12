@@ -1,0 +1,11 @@
+.edit-profile {
+  min-height: 250px;
+}
+
+.merchantDescription {
+  display: block;
+  width: 500px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

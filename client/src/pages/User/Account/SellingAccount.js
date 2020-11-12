@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
-import API from "../../utils/API";
-import ConvertImage from '../../ConvertImage'
-import LoadingIcon from "../../components/LoadingIcon/LoadingIcon"
-import './User.css';
+import API from "../../../utils/API";
+import ConvertImage from '../../../ConvertImage'
+import LoadingIcon from "../../../components/LoadingIcon/LoadingIcon"
 
 const SellingAccount = () => {
   const [products, setProducts] = useState([]);
@@ -44,8 +43,8 @@ const SellingAccount = () => {
               <p className="card-text">${product.price}</p>
               <p className="card-text merchantDescription">{product.description}</p>
               <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
-              <button className="btn btn-primary merchantBtn" onClick={() => {window.location.href = "/editProduct/" + product._id;}}>Edit Product</button><br/><br/>
-              <button className="btn btn-danger merchantBtn" onClick={() => {window.location.href = "/deleteProduct/" + product._id;}}>Delete Product</button>
+              <button className="btn btn-primary" onClick={() => {window.location.href = "/editProduct/" + product._id;}}>Edit Product</button><br/><br/>
+              <button className="btn btn-danger" onClick={() => {window.location.href = "/deleteProduct/" + product._id;}}>Delete Product</button>
             </div>
           </div>
         </div>

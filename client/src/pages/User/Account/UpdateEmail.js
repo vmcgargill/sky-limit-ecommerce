@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import API from "../../utils/API";
+import API from "../../../utils/API";
 
 const UpdateEmail = () => {
   const [email, setEmail] = useState ("");

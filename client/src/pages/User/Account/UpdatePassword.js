@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import API from "../../utils/API";
-import Error from "../../components/Error/Error";
+import API from "../../../utils/API";
+import Error from "../../../components/Error/Error";
 
 const UpdatePassword = () => {
   const [currentPassword, setCurrentPassword] = useState ("");

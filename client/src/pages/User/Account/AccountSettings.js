@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import API from "../../utils/API";
-import './User.css';
+import API from "../../../utils/API";
+import './Account.css';
 
 const Profile = () => {
   const [user, setUser] = useState({});

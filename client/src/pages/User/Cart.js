@@ -26,7 +26,7 @@ const Cart = () => {
             const currentCartTotal = res.data.products.map(product => product.price).reduce((x, y) => x + y, 0);
             setCartTotal(currentCartTotal.toString());
   
-            setOrderBtn(<button className="btn btn-primary merchantBtn" onClick={() => {
+            setOrderBtn(<button className="btn btn-primary" onClick={() => {
               console.log("Order has been placed. The price set for comparison is: " + currentCartTotal);
             }}>Place Order</button>);
   
@@ -47,7 +47,7 @@ const Cart = () => {
                     <div className="col-sm-12 col-md-12 col-lg-4">
                       <div className="card-body  cartListBodyMiddle">
                         <h5 className="card-title">{product.name}</h5>
-                        <button className="btn btn-danger merchantBtn" onClick={() => {
+                        <button className="btn btn-danger" onClick={() => {
                           API.removeCart(product._id).then(() => {
                             LoadCart();
                           })

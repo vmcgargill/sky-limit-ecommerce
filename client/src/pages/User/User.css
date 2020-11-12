@@ -2,21 +2,16 @@
   border-bottom: 1px solid rgba(0,0,0,0.125)
 }
 
-.edit-profile {
-  min-height: 250px;
+.wishlistDescription {
+  width: 500px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .merchantListImg {
   max-width: 200px; 
   max-height: 200px;
-}
-
-.merchantDescription {
-  display: block;
-  width: 500px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
 
 .merchantBtn {
