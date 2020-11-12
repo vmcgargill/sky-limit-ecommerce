@@ -19,7 +19,7 @@ code {
   margin-top: 12%;
 }
 
-.productListBody {
+.productListBody, .cartListBody, .wishlistBody, .SellingListBody {
   min-height: 250px;
 }
 
@@ -37,4 +37,23 @@ code {
 
 .hidden {
   display: none;
+}
+
+
+@media screen and (max-width: 991px) {
+  .cartListBodyMiddle {
+      margin-top: 100px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .wishlistBody, .SellingListBody {
+      margin-top: 100px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .productListBody {
+      margin-top: 100px;
+  }
 }

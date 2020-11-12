@@ -34,11 +34,11 @@ const Cart = () => {
               return (
                 <div className="card mb-3" key={product._id}>
                   <div className="row no-gutters">
-                    <div className="col-md-4">
+                    <div className="col-sm-12 col-md-12 col-lg-4">
                     <div className="imageDiv"><img src={productImg} className="card-img cartListImg" alt="..."></img></div>
                     </div>
-                    <div className="col-md-4">
-                      <div className="card-body productListBody">
+                    <div className="col-sm-12 col-md-12 col-lg-4">
+                      <div className="card-body  cartListBodyMiddle">
                         <h5 className="card-title">{product.name}</h5>
                         <button className="btn btn-danger merchantBtn" onClick={() => {
                           API.removeCart(product._id).then(() => {
@@ -47,8 +47,8 @@ const Cart = () => {
                         }}>Remove from Cart</button>
                       </div>
                     </div>
-                    <div className="col-md-4">
-                    <div className="card-body">
+                    <div className="col-sm-12 col-md-12 col-lg-4">
+                    <div className="card-body cartListBody">
                         <h5 className="card-title">${product.price}</h5>
                       </div>
                     </div>

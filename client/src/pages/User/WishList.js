@@ -25,12 +25,12 @@ const WishList = () => {
               }
               return (
               <div className="card mb-3" key={product._id}>
-                <div className="row no-gutters">
-                  <div className="col-md-4">
+                <div className="row">
+                  <div className="col-sm-12 col-md-4 col-lg-4">
                   <div className="imageDiv"><img src={productImg} className="card-img merchantListImg" alt="..."></img></div>
                   </div>
-                  <div className="col-md-8">
-                    <div className="card-body productListBody">
+                  <div className="col-sm-12 col-md-8 col-lg-8">
+                    <div className="card-body wishlistBody">
                       <h5 className="card-title">{product.name}</h5>
                       <p className="card-text">${product.price}</p>
                       <p className="card-text merchantDescription">{product.description}</p>
@@ -39,7 +39,7 @@ const WishList = () => {
                         API.addCart(product._id).then(() => {
                           window.location.href = "/cartAdded/" + product._id
                         });
-                      }}>Add to Cart</button>
+                      }}>Add to Cart</button><br/><br/>
                       <button className="btn btn-danger merchantBtn" onClick={() => {
                         API.removeWishlist(product._id).then(() => {
                           LoadWishlist();

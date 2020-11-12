@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import API from "../../utils/API";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -46,7 +46,7 @@ function Login() {
           <button type="submit" className="btn btn-default">Login</button>
         </form>
         <br/>
-        <p>Or sign up <a href="/signup">here</a></p>
+        <p>Or sign up <Link to={"/signup"}>here</Link></p>
       </div>
     </div>
   );

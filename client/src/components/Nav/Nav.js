@@ -24,7 +24,7 @@ function Nav({authStatus, Suggestions}) {
   useEffect(() => {
 
     const LoggedInNav = (
-      <div className="collapse navbar-collapse" id="navbarText">
+      <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item dropdown" id="LoggedInMenu">
             <a className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" href="#section"
@@ -47,7 +47,7 @@ function Nav({authStatus, Suggestions}) {
     )
 
     const LoggedOutNav = (
-      <div className="collapse navbar-collapse" id="navbarText">
+      <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item" stlye="display: none" id="Login">
             <Link to={`/login`} className="nav-link">Login</Link>
@@ -77,30 +77,34 @@ function Nav({authStatus, Suggestions}) {
 
 
   return (
-    <nav className="navbar navbar-expand">
-        <a className="navbar-brand" href="/">Sky Limit Ecommerce</a>
-        <div>
+    <nav className="navbar navbar-expand-lg">
+        <Link className="navbar-brand" to={"/"}>Sky Limit Ecommerce</Link>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Menu<br/>
+       <div className="menuIcon"><img src="/menuicon.png" alt="..." width="50" height="50" ></img></div> 
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <form className="form-inline my-2 my-lg-0">
-          <Autocomplete
-            freeSolo
-            className="SearchBar"
-            id="testinput"
-            options={NavSearchSuggestions}
-            renderInput={(params) => (
-              <TextField
-                className="SearchInput"
-                {...params}
-                placeholder="Search input"
-                margin="normal"
-                variant="outlined"
-                InputProps={{ ...params.InputProps, type: 'search' }}
-              />
-            )}
-          />
+            <Autocomplete
+              freeSolo
+              className="SearchBar"
+              id="testinput"
+              options={NavSearchSuggestions}
+              renderInput={(params) => (
+                <TextField
+                  className="SearchInput"
+                  {...params}
+                  placeholder="Search input"
+                  margin="normal"
+                  variant="outlined"
+                  InputProps={{ ...params.InputProps, type: 'search' }}
+                />
+              )}
+            />
             <button className="btn btn-outline-secondary my-2 my-sm-0" type="submit" onClick={submitSearch}>Search</button>
           </form>
+          {NavOptions}
         </div>
-        {NavOptions}
     </nav>
   );
 }

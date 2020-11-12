@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom"
 import ConvertImage from '../../ConvertImage'
 import API from "../../utils/API";
 import Success from "../../components/Success/Success"
@@ -87,8 +88,8 @@ function Product() {
         <div className="card">
           <div className="card-body">
             <h2 className="card-title">{name}</h2>
-            <img src={image} className="card-img-top productImg" alt='ProductImage'/>
-            <a href={"/merchant/" + seller._id}>Seller: {seller.name}</a>
+            <img src={image} className="card-img-top productImg" alt='ProductImage'/><br/>
+            <Link to={"/merchant/" + seller._id}><h5>Seller: {seller.name}</h5></Link>
           </div>
           <ul className="list-group list-group-flush">
             <li className="list-group-item">Category: {category}</li>

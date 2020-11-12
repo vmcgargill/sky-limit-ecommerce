@@ -82,7 +82,7 @@ function PostProduct(props) {
         options={options} value={category} placeholder="Select or Enter Category"/><br/>
         $ <input type="number" min="0.01" step="0.01" value={price} onChange={(ev) => {setPrice(ev.target.value)}}></input><br/><br/>
         <input type="file" id="image" name="image" onChange={(ev) => {setImage(ev.target.value)}}></input> <br/><br/>
-        <button type="submit" className="btn btn-success submit">Submit</button>
+        <button type="submit" className="btn btn-primary submit">Submit</button>
       </form>
       </div>
     </div>

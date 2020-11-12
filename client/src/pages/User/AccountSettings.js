@@ -4,33 +4,27 @@ import './User.css';
 
 const Profile = () => {
   const [user, setUser] = useState({});
-  const [merchant, setMerchant] = useState("");
+  const [cardText, setCardText] = useState("");
+  const [merchant, setMerchant] = useState(true);
 
+  const SellingAccount = () => {
+    if (merchant) {
+      window.location.href = "/sellingAccount";
+    } else {
+      window.location.href = "/postProduct";
+    }
+  }
   
   useEffect(() => {
-    const merchantCard = (
-      <div className="card-body edit-profile">
-        <h5 className="card-title">Selling Account</h5>
-        <p className="card-text">Manage your selling account. Change items listed, details, and prices.</p>
-        <button href="#" onClick={() => {window.location.href = "/sellingAccount";}} className="btn btn-primary">Selling Account</button>
-      </div>
-    )
-  
-    const userCard = (
-      <div className="card-body edit-profile">
-        <h5 className="card-title">Create Selling Account</h5>
-        <p className="card-text">Create a selling account to sell your own products.</p>
-        <button href="#" onClick={() => {window.location.href = "/postProduct";}} className="btn btn-primary">Selling Account</button>
-      </div>
-    )
     
     API.getUserProfile().then(res => {
       if (res.data.user) {
         setUser(res.data.user)
         if (res.data.products.length > 0) {
-          setMerchant(merchantCard)
+          setCardText("Manage your selling account. Change items listed, details, and prices.")
         } else {
-          setMerchant(userCard);
+          setMerchant(false)
+          setCardText("Create a selling account to sell your own products.");
         }
       }
     });
@@ -69,7 +63,11 @@ const Profile = () => {
         </div>
         <div className="col-sm-6">
           <div className="card">
-            {merchant}
+            <div className="card-body edit-profile">
+              <h5 className="card-title">Selling Account</h5>
+              <p className="card-text">{cardText}</p>
+              <button href="#" onClick={SellingAccount} className="btn btn-primary">Selling Account</button>
+            </div>
           </div>
         </div>
       </div>

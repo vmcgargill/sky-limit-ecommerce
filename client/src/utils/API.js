@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default {
+const API = {
   Signup: (name, email, password) => {
     return axios.post("/api/signup", {
       name: name,
@@ -76,3 +76,5 @@ export default {
     return axios.delete("/api/deleteProduct/" + id);
   }
 };
+
+export default API;
