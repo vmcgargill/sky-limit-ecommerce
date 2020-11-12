@@ -14,12 +14,12 @@ const UserSchema = new Schema({
     required: true,
     bcrypt: true,
     minlength: 8,
-    minlength: 25
+    maxlength: 25
   },
   name: {
     type: String,
     minlength: 1,
-    minlength: 25
+    maxlength: 25
   },
   phone: {
     type: Number,
