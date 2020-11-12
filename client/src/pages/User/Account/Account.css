@@ -14,6 +14,10 @@
   margin-left: 33.3333%;
 }
 
+#field-wrapper {
+  border: #2C3E50 solid 3px;
+}
+
 @media screen and (max-width: 991px) {
   .PhoneInput {
     margin-left: 25%;

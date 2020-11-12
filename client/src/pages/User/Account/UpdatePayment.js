@@ -1,11 +1,49 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import CreditCardInput from 'react-credit-card-input';
+import "./Account.css"
 import API from "../../../utils/API";
 
 const UpdatePayment = () => {
+  const [addPaymentForm, setPaymentForm] = useState("");
 
-  const addPaymentMethod = () => {
-
+  const createPaymentMethod = (event) => {
+    event.preventDefault();
+    const cardNumber = document.getElementById("card-number").value.replace(/\s/g, "");
+    const expireDate = document.getElementById("card-expiry").value;
+    const cvc = document.getElementById("cvc").value;
+    const card = {
+      cardNumber: parseInt(cardNumber, 10),
+      last4digits: parseInt(cardNumber.toString().slice(-4), 10),
+      cvc: parseInt(cvc, 10),
+      expirationDate: expireDate,
+      default: false
+    }
+    console.log(card);
+    API.postPaymenyMethod(card).then(res => {
+      console.log(res)
+    })
   }
+  
+  const addPaymentMethod = () => {
+    setPaymentBtn("");
+    setPaymentForm(
+      <form className="CardForm"><br/>
+        <CreditCardInput
+          cardNumberInputProps={{ value: undefined }}
+          cardExpiryInputProps={{ value: undefined }}
+          cardCVCInputProps={{ value: undefined }}
+          fieldClassName="input" /><br/><br/>
+        <button className="btn btn-success" onClick={createPaymentMethod}>Create</button><br/><br/>
+        <button className="btn btn-danger" onClick={() => {
+          setPaymentForm("")
+          setPaymentBtn(PaymentButton)
+        }}>Cancel</button>
+      </form>
+    );
+  }
+  
+  const PaymentButton = (<button onClick={addPaymentMethod} className="btn btn-primary">Add Payment Method</button>)
+  const [addPaymentBtn, setPaymentBtn] = useState(PaymentButton)
 
   useEffect(() => {
     API.getUserProfile().then(res => {
@@ -24,7 +62,8 @@ const UpdatePayment = () => {
         <div className="col-sm-12 col-md-12 col-lg-12">
           <div className="card edit-profile">
             <div className="card-body">
-              <button onClick={addPaymentMethod} className="btn btn-primary">Add Payment Method</button>
+              {addPaymentBtn}
+              {addPaymentForm}
             </div>
             <div className="card-body">
               <table class="table table-striped">

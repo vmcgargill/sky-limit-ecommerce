@@ -68,6 +68,22 @@ router.get("/api/merchantProducts", isAuthenticated, (req, res) => {
   })
 })
 
+router.post("/api/addPaymentMethod", isAuthenticated, (req, res) => {
+  const card = req.body;
+  console.log(card)
+  const id = req.user._id;
+  db.User.findByIdAndUpdate(id, {
+    $addToSet: { payment: card }
+  }, (err, updated) => {
+    if (err) throw err;
+    console.log(updated)
+    if (updated) {
+      res.json({message: "Success!"})
+    }
+  })
+
+})
+
 router.post("/api/wishList/:id", isAuthenticated, (req, res) => {
   const id = req.params.id;
   const userId = req.user._id;

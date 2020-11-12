@@ -35,24 +35,26 @@ const UserSchema = new Schema({
     country: { type: String },
     default: Boolean
   }],
-  paymeny: [{
+  payment: [{
     cardNumber: {
       type: Number,
-      bcrypt: true
+      bcrypt: true,
+      minlength: 13,
+      maxlength: 19
     },
     last4digits: {
       type: Number,
       minlength: 4,
       maxlength: 4
     },
-    cvv: { 
+    cvc: { 
       type: Number,
       minlength: 3,
-      maxlength: 3,
+      maxlength: 4,
       bcrypt: true
     },
     expirationDate: { 
-      type: Number
+      type: String
     },
     default: Boolean
   }],
