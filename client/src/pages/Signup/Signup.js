@@ -1,10 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
+import { useParams, Link } from "react-router-dom";
 
 function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassowrd] = useState("");
+  const [loginLink, setLoginLink] = useState("/signup")
+  let { id, redirect  } = useParams();
+
+  useEffect(() => {
+    if (redirect && id) {
+      setLoginLink("/login/" + redirect + "/" + id)
+    } else if (redirect) {
+      setLoginLink("/login/" + redirect)
+    }
+  }, [id, redirect])
 
   const handleSignup = (event) => {
     event.preventDefault();
@@ -12,7 +23,13 @@ function Signup() {
       if (response.status === 200) {
         API.Login(email, password).then(res => {
           if (res.status === 200) {
-            window.location.href = "/";
+            if (redirect && id) {
+              window.location.href = "/" + redirect + "/" + id
+            } else if (redirect) {
+              window.location.href = "/" + redirect
+            } else {
+              window.location.href = "/";
+            }
           }
         })
       }
@@ -53,7 +70,7 @@ function Signup() {
           <button type="submit" className="btn btn-default">Sign Up</button>
         </form>
         <br />
-        <p>Or log in <a href="/login">here</a></p>
+        <p>Or log in <Link to={loginLink}>here</Link></p>
       </div>
 </div>
   );

@@ -56,7 +56,7 @@ const  App = () => {
           <Route exact path="/" >
             <Home/>
           </Route>
-          <Route exact path="/signup" >
+          <Route exact path={["/signup", "/signup/:redirect", "/signup/:redirect/:id"]} >
             <Signup/>
           </Route>
           <Route exact path={["/login", "/login/:redirect", "/login/:redirect/:id"]} >

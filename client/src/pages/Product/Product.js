@@ -98,6 +98,9 @@ function Product() {
           } else {
             SetCart({btnName: "Add to Cart", onCart: false})
           }
+        } else {
+          SetCart({btnName: "Add to Cart", onCart: false})
+          SetWhishlist({btnName: "Add to Wishlist", onWishlist: false})
         }
       } else {
         window.location.href = "/404"

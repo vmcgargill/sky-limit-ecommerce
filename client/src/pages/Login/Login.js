@@ -5,11 +5,17 @@ import { useParams, Link } from "react-router-dom";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassowrd] = useState("");
-  let { redirect, id } = useParams();
+  const [signupLink, setSignupLink] = useState("/signup")
+  let { id, redirect  } = useParams();
 
   useEffect(() => {
     API.Logout();
-  }, [])
+    if (redirect && id) {
+      setSignupLink("/signup/" + redirect + "/" + id);
+    } else if (redirect) {
+      setSignupLink("/signup/" + redirect);
+    }
+  }, [id, redirect])
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -54,7 +60,7 @@ function Login() {
           <button type="submit" className="btn btn-default">Login</button>
         </form>
         <br/>
-        <p>Or sign up <Link to={"/signup"}>here</Link></p>
+        <p>Or sign up <Link to={signupLink}>here</Link></p>
       </div>
     </div>
   );
