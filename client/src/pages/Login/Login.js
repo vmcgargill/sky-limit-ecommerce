@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
 import { useParams, Link } from "react-router-dom";
 
@@ -6,6 +6,10 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassowrd] = useState("");
   let { redirect } = useParams();
+
+  useEffect(() => {
+    API.Logout();
+  }, [])
 
   const handleLogin = (event) => {
     event.preventDefault();

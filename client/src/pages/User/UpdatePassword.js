@@ -13,6 +13,9 @@ const UpdatePassword = () => {
       setError(<Error message={"Passwords do not match"}/>)
     } else {
       API.updatePassword({oldPassword: currentPassword, newPassword: password2}).then(res => {
+        if (res.data === 401) {
+          window.location.href = "/login/updatePassword"
+        }
         if (res.status === 200) {
           window.location.href = "/editProfile";
         }

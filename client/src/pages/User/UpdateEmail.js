@@ -6,6 +6,9 @@ const UpdateEmail = () => {
 
   useEffect(() => {
     API.getUserProfile().then(res => {
+      if (res.data === 401) {
+        window.location.href = "/login/updateEmail"
+      }
       if (res.data.user) {
         setEmail(res.data.user.email);
       }

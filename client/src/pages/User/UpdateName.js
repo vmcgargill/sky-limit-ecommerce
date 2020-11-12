@@ -6,6 +6,9 @@ const UpdateName = () => {
 
   useEffect(() => {
     API.getUserProfile().then(res => {
+      if (res.data === 401) {
+        window.location.href = "/login/updateName"
+      }
       if (res.data.user) {
         setName(res.data.user.name);
       }

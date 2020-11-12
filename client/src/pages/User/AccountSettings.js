@@ -18,6 +18,9 @@ const Profile = () => {
   useEffect(() => {
     
     API.getUserProfile().then(res => {
+      if (res.data === 401) {
+        window.location.href = "/login/accountSettings"
+      }
       if (res.data.user) {
         setUser(res.data.user)
         if (res.data.products.length > 0) {

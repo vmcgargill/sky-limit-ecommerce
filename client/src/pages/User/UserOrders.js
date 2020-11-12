@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import LoadingIcon from "../../components/LoadingIcon/LoadingIcon"
+import LoadingIcon from "../../components/SmallLoadingIcon/SmallLoadingIcon"
 
 const UserOrder = () => {
   const [products] = useState(LoadingIcon);

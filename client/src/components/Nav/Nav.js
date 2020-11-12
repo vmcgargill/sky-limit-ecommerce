@@ -10,17 +10,6 @@ function Nav({authStatus, Suggestions}) {
   const [NavOptions, setNavOptions] = useState("");
   const [NavSearchSuggestions, setNavSearchSuggestions] = useState(SearchSuggestions);
 
-  const Logout = () => {
-    API.Logout().then(() => {
-      window.location.replace("/");
-    });
-  }
-
-  const submitSearch = (event) => {
-    event.preventDefault();
-    window.location.href = "/searchResults/" + document.getElementById("testinput").value
-  }
-
   useEffect(() => {
 
     const LoggedInNav = (
@@ -36,7 +25,11 @@ function Nav({authStatus, Suggestions}) {
               <Link to={`/userOrders`} className="dropdown-item">Orders</Link>
               <Link to={`/wishList`} className="dropdown-item">Wishlist</Link>
               <Link to={`/postProduct`} className="dropdown-item">Sell</Link>
-              <Link onClick={Logout} to="#section" className="dropdown-item">Logout</Link>
+              <Link onClick={() => {
+                API.Logout().then(() => {
+                  window.location.replace("/");
+                });
+              }} to="#section" className="dropdown-item">Logout</Link>
             </div>
           </li>
           <li className="nav-item active" id="HomeItem">
@@ -101,7 +94,10 @@ function Nav({authStatus, Suggestions}) {
                 />
               )}
             />
-            <button className="btn btn-outline-secondary my-2 my-sm-0" type="submit" onClick={submitSearch}>Search</button>
+            <button className="btn btn-outline-secondary my-2 my-sm-0" type="submit" onClick={(event) => {
+              event.preventDefault();
+              window.location.href = "/searchResults/" + document.getElementById("testinput").value
+            }}>Search</button>
           </form>
           {NavOptions}
         </div>

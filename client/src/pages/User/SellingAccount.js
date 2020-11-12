@@ -11,6 +11,9 @@ const SellingAccount = () => {
 
   useEffect(() => {
     API.getMerchantProducts().then(res => {
+      if (res.data === 401) {
+        window.location.href = "/login/sellingAccount"
+      }
       if (res.data.products) {
         setLoad("")
         setProducts(res.data.products)

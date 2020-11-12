@@ -12,6 +12,9 @@ const WishList = () => {
   useEffect(() => {
     const LoadWishlist = () => {
       API.loadWishlist().then((res) => {
+        if (res.data === 401) {
+          window.location.href = "/login/wishList"
+        }
         if (res.data.products) {
           if (res.data.products.length === 0) {
             setProducts("");

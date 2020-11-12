@@ -6,6 +6,9 @@ const EditProfile = () => {
 
   useEffect(() => {
     API.getUserProfile().then(res => {
+      if (res.data === 401) {
+        window.location.href = "/login/editProfile"
+      }
       if (res.data.user) {
         const userData = {}
         userData.name = res.data.user.name;

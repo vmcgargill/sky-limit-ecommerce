@@ -20,8 +20,14 @@ function DeleteProduct() {
   }
   
   useEffect(() => {
-    API.getProduct(id).then((response) => {
-      setName(response.data.product.name);
+    API.getProduct(id).then((res) => {
+      if (res.data === 401) {
+        window.location.href = "/login/sellingAccount"
+      } else if (res.data.product) {
+        setName(res.data.product.name);
+      } else {
+        window.location.href = "/404"
+      }
     })
   }, [id])
 

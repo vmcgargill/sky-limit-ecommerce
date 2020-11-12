@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CreatableSelect from 'react-select/creatable';
+import SmallLoadingIcon from "../SmallLoadingIcon/SmallLoadingIcon"
 import API from "../../utils/API"
 
 function PostProduct(props) {
@@ -8,6 +9,7 @@ function PostProduct(props) {
   const [category, setCategory] = useState ("");
   const [price, setPrice] = useState ("");
   const [image, setImage] = useState ("");
+  const [load, setLoad] = useState("");
 
   const options = [
     {value: "Entertainment", label: "Entertainment"},
@@ -32,21 +34,22 @@ function PostProduct(props) {
       setCategory(currentCategory)
     }
   }, [props, setName, setDescription, setPrice, setCategory])
-
+  
   const PostProduct = (event) => {
     event.preventDefault()
-
+    setLoad(SmallLoadingIcon)
+    
     let product = new FormData();
     product.append("name", name);
     product.append("description", description);
     product.append("category", category.value);
     product.append("price", price);
-
+    
     if (image !== "") {
       const pic = document.getElementById("image");
       product.append("image", pic.files[0]);
     }
-
+    
     const query =  {
       data: product,
       enctype: "multipart/form-data",
@@ -55,7 +58,7 @@ function PostProduct(props) {
       cache: false,
       timeout: 600000
     }
-
+    
     if (props.new) {
       API.postProduct(query).then(res => {
         window.location.href = "/product/" + res.data._id;
@@ -83,6 +86,7 @@ function PostProduct(props) {
         $ <input type="number" min="0.01" step="0.01" value={price} onChange={(ev) => {setPrice(ev.target.value)}}></input><br/><br/>
         <input type="file" id="image" name="image" onChange={(ev) => {setImage(ev.target.value)}}></input> <br/><br/>
         <button type="submit" className="btn btn-primary submit">Submit</button>
+        {load}
       </form>
       </div>
     </div>

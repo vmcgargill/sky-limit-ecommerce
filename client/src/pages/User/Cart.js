@@ -13,6 +13,10 @@ const Cart = () => {
   useEffect(() => {
     const LoadCart = () => {
       API.loadCart().then(res => {
+        console.log(res)
+        if (res.data === 401) {
+          window.location.href = "/login/userCart"
+        }
         if (res.data.products) {
           if (res.data.products.length === 0) {
             setLoad("")
@@ -62,7 +66,7 @@ const Cart = () => {
             setLoad("")
             setCart(cartList);
           }
-        }
+        } 
       });
     }
 

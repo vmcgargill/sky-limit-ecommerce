@@ -23,6 +23,9 @@ const Cart = () => {
   useEffect(() => {
     // TODO: Change this API call to get updated cart.
     API.getProduct(id).then(res => {
+      if (res.data === 401) {
+        window.location.href = "/login/userCart"
+      }
       const product = res.data.product;
       seName(product.name)
       setPrice(product.price)
