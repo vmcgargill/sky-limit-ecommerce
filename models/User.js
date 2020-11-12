@@ -32,7 +32,8 @@ const UserSchema = new Schema({
     city: { type: String },
     state: { type: String },
     zip: { type: String },
-    country: { type: String }
+    country: { type: String },
+    default: Boolean
   }],
   paymeny: [{
     cardNumber: {
@@ -47,9 +48,13 @@ const UserSchema = new Schema({
     cvv: { 
       type: Number,
       minlength: 3,
-      maxlength: 3
+      maxlength: 3,
+      bcrypt: true
     },
-    expirationDate: { type: Date }
+    expirationDate: { 
+      type: Number
+    },
+    default: Boolean
   }],
   cart: [{
     type: Schema.Types.ObjectId,
