@@ -2,15 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 import API from "../../utils/API";
 import ConvertImage from '../../ConvertImage'
+import LoadingIcon from "../../components/LoadingIcon/LoadingIcon"
 import './User.css';
 
 const SellingAccount = () => {
   const [products, setProducts] = useState([]);
+  const [load, setLoad] = useState(LoadingIcon);
 
   useEffect(() => {
     API.getMerchantProducts().then(res => {
       if (res.data.products) {
+        setLoad("")
         setProducts(res.data.products)
+      } else {
+        window.location.href = "/login/sellingAccount"
       }
     })
   }, [])
@@ -48,6 +53,7 @@ const SellingAccount = () => {
   return (
     <div className="container">
       <h2>Selling Account</h2>
+      {load}
       {merchantItems}
     </div>
   );

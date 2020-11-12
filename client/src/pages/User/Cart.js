@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
 import ConvertImage from '../../ConvertImage'
+import LoadingIcon from "../../components/LoadingIcon/LoadingIcon"
 import './Cart.css';
 
 const Cart = () => {
   const [cart, setCart] = useState("");
   const [orderBtn, setOrderBtn] = useState("");
   const [cartTotal, setCartTotal] = useState("");
+  const [load, setLoad] = useState(LoadingIcon);
   
   useEffect(() => {
     const LoadCart = () => {
       API.loadCart().then(res => {
         if (res.data.products) {
           if (res.data.products.length === 0) {
+            setLoad("")
             setCart("");
             setOrderBtn(<h5>Your cart is currently empty.</h5>);
           } else {
@@ -56,6 +59,7 @@ const Cart = () => {
                 </div>
               )
             });
+            setLoad("")
             setCart(cartList);
           }
         }
@@ -69,6 +73,7 @@ const Cart = () => {
   return (
     <div className="container">
       <h2>Cart</h2>
+      {load}
       {cart}
       <h5>Cart Total: ${cartTotal}</h5>
       {orderBtn}

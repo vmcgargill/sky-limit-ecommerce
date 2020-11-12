@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import ProductList from "../../components/Product/ProductList";
+import LoadingIcon from "../../components/LoadingIcon/LoadingIcon"
 import API from "../../utils/API";
 import "./User.css";
 
@@ -8,9 +9,11 @@ const Merchant = () => {
   let { id } = useParams();
   const [merchant, setMerchant] = useState({});
   const [products, setProducts] = useState([]);
+  const [load, setLoad] = useState(LoadingIcon);
 
   useEffect(() => {
     API.getMerchant(id).then(res => {
+      setLoad("")
       setMerchant(res.data.merchant);
       if (res.data.products) {
         setProducts(res.data.products);
@@ -36,6 +39,7 @@ const Merchant = () => {
       </div>
       <div className="card-body">
           <h5 className="card-title">Current Products:</h5>
+          {load}
           <ProductList products={products}/>
         </div>
       </div>

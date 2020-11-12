@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import ConvertImage from '../../ConvertImage'
 import API from "../../utils/API";
 import Success from "../../components/Success/Success"
+import LoadingIcon from "../../components/LoadingIcon/LoadingIcon"
 import './Product.css';
 
 function Product() {
@@ -13,8 +14,9 @@ function Product() {
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("/Default.jpg");
+  const [image, setImage] = useState("");
   const [seller, setSeller] = useState({});
+  const [load, setLoad] = useState(LoadingIcon);
   const [wishlist, SetWhishlist] = useState({
     btnName: "Wishlist", 
     onWishlist: false
@@ -62,6 +64,7 @@ function Product() {
       setPrice(product.price)
       setDescription(product.description)
       setSeller(product.seller)
+      setLoad("")
       if (product.image) {
         setImage("data:image/jpeg;base64," + ConvertImage(product.image.data.data))
       } else {
@@ -88,6 +91,7 @@ function Product() {
         <div className="card">
           <div className="card-body">
             <h2 className="card-title">{name}</h2>
+            {load}
             <img src={image} className="card-img-top productImg" alt='ProductImage'/><br/>
             <Link to={"/merchant/" + seller._id}><h5>Seller: {seller.name}</h5></Link>
           </div>

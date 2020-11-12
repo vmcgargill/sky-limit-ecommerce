@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import API from "../../utils/API";
 import ConvertImage from '../../ConvertImage'
+import LoadingIcon from "../../components/LoadingIcon/LoadingIcon"
 import './User.css';
 
 const WishList = () => {
   const [products, setProducts] = useState([]);
   const [wishlistMsg, setWishListMsg] = useState("");
+  const [load, setLoad] = useState(LoadingIcon);
 
   useEffect(() => {
     const LoadWishlist = () => {
@@ -13,6 +15,7 @@ const WishList = () => {
         if (res.data.products) {
           if (res.data.products.length === 0) {
             setProducts("");
+            setLoad("")
             setWishListMsg(<h5>Your wishlist is currently empty.</h5>);
           } else {
             setWishListMsg("");
@@ -51,6 +54,7 @@ const WishList = () => {
               </div>
               )}
             );
+            setLoad("")
             setProducts(wishListItems);
           }
         }
@@ -62,6 +66,7 @@ const WishList = () => {
   return (
     <div className="container">
       <h2>Wishlist</h2>
+      {load}
       {products}
       {wishlistMsg}
     </div>
