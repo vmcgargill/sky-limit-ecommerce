@@ -59,28 +59,34 @@ function Product() {
   useEffect(() => {
     API.getProduct(id).then(response => {
       const product = response.data.product;
-      seName(product.name)
-      setCategory(product.category)
-      setPrice(product.price)
-      setDescription(product.description)
-      setSeller(product.seller)
-      setLoad("")
-      if (product.image) {
-        setImage("data:image/jpeg;base64," + ConvertImage(product.image.data.data))
+      if (!product.seller) {
+        window.location.href = "/404"
+      } else if (response.data.product) {
+        seName(product.name)
+        setCategory(product.category)
+        setPrice(product.price)
+        setDescription(product.description)
+        setSeller(product.seller)
+        setLoad("")
+        if (product.image) {
+          setImage("data:image/jpeg;base64," + ConvertImage(product.image.data.data))
+        } else {
+          setImage("/Default.jpg")
+        }
+        if (response.data.signedin) {
+          if (response.data.wishlist) {
+            SetWhishlist({btnName: "Remove from Wishlist", onWishlist: true})
+          } else {
+            SetWhishlist({btnName: "Add to Wishlist", onWishlist: false})
+          }
+          if (response.data.cart) {
+            SetCart({btnName: "Remove from Cart", onCart: true})
+          } else {
+            SetCart({btnName: "Add to Cart", onCart: false})
+          }
+        }
       } else {
-        setImage("/Default.jpg")
-      }
-      if (response.data.signedin) {
-        if (response.data.wishlist) {
-          SetWhishlist({btnName: "Remove from Wishlist", onWishlist: true})
-        } else {
-          SetWhishlist({btnName: "Add to Wishlist", onWishlist: false})
-        }
-        if (response.data.cart) {
-          SetCart({btnName: "Remove from Cart", onCart: true})
-        } else {
-          SetCart({btnName: "Add to Cart", onCart: false})
-        }
+        window.location.href = "/404"
       }
     });
   }, [id])

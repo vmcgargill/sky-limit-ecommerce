@@ -13,12 +13,16 @@ const Merchant = () => {
 
   useEffect(() => {
     API.getMerchant(id).then(res => {
-      setLoad("")
-      setMerchant(res.data.merchant);
-      if (res.data.products) {
-        setProducts(res.data.products);
+      if (res.data.merchant) {
+        setLoad("")
+        setMerchant(res.data.merchant);
+        if (res.data.products) {
+          setProducts(res.data.products);
+        } else {
+          setProducts(<p className="card-text">User does no currently have any products.</p>);
+        }
       } else {
-        setProducts(<p className="card-text">User does no currently have any products.</p>);
+        window.location.href = "/404"
       }
     });
   }, [id]);
