@@ -26,17 +26,23 @@ function Product() {
     onCart: false
   });
   
-  const updateCart = (event) => {
-    console.log(event.target.value)
-    console.log(cart.onCart) 
+  const updateCart = () => { 
     if (cart.onCart) {
-      API.removeCart(id).then(() => {
-        setMessage(<Success message={"Removed from Cart"}/>)
-        return SetCart({btnName: "Add to Cart", onCart: false})
+      API.removeCart(id).then(res => {
+        if(res.data === 401) {
+          window.location.replace("/login/product/" + id);
+        } else {
+          setMessage(<Success message={"Removed from Cart"}/>)
+          return SetCart({btnName: "Add to Cart", onCart: false})
+        }
       })
     } else if (!cart.onCart) {
-      API.addCart(id).then(() => {
-        window.location.href = "/cartAdded/" + id
+      API.addCart(id).then(res => {
+        if (res.data === 401) {
+          window.location.replace("/login/product/" + id);
+        } else {
+          window.location.href = "/cartAdded/" + id
+        }
       });
     }
   }
@@ -44,14 +50,22 @@ function Product() {
   const updateWishlist = () => {
     console.log(wishlist.onWishlist)
     if (wishlist.onWishlist) {
-      API.removeWishlist(id).then(() => {
-        SetWhishlist({btnName: "Add to Wishlist", onWishlist: false})
-        setMessage(<Success message={"Removed from Wishlist"}/>)
+      API.removeWishlist(id).then(res => {
+        if (res.data === 401) {
+          window.location.href = "/login/product/" + id;
+        } else {
+          SetWhishlist({btnName: "Add to Wishlist", onWishlist: false})
+          setMessage(<Success message={"Removed from Wishlist"}/>)
+        }
       });
     } else if (!wishlist.onWishlist) {
-      API.addWishlist(id).then(() => {
-        SetWhishlist({btnName: "Remove from Wishlist", onWishlist: true})
-        setMessage(<Success message={"Added to Wishlist"}/>)
+      API.addWishlist(id).then(res => {
+        if (res.data === 401) {
+          window.location.href = "/login/product/" + id;
+        } else {
+          SetWhishlist({btnName: "Remove from Wishlist", onWishlist: true})
+          setMessage(<Success message={"Added to Wishlist"}/>)
+        }
       });
     }
   }

@@ -59,7 +59,7 @@ const  App = () => {
           <Route exact path="/signup" >
             <Signup/>
           </Route>
-          <Route exact path={["/login", "/login/:redirect"]} >
+          <Route exact path={["/login", "/login/:redirect", "/login/:redirect/:id"]} >
             <Login/>
           </Route>
           <Route exact path="/postProduct" >
@@ -69,10 +69,12 @@ const  App = () => {
             <Product/>
           </Route>
           <Route exact path="/editProduct/:id" >
-            {!authStatus ? <Redirect to="/login" /> : <EditProduct/>}
+            <EditProduct/>
+            {!authStatus ? <Redirect to="/login/sellingAccount" /> : <EditProduct/>}
           </Route>
           <Route exact path="/deleteProduct/:id" >
-            {!authStatus ? <Redirect to="/login" /> : <DeleteProduct/>}
+            <DeleteProduct/>
+            {!authStatus ? <Redirect to="/login/sellingAccount" /> : <DeleteProduct/>}
           </Route>
           <Route exact path="/merchant/:id" >
             <Merchant/>
@@ -102,7 +104,7 @@ const  App = () => {
             {!authStatus ? <Redirect to="/login/userCart" /> : <Cart/>}
           </Route>
           <Route exact path="/cartAdded/:id" >
-            {!authStatus ? <Redirect to="/login" /> : <CartAdded/>}
+            {!authStatus ? <Redirect to="/login/product/:id" /> : <CartAdded/>}
           </Route>
           <Route exact path="/userOrders" >
             {!authStatus ? <Redirect to="/login/userOrders" /> : <UserOrders/>}

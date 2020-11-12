@@ -44,6 +44,9 @@ const API = {
   getProduct: (id) => {
     return axios.get("/api/product/" + id);
   },
+  getSellerProduct: (id) => {
+    return axios.get("/api/sellerProduct/" + id);
+  },
   postProduct: (query) => {
     query.method = "post"
     query.url = "/api/postProduct"

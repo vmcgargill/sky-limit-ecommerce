@@ -27,9 +27,9 @@ function Nav({authStatus, Suggestions}) {
               <Link to={`/postProduct`} className="dropdown-item">Sell</Link>
               <Link onClick={() => {
                 API.Logout().then(() => {
-                  window.location.replace("/");
+                  window.location.reload("/");
                 });
-              }} to="#section" className="dropdown-item">Logout</Link>
+              }} to="" className="dropdown-item">Logout</Link>
             </div>
           </li>
           <li className="nav-item active" id="HomeItem">

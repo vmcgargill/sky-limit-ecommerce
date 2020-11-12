@@ -22,7 +22,7 @@ function DeleteProduct() {
   useEffect(() => {
     API.getProduct(id).then((res) => {
       if (res.data === 401) {
-        window.location.href = "/login/sellingAccount"
+        window.location.href = "/login/deleteProduct/" + id;
       } else if (res.data.product) {
         setName(res.data.product.name);
       } else {

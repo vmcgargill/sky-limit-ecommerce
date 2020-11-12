@@ -69,6 +69,18 @@ router.get("/api/product/:id", (req, res) => {
   })
 });
 
+router.get("/api/sellerProduct/:id", isAuthenticated, (req, res) => {
+  const id = req.params.id;
+  db.Product.findById(id, (err, product) => {
+    if (err) throw err;
+    if (product) {
+      res.json({product: product});
+    } else {
+      res.json(404)
+    }
+  })
+})
+
 router.get("/api/productDetails/:id", (req, res) => {
   const id = req.params.id;
   db.Product.findOne({ _id: id }, (err, product) => {

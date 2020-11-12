@@ -5,7 +5,7 @@ import { useParams, Link } from "react-router-dom";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassowrd] = useState("");
-  let { redirect } = useParams();
+  let { redirect, id } = useParams();
 
   useEffect(() => {
     API.Logout();
@@ -16,7 +16,11 @@ function Login() {
     API.Login(email, password).then(res => {
       if (res.data.status === 200) {
         if (redirect) {
-          window.location.href = "/" + redirect;
+          if (id) {
+            window.location.href = "/" + redirect + "/" + id
+          } else {
+            window.location.href = "/" + redirect;
+          }
         } else {
           window.location.href = "/";
         }

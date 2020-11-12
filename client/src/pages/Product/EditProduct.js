@@ -8,9 +8,10 @@ const EditProduct = () => {
   const [product, setProduct] = useState({});
 
   useEffect(() => {
-    API.getProduct(id).then(res => {
+    API.getSellerProduct(id).then(res => {
+      console.log(res)
       if (res.data === 401) {
-        window.location.href = "/login/sellingAccount"
+        window.location.href = "/login/editProduct/" + id
       } else if (res.data.product) {
         const editingProduct = res.data.product;
         setProduct(editingProduct)
