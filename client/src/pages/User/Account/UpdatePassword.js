@@ -50,7 +50,7 @@ const UpdatePassword = () => {
               <label for="exampleInputPassword1">Confirm New Password:</label>
               <input placeholder="Confirm New Password" type="password" className="form-control" maxLength="50" 
               value={password2} onChange={comparePassword}></input><br/>
-              <button href="#" onClick={updatePassword} className="btn btn-primary">Update Password</button><br/>
+              <button onClick={updatePassword} className="btn btn-primary">Update Password</button><br/>
               {error}
             </div>
           </div>

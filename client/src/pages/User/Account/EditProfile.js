@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { formatPhoneNumber } from 'react-phone-number-input'
 import API from "../../../utils/API";
 
 const EditProfile = () => {
@@ -13,8 +14,11 @@ const EditProfile = () => {
         const userData = {}
         userData.name = res.data.user.name;
         userData.email = res.data.user.email;
+        console.log(res.data.user.phone)
         if (res.data.user.phone === undefined) {
           userData.phone = "Add phone number"
+        } else {
+          userData.phone = formatPhoneNumber("+" + res.data.user.phone)
         }
         if (res.data.user.address === undefined) {
           userData.address = "Add address"
@@ -51,22 +55,22 @@ const EditProfile = () => {
         <div className="card-body editProfileOpt">
           <h5 className="card-title">Phone</h5>
           <p className="card-text">{user.phone}</p>
-          <button href="#" className="btn btn-primary">Edit Phone Number</button>
+          <button onClick={() => {window.location.href="/updatePhone"}} className="btn btn-primary">Edit Phone Number</button>
         </div>
         <div className="card-body editProfileOpt">
           <h5 className="card-title">Default Shipping Address</h5>
           <p className="card-text">{user.address}</p>
-          <button href="#" className="btn btn-primary">Change Default Address</button>
+          <button onClick={() => {window.location.href="/updateAddress"}} className="btn btn-primary">Change Default Address</button>
         </div>
         <div className="card-body editProfileOpt">
           <h5 className="card-title">Payment Methods</h5>
           <p className="card-text">Default Payment Method:</p>
           <p className="card-text">{user.payment}</p>
-          <button href="#" className="btn btn-primary">Manage Payment Methods</button>
+          <button onClick={() => {window.location.href="/updatePayment"}} className="btn btn-primary">Manage Payment Methods</button>
         </div>
         <div className="card-body editProfileOpt">
           <h5 className="card-title">Delete Account</h5>
-          <button href="#" className="btn btn-danger">Delete my Account</button>
+          <button onClick={() => {window.location.href="/deleteAccount"}} className="btn btn-danger">Delete my Account</button>
         </div>
       </div>
     </div>

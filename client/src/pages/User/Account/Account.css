@@ -9,3 +9,19 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+.PhoneInput {
+  margin-left: 33.3333%;
+}
+
+@media screen and (max-width: 991px) {
+  .PhoneInput {
+    margin-left: 25%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .PhoneInput {
+    margin-left: 15%;
+  }
+}

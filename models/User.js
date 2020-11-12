@@ -5,25 +5,52 @@ const Bcrypt = require("bcryptjs");
 const UserSchema = new Schema({
   email: {
     type: String,
-    required: true
+    required: true,
+    unique: true,
+    minlength: 5
   },
   password: {
     type: String,
     required: true,
-    bcrypt: true 
+    bcrypt: true,
+    minlength: 8,
+    minlength: 25
   },
   name: {
-    type: String
+    type: String,
+    minlength: 1,
+    minlength: 25
   },
   phone: {
-    type: Number
+    type: Number,
+    minlength: 9,
+    maxlength: 15
   },
-  address: {
-    type: String
-  },
-  paymeny: {
-    type: Number
-  },
+  address: [{
+    addressLine1: { type: String },
+    addressLine2: { type: String },
+    city: { type: String },
+    state: { type: String },
+    zip: { type: String },
+    country: { type: String }
+  }],
+  paymeny: [{
+    cardNumber: {
+      type: Number,
+      bcrypt: true
+    },
+    last4digits: {
+      type: Number,
+      minlength: 4,
+      maxlength: 4
+    },
+    cvv: { 
+      type: Number,
+      minlength: 3,
+      maxlength: 3
+    },
+    expirationDate: { type: Date }
+  }],
   cart: [{
     type: Schema.Types.ObjectId,
     ref: 'Product'

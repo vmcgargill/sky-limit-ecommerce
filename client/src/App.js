@@ -16,6 +16,10 @@ import EditProfile from './pages/User/Account/EditProfile';
 import UpdateName from './pages/User/Account/UpdateName';
 import UpdateEmail from './pages/User/Account/UpdateEmail';
 import UpdatePassword from './pages/User/Account/UpdatePassword';
+import UpdatePhone from './pages/User/Account/UpdatePhone'
+import UpdateAddress from './pages/User/Account/UpdateAddress'
+import UpdatePayment from './pages/User/Account/UpdatePayment'
+import DeleteAccount from './pages/User/Account//DeleteAccount'
 import SellingAccount from './pages/User/Account/SellingAccount';
 import WishList from './pages/User/WishList';
 import Cart from './pages/User/Cart';
@@ -93,6 +97,18 @@ const  App = () => {
           </Route>
           <Route exact path="/updatePassword" >
             {!authStatus ? <Redirect to="/login/updatePassword" /> : <UpdatePassword/>}
+          </Route>
+          <Route exact path="/updatePhone" >
+            {!authStatus ? <Redirect to="/login/updatePhone" /> : <UpdatePhone/>}
+          </Route>          
+          <Route exact path="/updateAddress" >
+            {!authStatus ? <Redirect to="/login/updateAddress" /> : <UpdateAddress/>}
+          </Route>
+          <Route exact path="/updatePayment" >
+            {!authStatus ? <Redirect to="/login/updatePayment" /> : <UpdatePayment/>}
+          </Route>
+          <Route exact path="/deleteAccount" >
+            {!authStatus ? <Redirect to="/login/deleteAccount" /> : <DeleteAccount/>}
           </Route>
           <Route exact path="/sellingAccount" >
             {!authStatus ? <Redirect to="/login/sellingAccount" /> : <SellingAccount/>}
