@@ -68,28 +68,10 @@ router.get("/api/merchantProducts", isAuthenticated, (req, res) => {
   })
 })
 
-router.post("/api/addPaymentMethod", isAuthenticated, (req, res) => {
-  const card = req.body;
-  console.log(card)
-  const id = req.user._id;
-  db.User.findByIdAndUpdate(id, {
-    $addToSet: { payment: card }
-  }, (err, updated) => {
-    if (err) throw err;
-    console.log(updated)
-    if (updated) {
-      res.json({message: "Success!"})
-    }
-  })
-
-})
-
 router.post("/api/wishList/:id", isAuthenticated, (req, res) => {
   const id = req.params.id;
   const userId = req.user._id;
-  db.User.findByIdAndUpdate({
-    _id: userId
-  }, {
+  db.User.findByIdAndUpdate(userId, {
     $addToSet: { wishlist: id }
   }, (err, updated) => {
     if (err) throw err;
@@ -102,9 +84,7 @@ router.post("/api/wishList/:id", isAuthenticated, (req, res) => {
 router.put("/api/removeWishList/:id", isAuthenticated, (req, res) => {
   const id = req.params.id;
   const userId = req.user._id;
-  db.User.findByIdAndUpdate({
-    _id: userId
-  }, {
+  db.User.findByIdAndUpdate(userId, {
     $pull: { wishlist: id }
   }, (err, updated) => {
     if (err) throw err;
@@ -117,9 +97,7 @@ router.put("/api/removeWishList/:id", isAuthenticated, (req, res) => {
 router.post("/api/addCart/:id", isAuthenticated, (req, res) => {
   const id = req.params.id;
   const userId = req.user._id;
-  db.User.findByIdAndUpdate({
-    _id: userId
-  }, {
+  db.User.findByIdAndUpdate(userId, {
     $addToSet: { cart: id }
   }, (err, updated) => {
     if (err) throw err;
@@ -132,9 +110,7 @@ router.post("/api/addCart/:id", isAuthenticated, (req, res) => {
 router.put("/api/removeCart/:id", isAuthenticated, (req, res) => {
   const id = req.params.id;
   const userId = req.user._id;
-  db.User.findByIdAndUpdate({
-    _id: userId
-  }, {
+  db.User.findByIdAndUpdate(userId, {
     $pull: { cart: id }
   }, (err, updated) => {
     if (err) throw err;

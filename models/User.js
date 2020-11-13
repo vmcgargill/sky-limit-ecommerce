@@ -35,29 +35,6 @@ const UserSchema = new Schema({
     country: { type: String },
     default: Boolean
   }],
-  payment: [{
-    cardNumber: {
-      type: Number,
-      bcrypt: true,
-      minlength: 13,
-      maxlength: 19
-    },
-    last4digits: {
-      type: Number,
-      minlength: 4,
-      maxlength: 4
-    },
-    cvc: { 
-      type: Number,
-      minlength: 3,
-      maxlength: 4,
-      bcrypt: true
-    },
-    expirationDate: { 
-      type: String
-    },
-    default: Boolean
-  }],
   cart: [{
     type: Schema.Types.ObjectId,
     ref: 'Product'
