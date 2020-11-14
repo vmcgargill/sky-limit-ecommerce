@@ -27,12 +27,13 @@ const UserSchema = new Schema({
     maxlength: 15
   },
   address: [{
+    country: { type: String },
+    name: { type: String },
     addressLine1: { type: String },
     addressLine2: { type: String },
     city: { type: String },
     state: { type: String },
     zip: { type: String },
-    country: { type: String },
     default: Boolean
   }],
   cart: [{

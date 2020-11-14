@@ -16,6 +16,37 @@ router.get("/api/userProfile", isAuthenticated, (req, res) => {
   })
 });
 
+router.get("/api/merchant/:id", (req, res) => {
+  db.User.findOne({ _id: req.params.id }, (err, merchant) => {
+    if (err) throw err;
+    db.Product.find({ seller: req.params.id }, (error, products) => {
+      if (error) throw error;
+      res.json({
+        merchant: merchant,
+        products: products
+      })
+    })
+  })
+});
+
+router.get("/api/merchantProducts", isAuthenticated, (req, res) => {
+  const id = req.user._id;
+  db.Product.find({ seller: id }, (err, products) => {
+    if (err) throw err;
+    res.json({
+      products: products
+    })
+  })
+})
+
+router.get("/api/userAddresses", isAuthenticated, (req, res) => {
+  const id = req.user._id
+  db.User.findOne({ _id: id }, 'address', (err, userAddresses) => {
+    if (err) throw err;
+    res.json(userAddresses);
+  })
+})
+
 router.put("/api/updateUser", isAuthenticated, (req, res) => {
   const id = req.user._id;
   const data = req.body;
@@ -45,27 +76,68 @@ router.put("/api/updatePassword", isAuthenticated, (req, res) => {
   })
 })
 
-router.get("/api/merchant/:id", (req, res) => {
-  db.User.findOne({ _id: req.params.id }, (err, merchant) => {
-    if (err) throw err;
-    db.Product.find({ seller: req.params.id }, (error, products) => {
-      if (error) throw error;
-      res.json({
-        merchant: merchant,
-        products: products
-      })
-    })
-  })
-});
-
-router.get("/api/merchantProducts", isAuthenticated, (req, res) => {
+router.post("/api/creatAddress", isAuthenticated, (req, res) => {
   const id = req.user._id;
-  db.Product.find({ seller: id }, (err, products) => {
+  db.User.findByIdAndUpdate(id, {
+    $addToSet: { address: req.body }
+  }, (err, updated) => {
     if (err) throw err;
-    res.json({
-      products: products
-    })
+    if (updated) {
+      res.json({message: "Success!"})
+    }
   })
+})
+
+router.put("/api/updateAddress/:id", isAuthenticated, (req, res) => {
+  const id = req.params.id;
+  db.User.updateOne({ _id: req.user._id, address: { $elemMatch: {_id: id}} }, {
+    $set: req.body
+  }, (err, updated) => {
+    if (err) throw err;
+    if (updated) {
+      res.json({message: "Success!"})
+    }
+  })
+})
+
+router.put("/api/removeAddress/:id", isAuthenticated, (req, res) => {
+  const id = req.params.id;
+  db.User.findByIdAndUpdate(req.user._id, {
+    $pull: { address: {
+      _id: id
+    }}
+  }, (err, user) => {
+    if (err) throw err;
+    if (user) {
+      res.json({message: "Success!"})
+    }
+  })
+})
+
+router.put("/api/setDefaultAddress/:id", isAuthenticated, (req, res) => {
+  const id = req.params.id;
+
+  db.User.updateOne({ _id: req.user._id, address: { $elemMatch: {default: true}} }, {
+    $set: {
+      "address.$.default": false
+    }
+  }, (error, defaultUpdated) => {
+    if (error) throw error;
+    if (defaultUpdated) {
+      db.User.updateOne({ _id: req.user._id, address: { $elemMatch: {_id: id}} }, {
+        $set: {
+          "address.$.default": true
+        }
+      }, (err, user) => {
+        if (err) throw err;
+        if (user) {
+          res.json({message: "Success!"})
+        }
+      })
+    }
+  })
+
+
 })
 
 router.post("/api/wishList/:id", isAuthenticated, (req, res) => {

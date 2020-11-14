@@ -20,6 +20,9 @@ const API = {
   getUserData: () => {
     return axios.get("/api/user_data");
   },
+  getUserAddresses: () => {
+    return axios.get("/api/userAddresses")
+  },
   getMerchant: (id) => {
     return axios.get("/api/merchant/" + id);
   },
@@ -30,13 +33,25 @@ const API = {
     return axios.get("/api/userProfile");
   },
   updateUserProfile: (data) => {
-    return axios.put("/api/updateUser", data)
+    return axios.put("/api/updateUser", data);
   },
   updatePassword: (data) => {
-    return axios.put("/api/updatePassword", data)
+    return axios.put("/api/updatePassword", data);
+  },
+  createAddress: (data) => {
+    return axios.post("/api/creatAddress", data);
+  },
+  updateAddress: (id, data) => {
+    return axios.put("/api/updateAddress/" + id, data);
+  },
+  removeAddress: (id) => {
+    return axios.put("/api/removeAddress/" + id);
+  },
+  setDefaultAddress: (id) => {
+    return axios.put("/api/setDefaultAddress/" + id);
   },
   searchProducts: (search) => {
-    return axios.get("/api/searcProducts/" + search)
+    return axios.get("/api/searcProducts/" + search);
   },
   getProducts: (query) => {
     return axios.get(query);
