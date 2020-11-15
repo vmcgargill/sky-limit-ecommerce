@@ -66,8 +66,8 @@ const UpdatePayment = () => {
               {addPaymentForm}
             </div>
             <div className="card-body">
-              <table class="table table-striped">
-                <thead class="thead-dark">
+              <table className="table table-striped">
+                <thead className="thead-dark">
                   <tr>
                     <th scope="col">Card</th>
                     <th scope="col">Expiration Date</th>

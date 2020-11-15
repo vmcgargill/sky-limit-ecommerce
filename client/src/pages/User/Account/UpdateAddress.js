@@ -4,7 +4,7 @@ import API from "../../../utils/API";
 const UpdateAddress = () => {
   const [addAddressForm, setAddressForm] = useState("");
   const [addAddressBtn, setAddressBtn] = useState("")
-  const [addresses, setAddresses] = useState("");
+  const [addresses, setAddresses] = useState(<tr><td></td><td></td><td></td><td></td></tr>);
   
   useEffect(() => {
     const removeAddress = (id) => {
@@ -35,7 +35,6 @@ const UpdateAddress = () => {
     const AddAddressButton = (<button onClick={addAddress} className="btn btn-primary">Add Address</button>)
 
     const creatAddress = () => {
-      console.log("Create address")
       const data = {
         country: document.getElementById("country").value,
         name: document.getElementById("name").value,
@@ -59,18 +58,18 @@ const UpdateAddress = () => {
 
     const AddressForm = (
       <div>
-          <label for="country">Country</label>
+          <label htmlFor="country">Country</label>
           <input id="country" placeholder="Enter Country" type="text" className="form-control" maxLength="50"></input>
-          <label for="name">Full Name (First and Last)</label>
+          <label htmlFor="name">Full Name (First and Last)</label>
           <input id="name" placeholder="Enter Full Name" type="text" className="form-control" maxLength="50"></input>
-          <label for="address">Street Address</label>
+          <label htmlFor="address">Street Address</label>
           <input id="address1" placeholder="Address 1" type="text" className="form-control" maxLength="50"></input><br/>
           <input id="address2" placeholder="Address 2" type="text" className="form-control" maxLength="50"></input>
-          <label for="city">City</label>
+          <label htmlFor="city">City</label>
           <input id="city" placeholder="Enter City" type="text" className="form-control" maxLength="50"></input>
-          <label for="state">State / Province / Region</label>
+          <label htmlFor="state">State / Province / Region</label>
           <input id="state" placeholder="Enter State" type="text" className="form-control" maxLength="50"></input>
-          <label for="zip">Zip code</label>
+          <label htmlFor="zip">Zip code</label>
           <input id="zip" placeholder="Enter Zip" type="text" className="form-control" maxLength="50"></input><br/><br/>
           <button className="btn btn-danger" onClick={() => {
             setAddressForm("")
@@ -85,7 +84,7 @@ const UpdateAddress = () => {
           window.location.href = "/login/updateAddress"
         } else if (res.data) {
           if (res.data.address.length === 0) {
-            setAddresses(<h5>You currently have no addresses stored.</h5>)
+            setAddresses(<tr><th colSpan="4">You currently have no addresses stored.</th></tr>)
           } else {
             setAddresses(res.data.address.map(address => {
               if (address.default) {
@@ -126,7 +125,6 @@ const UpdateAddress = () => {
                         if (res.data === 401) {
                           window.location.href = "/login/updateAddress"
                         } else {
-                          console.log("Address updated!")
                           setAddressBtn(AddAddressButton);
                           setAddressForm("");
                           LoadAddresses();
@@ -168,8 +166,8 @@ const UpdateAddress = () => {
               {addAddressBtn}
             </div>
             <div className="card-body">
-              <table class="table table-striped">
-                <thead class="thead-dark">
+              <table className="table table-striped">
+                <thead className="thead-dark">
                   <tr>
                     <th scope="col">Address</th>
                     <th scope="col">Default Address</th>

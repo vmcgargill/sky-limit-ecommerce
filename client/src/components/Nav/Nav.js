@@ -72,11 +72,11 @@ function Nav({authStatus, Suggestions}) {
   return (
     <nav className="navbar navbar-expand-lg">
         <Link className="navbar-brand" to={"/"}>Sky Limit Ecommerce</Link>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Menu<br/>
        <div className="menuIcon"><img src="/menuicon.png" alt="..." width="50" height="50" ></img></div> 
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <form className="form-inline my-2 my-lg-0">
             <Autocomplete
               freeSolo

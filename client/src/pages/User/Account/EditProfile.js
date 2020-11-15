@@ -14,7 +14,6 @@ const EditProfile = () => {
         const userData = {}
         userData.name = res.data.user.name;
         userData.email = res.data.user.email;
-        console.log(res.data.user.phone)
         if (res.data.user.phone === undefined) {
           userData.phone = "Add phone number"
         } else {
