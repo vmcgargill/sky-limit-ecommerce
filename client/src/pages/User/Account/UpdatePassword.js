@@ -17,9 +17,9 @@ const UpdatePassword = () => {
           window.location.href = "/login/updatePassword"
         }
         if (res.status === 200) {
-          window.location.href = "/editProfile";
+          window.location.href = "/editProfile/msg=password";
         }
-      }).catch(err => {
+      }).catch(() => {
         setError(<Error message={"Wrong password"}/>)
       });
     }

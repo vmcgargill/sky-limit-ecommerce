@@ -84,7 +84,7 @@ const  App = () => {
           <Route exact path="/accountSettings" >
             {!authStatus ? <Redirect to="/login/accountSettings" /> : <AccountSettings/>}
           </Route>
-          <Route exact path="/editProfile" >
+          <Route exact path={["/editProfile", "/editProfile/:msg"]} >
             {!authStatus ? <Redirect to="/login/editProfile" /> : <EditProfile/> }
           </Route>
           <Route exact path="/updateName" >

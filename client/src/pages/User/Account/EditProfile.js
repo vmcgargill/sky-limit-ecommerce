@@ -1,11 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { formatPhoneNumber } from 'react-phone-number-input'
 import API from "../../../utils/API";
+import { useParams } from "react-router-dom";
+import Success from "../../../components/Success/Success"
 
 const EditProfile = () => {
   const [user, setUser] = useState({});
+  const [message, setMessage] = useState("");
+  let { msg } = useParams();
 
   useEffect(() => {
+    if (msg) {
+      let successMsg = "";
+      if (msg === "msg=name") {
+        successMsg = "Name"
+      } else if (msg === "msg=email") {
+        successMsg = "Email"
+      } else if (msg === "msg=password") {
+        successMsg = "Password"
+      } else if (msg === "msg=phone") {
+        successMsg = "Phone"
+      }
+      setMessage(<Success message={successMsg + " has been succesfully changed"}/>)
+    }
+
     API.getUserProfile().then(res => {
       if (res.data === 401) {
         window.location.href = "/login/editProfile"
@@ -21,6 +39,8 @@ const EditProfile = () => {
         }
         if (res.data.user.address === undefined) {
           userData.address = "Add address"
+        } else {
+          userData.address = "Change Default Address"
         }
         if (res.data.user.payment === undefined) {
           userData.payment = "Add payment method"
@@ -28,10 +48,11 @@ const EditProfile = () => {
         setUser(userData)
       }
     });
-  }, []);
+  }, [msg]);
 
   return(
     <div>
+      {message}
       <div className="card text-center">
         <div className="card-header">
           <h2>Edit Profile</h2>

@@ -18,7 +18,9 @@ const UpdateName = () => {
   const updateName = () => {
     const data = {name: name}
     API.updateUserProfile(data).then(res => {
-      window.location.href = "/editProfile"
+      if (res.data.message) {
+        window.location.href = "/editProfile/msg=name"
+      }
     })
   }
 

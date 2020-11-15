@@ -19,7 +19,7 @@ const UpdatePhone = () => {
     const data = {phone: phone.phone}
     API.updateUserProfile(data).then(res => {
       if (res.data.message) {
-        window.location.href = "/editProfile"
+        window.location.href = "/editProfile/msg=phone"
       }
     })
   }

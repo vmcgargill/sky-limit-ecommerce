@@ -18,7 +18,9 @@ const UpdateEmail = () => {
   const updateEmail = () => {
     const data = {email: email}
     API.updateUserProfile(data).then(res => {
-      window.location.href = "/editProfile"
+      if (res.data.message) {
+        window.location.href = "/editProfile/msg=email"
+      }
     })
   }
 
