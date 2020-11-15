@@ -30,7 +30,7 @@ const UpdateAddress = () => {
     }
 
     const AddAddressButton = (<button onClick={addAddress} className="btn btn-primary">Add Address</button>)
-    
+
     const CancelButton = (
       <button className="btn btn-danger" onClick={() => {
         setAddressForm("")
@@ -86,11 +86,11 @@ const UpdateAddress = () => {
         } else if (res.data) {
           if (res.data.address.length === 0) {
             setAddresses(<tr><th colSpan="4">You currently have no addresses stored.</th></tr>)
-          } else {
+          } else if (res.data.address.length > 0) {
             setAddresses(res.data.address.map(address => {
               if (address.default) {
                 address.default = "Yes"
-              } else if (res.data.address.length > 0) {
+              } else {
                 address.default = <button className="btn btn-success" onClick={() => {
                   API.setDefaultAddress(address._id).then(res => {
                     if (res.data === 401) {
