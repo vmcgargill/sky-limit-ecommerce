@@ -27,6 +27,8 @@ import CartAdded from './pages/User/CartAdded';
 import SearchResualts from "./pages/Product/SearchResults";
 import UserOrders from "./pages/User/UserOrders";
 import NoMatch from "./pages/NoMatch";
+import GoBack from "./components/Buttons/GoBack"
+import Cancel from "./components/Buttons/Cancel"
 import './App.css';
 
 const  App = () => {
@@ -71,6 +73,7 @@ const  App = () => {
           </Route>
           <Route exact path="/product/:id" >
             <Product/>
+            <GoBack/>
           </Route>
           <Route exact path="/editProduct/:id" >
             {!authStatus ? <Redirect to="/login/sellingAccount" /> : <EditProduct/>}
@@ -89,21 +92,27 @@ const  App = () => {
           </Route>
           <Route exact path="/updateName" >
             {!authStatus ? <Redirect to="/login/updateName" /> : <UpdateName/>}
+            <Cancel/>
           </Route>
           <Route exact path="/updateEmail" >
             {!authStatus ? <Redirect to="/login/updateEmail" /> : <UpdateEmail/>}
+            <Cancel/>
           </Route>
           <Route exact path="/updatePassword" >
             {!authStatus ? <Redirect to="/login/updatePassword" /> : <UpdatePassword/>}
+            <Cancel/>
           </Route>
           <Route exact path="/updatePhone" >
             {!authStatus ? <Redirect to="/login/updatePhone" /> : <UpdatePhone/>}
+            <Cancel/>
           </Route>          
           <Route exact path="/updateAddress" >
             {!authStatus ? <Redirect to="/login/updateAddress" /> : <UpdateAddress/>}
+            <GoBack/>
           </Route>
           <Route exact path="/updatePayment" >
             {!authStatus ? <Redirect to="/login/updatePayment" /> : <UpdatePayment/>}
+            <GoBack/>
           </Route>
           <Route exact path="/deleteAccount" >
             {!authStatus ? <Redirect to="/login/deleteAccount" /> : <DeleteAccount/>}
@@ -118,6 +127,7 @@ const  App = () => {
             {!authStatus ? <Redirect to="/login/userCart" /> : <Cart/>}
           </Route>
           <Route exact path="/cartAdded/:id" >
+            <GoBack/>
             {!authStatus ? <Redirect to="/login/product/:id" /> : <CartAdded/>}
           </Route>
           <Route exact path="/userOrders" >
@@ -127,6 +137,7 @@ const  App = () => {
             <SearchResualts/>
           </Route>
           <Route>
+            <GoBack/>
             <NoMatch />
           </Route>
         </Switch>
