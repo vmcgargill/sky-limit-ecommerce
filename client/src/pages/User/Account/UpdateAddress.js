@@ -19,10 +19,7 @@ const UpdateAddress = () => {
               LoadAddresses();
             })
           }}>Yes</button><br/><br/>
-          <button className="btn btn-danger" onClick={() => {
-            setAddressForm("")
-            setAddressBtn(AddAddressButton)
-          }}>Cancel</button>
+          {CancelButton}
         </div>
       )
     }
@@ -33,6 +30,13 @@ const UpdateAddress = () => {
     }
 
     const AddAddressButton = (<button onClick={addAddress} className="btn btn-primary">Add Address</button>)
+    
+    const CancelButton = (
+      <button className="btn btn-danger" onClick={() => {
+        setAddressForm("")
+        setAddressBtn(AddAddressButton)
+      }}>Cancel</button>
+    )
 
     const creatAddress = () => {
       const data = {
@@ -58,24 +62,21 @@ const UpdateAddress = () => {
 
     const AddressForm = (
       <div>
-          <label htmlFor="country">Country</label>
-          <input id="country" placeholder="Enter Country" type="text" className="form-control" maxLength="50"></input>
-          <label htmlFor="name">Full Name (First and Last)</label>
-          <input id="name" placeholder="Enter Full Name" type="text" className="form-control" maxLength="50"></input>
-          <label htmlFor="address">Street Address</label>
-          <input id="address1" placeholder="Address 1" type="text" className="form-control" maxLength="50"></input><br/>
-          <input id="address2" placeholder="Address 2" type="text" className="form-control" maxLength="50"></input>
-          <label htmlFor="city">City</label>
-          <input id="city" placeholder="Enter City" type="text" className="form-control" maxLength="50"></input>
-          <label htmlFor="state">State / Province / Region</label>
-          <input id="state" placeholder="Enter State" type="text" className="form-control" maxLength="50"></input>
-          <label htmlFor="zip">Zip code</label>
-          <input id="zip" placeholder="Enter Zip" type="text" className="form-control" maxLength="50"></input><br/><br/>
-          <button className="btn btn-danger" onClick={() => {
-            setAddressForm("")
-            setAddressBtn(AddAddressButton)
-          }}>Cancel</button>
-        </div>
+        <label htmlFor="country">Country</label>
+        <input id="country" placeholder="Enter Country" type="text" className="form-control" maxLength="50"></input>
+        <label htmlFor="name">Full Name (First and Last)</label>
+        <input id="name" placeholder="Enter Full Name" type="text" className="form-control" maxLength="50"></input>
+        <label htmlFor="address">Street Address</label>
+        <input id="address1" placeholder="Address 1" type="text" className="form-control" maxLength="50"></input><br/>
+        <input id="address2" placeholder="Address 2" type="text" className="form-control" maxLength="50"></input>
+        <label htmlFor="city">City</label>
+        <input id="city" placeholder="Enter City" type="text" className="form-control" maxLength="50"></input>
+        <label htmlFor="state">State / Province / Region</label>
+        <input id="state" placeholder="Enter State" type="text" className="form-control" maxLength="50"></input>
+        <label htmlFor="zip">Zip code</label>
+        <input id="zip" placeholder="Enter Zip" type="text" className="form-control" maxLength="50"></input><br/><br/>
+        {CancelButton}
+      </div>
     )
 
     const LoadAddresses = () => {
@@ -89,7 +90,7 @@ const UpdateAddress = () => {
             setAddresses(res.data.address.map(address => {
               if (address.default) {
                 address.default = "Yes"
-              } else {
+              } else if (res.data.address.length > 0) {
                 address.default = <button className="btn btn-success" onClick={() => {
                   API.setDefaultAddress(address._id).then(res => {
                     if (res.data === 401) {
