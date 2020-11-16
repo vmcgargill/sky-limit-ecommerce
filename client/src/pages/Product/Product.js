@@ -14,9 +14,8 @@ function Product() {
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(LoadingIcon);
   const [seller, setSeller] = useState({});
-  const [load, setLoad] = useState(LoadingIcon);
   const [wishlist, SetWhishlist] = useState({
     btnName: "Wishlist", 
     onWishlist: false
@@ -81,11 +80,10 @@ function Product() {
         setPrice(product.price)
         setDescription(product.description)
         setSeller(product.seller)
-        setLoad("")
         if (product.image) {
-          setImage("data:image/jpeg;base64," + ConvertImage(product.image.data.data))
+          setImage(<img src={"data:image/jpeg;base64," + ConvertImage(product.image.data.data)} className="card-img-top productImg" alt='ProductImage'/>)
         } else {
-          setImage("/Default.jpg")
+          setImage(<img src={"/Default.jpg"} className="card-img-top productImg" alt='ProductImage'/>)
         }
         if (response.data.signedin) {
           if (response.data.wishlist) {
@@ -114,8 +112,7 @@ function Product() {
         <div className="card">
           <div className="card-body">
             <h2 className="card-title">{name}</h2>
-            {load}
-            <img src={image} className="card-img-top productImg" alt='ProductImage'/><br/>
+            {image}<br/>
             <Link to={"/merchant/" + seller._id}><h5>Seller: {seller.name}</h5></Link>
           </div>
           <ul className="list-group list-group-flush">
