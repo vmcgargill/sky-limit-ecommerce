@@ -13,7 +13,6 @@ const Cart = () => {
   useEffect(() => {
     const LoadCart = () => {
       API.loadCart().then(res => {
-        console.log(res)
         if (res.data === 401) {
           window.location.href = "/login/userCart"
         }
@@ -25,9 +24,11 @@ const Cart = () => {
           } else {
             const currentCartTotal = res.data.products.map(product => product.price).reduce((x, y) => x + y, 0);
             setCartTotal(currentCartTotal.toString());
-  
+
             setOrderBtn(<button className="btn btn-primary" onClick={() => {
-              console.log("Order has been placed. The price set for comparison is: " + currentCartTotal);
+              API.placeOrder(currentCartTotal).then(res => {
+                console.log(res + " Order placed")
+              })
             }}>Place Order</button>);
   
             const cartList = res.data.products.map((product) => {

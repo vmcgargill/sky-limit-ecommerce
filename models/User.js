@@ -43,7 +43,11 @@ const UserSchema = new Schema({
   wishlist: [{
     type: Schema.Types.ObjectId,
     ref: 'Product'
-  }]
+  }],
+  orderHistory: {
+    type: Schema.Types.ObjectId,
+    ref: 'Product'
+  }
 });
 
 UserSchema.plugin(require('mongoose-bcrypt'));

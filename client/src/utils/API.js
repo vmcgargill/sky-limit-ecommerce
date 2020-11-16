@@ -93,6 +93,9 @@ const API = {
   removeWishlist: (id) => {
     return axios.put("/api/removeWishList/" + id);
   },
+  placeOrder: (comparePrice) => {
+    return axios.post("/api/placeOrder", {comparePrice: comparePrice})
+  },
   deleteProduct: (id) => {
     return axios.delete("/api/deleteProduct/" + id);
   }
