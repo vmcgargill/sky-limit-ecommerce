@@ -27,6 +27,7 @@ import CartAdded from './pages/User/CartAdded';
 import SearchResualts from "./pages/Product/SearchResults";
 import UserOrders from "./pages/Order/UserOrders";
 import ConfirmOrder from "./pages/Order/ConfirmOrder"
+import Order from "./pages/Order/Order"
 import NoMatch from "./pages/NoMatch";
 import GoBack from "./components/Buttons/GoBack"
 import Cancel from "./components/Buttons/Cancel"
@@ -69,21 +70,24 @@ const  App = () => {
           <Route exact path={["/login", "/login/:redirect", "/login/:redirect/:id"]} >
             <Login/>
           </Route>
-          <Route exact path="/postProduct" >
-            {!authStatus ? <Redirect to="/login/postProduct" /> : <PostNewProduct/>}
-          </Route>
           <Route exact path="/product/:id" >
             <Product/>
             <GoBack/>
+          </Route>
+          <Route exact path="/searchResults/:search" >
+            <SearchResualts/>
+          </Route>
+          <Route exact path="/merchant/:id" >
+            <Merchant/>
+          </Route>
+          <Route exact path="/postProduct" >
+            {!authStatus ? <Redirect to="/login/postProduct" /> : <PostNewProduct/>}
           </Route>
           <Route exact path="/editProduct/:id" >
             {!authStatus ? <Redirect to="/login/sellingAccount" /> : <EditProduct/>}
           </Route>
           <Route exact path="/deleteProduct/:id" >
             {!authStatus ? <Redirect to="/login/sellingAccount" /> : <DeleteProduct/>}
-          </Route>
-          <Route exact path="/merchant/:id" >
-            <Merchant/>
           </Route>
           <Route exact path="/accountSettings" >
             {!authStatus ? <Redirect to="/login/accountSettings" /> : <AccountSettings/>}
@@ -129,16 +133,17 @@ const  App = () => {
           </Route>
           <Route exact path="/cartAdded/:id" >
             <GoBack/>
-            {!authStatus ? <Redirect to="/login/product/:id" /> : <CartAdded/>}
+            {!authStatus ? <Redirect to="/login/userCart" /> : <CartAdded/>}
           </Route>
           <Route exact path="/confirmOrder/:id">
-            {!authStatus ? <Redirect to="/login/confirmOrder/:id" /> : <ConfirmOrder/>}
+            {!authStatus ? <Redirect to="/login/userCart" /> : <ConfirmOrder/>}
+          </Route>
+          <Route exact path="/order/:id" >
+            {!authStatus ? <Redirect to="/login/userOrders" /> : <Order/>}
+            <GoBack/>
           </Route>
           <Route exact path="/userOrders" >
             {!authStatus ? <Redirect to="/login/userOrders" /> : <UserOrders/>}
-          </Route>
-          <Route exact path="/searchResults/:search" >
-            <SearchResualts/>
           </Route>
           <Route>
             <GoBack/>

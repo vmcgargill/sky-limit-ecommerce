@@ -27,11 +27,11 @@ const UserOrder = () => {
                 Order #{order._id}
               </div>
               <div class="card-body">
-                <h5 class="card-title">Total: ${order.total}</h5>
+                <h5 class="card-title">Something here.</h5>
                 <p class="card-text">{productNameString}</p>
                 <p className="card-text"><small className="text-muted">Order Placed on {orderDate}</small></p>
                 <button class="btn btn-primary" onClick={() => {
-                  console.log("View order details")
+                  window.location.href = "/order/" + order._id
                 }}>View Order details</button>
               </div>
             </div>

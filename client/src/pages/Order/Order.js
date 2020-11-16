@@ -22,15 +22,9 @@ const UserOrder = () => {
   return (
     <div className="card">
       <div className="card-header">
-        <h2>Your order has been placed.</h2>
-        <h5>Order #{id}</h5>
+        <h2>Order #{id}</h2>
       </div>
       {order}
-      <div className="card-body">
-        <button className="btn btn-primary" onClick={() => {
-            window.location.href = "/"
-        }}>Continue Shopping</button>
-      </div>
     </div>
   )
 
