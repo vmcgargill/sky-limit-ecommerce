@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
 import ConvertImage from '../../ConvertImage'
 import LoadingIcon from "../../components/LoadingIcon/LoadingIcon"
+import Error from "../../components/Error/Error"
 import './Cart.css';
 
 const Cart = () => {
@@ -9,6 +10,7 @@ const Cart = () => {
   const [orderBtn, setOrderBtn] = useState("");
   const [cartTotal, setCartTotal] = useState("");
   const [load, setLoad] = useState(LoadingIcon);
+  const [error, setError] = useState("");
   
   useEffect(() => {
     const LoadCart = () => {
@@ -27,7 +29,11 @@ const Cart = () => {
 
             setOrderBtn(<button className="btn btn-primary" onClick={() => {
               API.placeOrder(currentCartTotal).then(res => {
-                console.log(res + " Order placed")
+                if (!res.data.orderStatus) {
+                  setError(<Error message={res.data.message}/>)
+                } else if (res.data.orderStatus) {
+                  window.location.href = "/confirmOrder/" + res.data.id;
+                }
               })
             }}>Place Order</button>);
   
@@ -78,6 +84,7 @@ const Cart = () => {
   return (
     <div className="container">
       <h2>Cart</h2>
+      {error}
       {load}
       {cart}
       <h5>Cart Total: ${cartTotal}</h5>

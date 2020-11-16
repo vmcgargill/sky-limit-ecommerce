@@ -25,7 +25,8 @@ import WishList from './pages/User/WishList';
 import Cart from './pages/User/Cart';
 import CartAdded from './pages/User/CartAdded';
 import SearchResualts from "./pages/Product/SearchResults";
-import UserOrders from "./pages/User/UserOrders";
+import UserOrders from "./pages/Order/UserOrders";
+import ConfirmOrder from "./pages/Order/ConfirmOrder"
 import NoMatch from "./pages/NoMatch";
 import GoBack from "./components/Buttons/GoBack"
 import Cancel from "./components/Buttons/Cancel"
@@ -129,6 +130,9 @@ const  App = () => {
           <Route exact path="/cartAdded/:id" >
             <GoBack/>
             {!authStatus ? <Redirect to="/login/product/:id" /> : <CartAdded/>}
+          </Route>
+          <Route exact path="/confirmOrder/:id">
+            {!authStatus ? <Redirect to="/login/confirmOrder/:id" /> : <ConfirmOrder/>}
           </Route>
           <Route exact path="/userOrders" >
             {!authStatus ? <Redirect to="/login/userOrders" /> : <UserOrders/>}

@@ -2,6 +2,23 @@ const db = require("../../models");
 const router = require("express").Router();
 const isAuthenticated = require("../../config/middleware/isAuthenticated");
 
+router.get("/api/order/:id", isAuthenticated, (req, res) => {
+  const id = req.params.id;
+  db.Order.findOne({ _id: id }, (err, order) => {
+    if (err) throw err;
+    res.json(order)
+  })
+})
+
+router.get("/api/userOrders", isAuthenticated, (req, res) => {
+  const id = req.user._id;
+  db.Order.find({ buyer: id }, (err, orders) => {
+    if (err) throw err;
+    if (orders) {
+      res.json({orders: orders})
+    }
+  })
+})
 
 router.post("/api/placeOrder", isAuthenticated, (req, res) => {
   const id = req.user._id;

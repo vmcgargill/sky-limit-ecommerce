@@ -93,6 +93,12 @@ const API = {
   removeWishlist: (id) => {
     return axios.put("/api/removeWishList/" + id);
   },
+  getOrder: (id) => {
+    return axios.get("/api/order/" + id);
+  },
+  getOrderHistory: () => {
+    return axios.get("/api/userOrders")
+  }, 
   placeOrder: (comparePrice) => {
     return axios.post("/api/placeOrder", {comparePrice: comparePrice})
   },
