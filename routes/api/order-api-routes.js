@@ -53,11 +53,11 @@ router.post("/api/placeOrder", isAuthenticated, (req, res) => {
         }, (errMsg, order) => {
           if (errMsg) throw errMsg;
           if (order) {
-            res.json({
-              orderStatus: true,
-              message: "Success! Order has been placed.",
-              id: order._id
-            })
+            // res.json({
+            //   orderStatus: true,
+            //   message: "Success! Order has been placed.",
+            //   id: order._id
+            // })
           }
         })
       }
