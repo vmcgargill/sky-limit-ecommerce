@@ -21,7 +21,11 @@ const ProductSchema = new Schema({
   seller: { 
     type: Schema.Types.ObjectId, 
     ref: 'User' 
-  }
+  },
+  reviews: [{
+    type: Schema.Types.ObjectId, 
+    ref: 'Review' 
+  }]
 });
 
 ProductSchema.methods.assignSeller = function(userId) {

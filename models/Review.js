@@ -21,14 +21,6 @@ const ReviewSchema = new Schema({
   }
 });
 
-ReviewSchema.methods.assignReviewer = function(userId) {
-  return this.reviewer = userId;
-};
-
-ReviewSchema.methods.assignProduct = function(productId) {
-  return this.product = productId;
-};
-
 const Review = mongoose.model("Review", ReviewSchema);
 
 module.exports = Review;

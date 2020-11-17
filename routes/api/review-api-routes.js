@@ -35,7 +35,14 @@ router.post("/api/postReview/:id", isAuthenticated, (req, res) => {
               db.Review.create(review, (errorMsg, newReview) => {
                 if (errorMsg) throw errorMsg;
                 else if (newReview) {
-                  res.json({review: newReview})
+                  db.Product.findByIdAndUpdate(productId, {
+                    $addToSet: {reviews: newReview._id}
+                  }, (errorMessage, updatedProduct) => {
+                    if (errorMessage) throw errorMessage;
+                    if (updatedProduct) {
+                      res.json({review: newReview})
+                    }
+                  })
                 }
               })
             }
