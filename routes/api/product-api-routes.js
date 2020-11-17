@@ -43,30 +43,47 @@ router.get("/api/searcProducts/:search", (req, res) => {
 router.get("/api/product/:id", (req, res) => {
   const id = req.params.id;
   db.Product.findOne({ _id: id }).populate("seller").exec().then(product => {
-    if (req.user) {
-      db.User.findOne({ _id: req.user._id }, (err, user) => {
-        if (err) throw err;
-        const WishList = user.wishlist;
+    console.log(product)
+    if (product === null) {
+      return res.json(404);
+    } else {
+      if (req.user) {
         const dbResponse = {
           product: product,
           signedin: true
         }
-        if (WishList.indexOf(id) > -1) {
-          dbResponse.wishlist = true
-        } else {
-          dbResponse.wishlist = false
-        }
-        const Cart = user.cart;
-        if (Cart.indexOf(id) > -1) {
-          dbResponse.cart = true
-        } else {
-          dbResponse.cart = false
-        }
-        res.json(dbResponse)
-      })
-    } else {
-      res.json({product: product, signedin: false})
+  
+        db.Order.find({buyer: req.user._id, products: {$elemMatch: {productId: id}}}, (errorMsg, order) => {
+          if (errorMsg) throw errorMsg;
+          if (order.length === 0) {
+            dbResponse.ordered = false
+          } else if (order.length > 0) {
+            dbResponse.ordered = true
+          }
+  
+          db.User.findOne({ _id: req.user._id }, (err, user) => {
+            if (err) throw err;
+            const WishList = user.wishlist;
+            if (WishList.indexOf(id) > -1) {
+              dbResponse.wishlist = true
+            } else {
+              dbResponse.wishlist = false
+            }
+            const Cart = user.cart;
+            if (Cart.indexOf(id) > -1) {
+              dbResponse.cart = true
+            } else {
+              dbResponse.cart = false
+            }
+            res.json(dbResponse)
+          })
+        })
+      } else {
+        res.json({product: product, signedin: false})
+      }
     }
+  }).catch(() => {
+    return res.json(404)
   })
 });
 

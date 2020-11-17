@@ -24,6 +24,7 @@ function Product() {
     btnName: "Cart", 
     onCart: false
   });
+  const [reviewBtn, setReviewBtn] = useState("")
   
   const updateCart = () => { 
     if (cart.onCart) {
@@ -71,37 +72,49 @@ function Product() {
   
   useEffect(() => {
     API.getProduct(id).then(response => {
-      const product = response.data.product;
-      if (!product.seller) {
+      if (response.data === 404) {
         window.location.href = "/404"
-      } else if (response.data.product) {
-        seName(product.name)
-        setCategory(product.category)
-        setPrice(product.price)
-        setDescription(product.description)
-        setSeller(product.seller)
-        if (product.image) {
-          setImage(<img src={"data:image/jpeg;base64," + ConvertImage(product.image.data.data)} className="card-img-top productImg" alt='ProductImage'/>)
-        } else {
-          setImage(<img src={"/Default.jpg"} className="card-img-top productImg" alt='ProductImage'/>)
-        }
-        if (response.data.signedin) {
-          if (response.data.wishlist) {
-            SetWhishlist({btnName: "Remove from Wishlist", onWishlist: true})
+      } else {
+        const product = response.data.product;
+        if (!product.seller) {
+          window.location.href = "/404"
+        } else if (response.data.product) {
+          seName(product.name)
+          setCategory(product.category)
+          setPrice(product.price)
+          setDescription(product.description)
+          setSeller(product.seller)
+          if (product.image) {
+            setImage(<img src={"data:image/jpeg;base64," + ConvertImage(product.image.data.data)} className="card-img-top productImg" alt='ProductImage'/>)
           } else {
-            SetWhishlist({btnName: "Add to Wishlist", onWishlist: false})
+            setImage(<img src={"/Default.jpg"} className="card-img-top productImg" alt='ProductImage'/>)
           }
-          if (response.data.cart) {
-            SetCart({btnName: "Remove from Cart", onCart: true})
+
+          if (response.data.signedin) {
+            if (response.data.wishlist) {
+              SetWhishlist({btnName: "Remove from Wishlist", onWishlist: true})
+            } else {
+              SetWhishlist({btnName: "Add to Wishlist", onWishlist: false})
+            }
+            if (response.data.cart) {
+              SetCart({btnName: "Remove from Cart", onCart: true})
+            } else {
+              SetCart({btnName: "Add to Cart", onCart: false})
+            }
+
+            if (response.data.ordered) {
+              setReviewBtn(<div><br/><button className="btn btn-primary">Write a Review</button></div>)
+              if (!response.data.cart) {
+                SetCart({btnName: "Buy Again", onCart: false})
+              }
+            }
           } else {
             SetCart({btnName: "Add to Cart", onCart: false})
+            SetWhishlist({btnName: "Add to Wishlist", onWishlist: false})
           }
         } else {
-          SetCart({btnName: "Add to Cart", onCart: false})
-          SetWhishlist({btnName: "Add to Wishlist", onWishlist: false})
+          window.location.href = "/404"
         }
-      } else {
-        window.location.href = "/404"
       }
     });
   }, [id])
@@ -126,6 +139,7 @@ function Product() {
             {message}
             <button onClick={updateCart} className="btn btn-primary">{cart.btnName}</button><br/><br/>
             <button onClick={updateWishlist} className="btn btn-primary" value={wishlist.onWishlist}>{wishlist.btnName}</button>
+            {reviewBtn}
           </div>
         </div>
       </div>
