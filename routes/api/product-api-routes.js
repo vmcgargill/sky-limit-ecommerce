@@ -7,12 +7,11 @@ const isAuthenticated = require("../../config/middleware/isAuthenticated");
 const isProductOwner = require("../../config/middleware/isProductOwner")
 
 router.get("/api/products", (req, res) => {
-  db.Product.find({}, (err, product) => {
-    if (err) {
-      throw err;
-    } else {
-      res.json(product);
-    }
+  db.Product.find({}).populate("reviews").exec().then(products => {
+    console.log(products)
+    res.json(products);
+  }).catch(() => {
+    res.json([])
   })
 });
 
