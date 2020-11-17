@@ -53,11 +53,18 @@ router.post("/api/placeOrder", isAuthenticated, (req, res) => {
         }, (errMsg, order) => {
           if (errMsg) throw errMsg;
           if (order) {
-            // res.json({
-            //   orderStatus: true,
-            //   message: "Success! Order has been placed.",
-            //   id: order._id
-            // })
+            db.User.findOneAndUpdate(id, {
+              $set: {cart: []}
+            }, (errorMsg, updatedCart) => {
+              if (errorMsg) throw errorMsg;
+              if (updatedCart) {
+                res.json({
+                  orderStatus: true,
+                  message: "Success! Order has been placed.",
+                  id: order._id
+                })
+              }
+            })
           }
         })
       }
