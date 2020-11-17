@@ -1,25 +1,22 @@
 import React, { useState, useEffect } from "react";
-import PostReview from "../../components/Review/PostReview"
 import { useParams } from "react-router";
 import API from "../../utils/API"
 
-
-function PostNewReview() {
+function Review() {
   const { id } = useParams();
-  const [name, setName] = useState("")
+  const [title, setTitle] = useState("")
 
   useEffect(() => {
-    API.getProduct(id).then(res => {
-      setName(res.data.product.name)
+    API.getReview(id).then(res => {
+      setTitle(res.data.title)
     })
   })
 
   return (
     <div>
-      <h5>View review details {name}</h5>
-      <PostReview new={true}/>
+      <h5>View review details {title}</h5>
     </div>
   );
 }
 
-export default PostNewReview;
+export default Review;

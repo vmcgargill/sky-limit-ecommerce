@@ -105,6 +105,9 @@ const API = {
   deleteProduct: (id) => {
     return axios.delete("/api/deleteProduct/" + id);
   },
+  getReview: (id) => {
+    return axios.get("/api/review/" + id);
+  },
   postReview: (id, data) => {
     return axios.post("/api/postReview/" + id, data);
   }
