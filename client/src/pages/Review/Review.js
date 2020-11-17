@@ -6,20 +6,18 @@ import API from "../../utils/API"
 
 function PostNewReview() {
   const { id } = useParams();
-  const [product, setProduct] = useState("");
-  const [name, setName] = useState("");
+  const [name, setName] = useState("")
 
   useEffect(() => {
     API.getProduct(id).then(res => {
       setName(res.data.product.name)
-      setProduct(res.data.product)
     })
-  }, [id])
+  })
 
   return (
     <div>
-      <h5>Write a review for {name}</h5>
-      <PostReview new={true} product={product}/>
+      <h5>View review details {name}</h5>
+      <PostReview new={true}/>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Rating from '@material-ui/lab/Rating';
 import SmallLoadingIcon from "../SmallLoadingIcon/SmallLoadingIcon"
+import API from "../../utils/API";
 
 const PostReview = (props) => {
   const [title, setTitle] = useState("");
@@ -11,8 +12,22 @@ const PostReview = (props) => {
   const PostReview = (event) => {
     event.preventDefault()
     console.log("Review has been posted.")
-    console.log(rating, title, description)
+    // console.log(rating, title, description)
     setLoad(SmallLoadingIcon)
+    if (props.new) {
+      API.postReview(props.product._id, {
+        title: title,
+        description: description,
+        rating: rating
+      }).then(res => {
+        console.log(res)
+        if (res.data === 404) {
+          window.location.href = "/404"
+        } else if (res.data.review) {
+          window.location.href = "/review/" + res.data.review._id
+        }
+      })
+    }
   }
 
   useEffect(() => {
