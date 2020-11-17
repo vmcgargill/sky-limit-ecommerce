@@ -15,6 +15,14 @@ const PostReview = (props) => {
     setLoad(SmallLoadingIcon)
   }
 
+  useEffect(() => {
+    if (!props.new) {
+      console.log("We are editing an existing review.")
+    } else {
+      console.log("We are creating a new review.")
+    }
+  })
+
   return (
     <div clasName="row">
       <div className="col-sm-12 col-md-12 col-lg-12">
