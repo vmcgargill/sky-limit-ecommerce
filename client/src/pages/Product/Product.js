@@ -5,10 +5,12 @@ import ConvertImage from '../../ConvertImage'
 import API from "../../utils/API";
 import Success from "../../components/Success/Success"
 import LoadingIcon from "../../components/LoadingIcon/LoadingIcon"
+import Rating from '@material-ui/lab/Rating';
 import './Product.css';
 
 function Product() {
   let { id } = useParams();
+  const [rating, setRating] = useState(null);
   const [message, setMessage] = useState("")
   const [name, seName] = useState("");
   const [category, setCategory] = useState("");
@@ -75,10 +77,11 @@ function Product() {
       if (response.data === 404) {
         window.location.href = "/404"
       } else {
-        const product = response.data.product;
-        if (!product.seller) {
+        if (!response.data.product.seller) {
           window.location.href = "/404"
         } else if (response.data.product) {
+          const product = response.data.product;
+          setRating(response.data.averageRating)
           seName(product.name)
           setCategory(product.category)
           setPrice(product.price)
@@ -114,6 +117,7 @@ function Product() {
             SetCart({btnName: "Add to Cart", onCart: false})
             SetWhishlist({btnName: "Add to Wishlist", onWishlist: false})
           }
+
         } else {
           window.location.href = "/404"
         }
@@ -131,6 +135,8 @@ function Product() {
             <Link to={"/merchant/" + seller._id}><h5>Seller: {seller.name}</h5></Link>
           </div>
           <ul className="list-group list-group-flush">
+            <li className="list-group-item">Overall Rating: <br/>
+            <Rating name="rating" precision={0.1} value={rating} readOnly /></li>
             <li className="list-group-item">Category: {category}</li>
             <li className="list-group-item">Price: ${price}</li>
           </ul>

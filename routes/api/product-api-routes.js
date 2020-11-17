@@ -42,15 +42,20 @@ router.get("/api/searcProducts/:search", (req, res) => {
 
 router.get("/api/product/:id", (req, res) => {
   const id = req.params.id;
-  db.Product.findOne({ _id: id }).populate("seller").exec().then(product => {
-    console.log(product)
+  db.Product.findOne({ _id: id }).populate("seller").populate("reviews").exec().then(product => {
+    let averageRating = null;
+    if (product.reviews.length > 0) {
+      averageRating = product.reviews.map(review => review.rating).reduce((x, y) => x + y, 0) / product.reviews.length
+    }
+    
     if (product === null) {
       return res.json(404);
     } else {
       if (req.user) {
         const dbResponse = {
           product: product,
-          signedin: true
+          signedin: true,
+          averageRating: averageRating
         }
   
         db.Order.find({buyer: req.user._id, products: {$elemMatch: {productId: id}}}, (errorMsg, order) => {
@@ -79,7 +84,7 @@ router.get("/api/product/:id", (req, res) => {
           })
         })
       } else {
-        res.json({product: product, signedin: false})
+        res.json({product: product, signedin: false, averageRating: averageRating})
       }
     }
   }).catch(() => {
