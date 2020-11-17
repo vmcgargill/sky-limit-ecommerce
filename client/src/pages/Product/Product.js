@@ -103,7 +103,9 @@ function Product() {
             }
 
             if (response.data.ordered) {
-              setReviewBtn(<div><br/><button className="btn btn-primary">Write a Review</button></div>)
+              setReviewBtn(<div><br/><button className="btn btn-primary" onClick={() => {
+                window.location.href = "/productReview/" + id;
+              }}>Write a Review</button></div>)
               if (!response.data.cart) {
                 SetCart({btnName: "Buy Again", onCart: false})
               }

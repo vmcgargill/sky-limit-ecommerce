@@ -28,6 +28,7 @@ import SearchResualts from "./pages/Product/SearchResults";
 import UserOrders from "./pages/Order/UserOrders";
 import ConfirmOrder from "./pages/Order/ConfirmOrder"
 import Order from "./pages/Order/Order"
+import PostNewReview from "./pages/Review/PostNewReview"
 import NoMatch from "./pages/NoMatch";
 import GoBack from "./components/Buttons/GoBack"
 import Cancel from "./components/Buttons/Cancel"
@@ -144,6 +145,9 @@ const  App = () => {
           </Route>
           <Route exact path="/userOrders" >
             {!authStatus ? <Redirect to="/login/userOrders" /> : <UserOrders/>}
+          </Route>
+          <Route exact path="/productReview/:id" >
+            {!authStatus ? <Redirect to="/login/userOrders" /> : <PostNewReview/>}
           </Route>
           <Route>
             <GoBack/>
