@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path'); 
 const router = require("express").Router();
 const isAuthenticated = require("../../config/middleware/isAuthenticated");
+const isProductOwner = require("../../config/middleware/isProductOwner")
 
 router.get("/api/products", (req, res) => {
   db.Product.find({}, (err, product) => {
@@ -69,7 +70,7 @@ router.get("/api/product/:id", (req, res) => {
   })
 });
 
-router.get("/api/sellerProduct/:id", isAuthenticated, (req, res) => {
+router.get("/api/sellerProduct/:id", isAuthenticated, isProductOwner, (req, res) => {
   const id = req.params.id;
   db.Product.findById(id, (err, product) => {
     if (err) throw err;
@@ -80,14 +81,6 @@ router.get("/api/sellerProduct/:id", isAuthenticated, (req, res) => {
     }
   })
 })
-
-router.get("/api/productDetails/:id", (req, res) => {
-  const id = req.params.id;
-  db.Product.findOne({ _id: id }, (err, product) => {
-    if (err) throw err;
-    res.json(product)
-  });
-});
 
 router.get("/api/userWishlist", isAuthenticated, (req, res) => {
   const userId = req.user._id;
@@ -131,7 +124,7 @@ router.post("/api/postProduct", isAuthenticated, upload.single("image"), (req, r
   })
 });
 
-router.put("/api/editProduct/:id", isAuthenticated, upload.single("image"), (req, res) => {
+router.put("/api/editProduct/:id", isAuthenticated, isProductOwner, upload.single("image"), (req, res) => {
   const id = req.params.id;
   const product = req.body;
   if (req.file) {
@@ -149,7 +142,7 @@ router.put("/api/editProduct/:id", isAuthenticated, upload.single("image"), (req
   });
 });
 
-router.delete("/api/deleteProduct/:id", isAuthenticated, (req, res) => {
+router.delete("/api/deleteProduct/:id", isAuthenticated, isProductOwner, (req, res) => {
   const id = req.params.id;
   db.Product.deleteOne({ _id: id }, (err, deleted) => {
     if (err) throw err;

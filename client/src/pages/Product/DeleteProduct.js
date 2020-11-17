@@ -20,7 +20,7 @@ function DeleteProduct() {
   }
   
   useEffect(() => {
-    API.getProduct(id).then((res) => {
+    API.getSellerProduct(id).then((res) => {
       if (res.data === 401) {
         window.location.href = "/login/deleteProduct/" + id;
       } else if (res.data.product) {

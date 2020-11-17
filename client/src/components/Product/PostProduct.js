@@ -61,11 +61,17 @@ function PostProduct(props) {
     
     if (props.new) {
       API.postProduct(query).then(res => {
-        window.location.href = "/product/" + res.data._id;
+        if (res.data._id) {
+          window.location.href = "/product/" + res.data._id;
+        }
       })
     } else {
       API.updateProduct(props.product._id, query).then(res => {
-        window.location.href = "/product/" + res.data._id;
+        if (res.data === 404) {
+          window.location.href = "/404"
+        } else if (res.data._id) {
+          window.location.href = "/product/" + res.data._id;
+        }
       })
     }
   }
