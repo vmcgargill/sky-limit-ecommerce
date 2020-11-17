@@ -51,7 +51,7 @@ const API = {
     return axios.put("/api/setDefaultAddress/" + id);
   },
   searchProducts: (search) => {
-    return axios.get("/api/searcProducts/" + search);
+    return axios.get("/api/searchProducts/" + search);
   },
   getProducts: (query) => {
     return axios.get(query);

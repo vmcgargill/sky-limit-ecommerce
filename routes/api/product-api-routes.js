@@ -8,35 +8,35 @@ const isProductOwner = require("../../config/middleware/isProductOwner")
 
 router.get("/api/products", (req, res) => {
   db.Product.find({}).populate("reviews").exec().then(products => {
-    console.log(products)
-    res.json(products);
+    return res.json(products);
   }).catch(() => {
-    res.json([])
+    return res.json([]);
   })
 });
 
-router.get("/api/searcProducts/:search", (req, res) => {
+router.get("/api/searchProducts/:search", (req, res) => {
   const search = req.params.search;
   db.Product.find({
-    $or: [
-      {
-        name: {
-          $regex: new RegExp(search, "i")
+      $or: [
+        {
+          name: {
+            $regex: new RegExp(search, "i")
+          }
+        }, {
+          description: {
+            $regex: new RegExp(search, "i")
+          }
+        }, {
+          category: {
+            $regex: new RegExp(search, "i")
+          }
         }
-      }, {
-        description: {
-          $regex: new RegExp(search, "i")
-        }
-      }, {
-        category: {
-          $regex: new RegExp(search, "i")
-        }
-      }
-    ]
-  }, (err, products) => {
-    if (err) throw err;
-    res.json(products)
-  })
+      ]
+    }).populate("reviews").exec().then(products => {
+      return res.json(products);
+    }).catch(() => {
+      return res.json([]);
+    })
 });
 
 router.get("/api/product/:id", (req, res) => {
@@ -44,7 +44,7 @@ router.get("/api/product/:id", (req, res) => {
   db.Product.findOne({ _id: id }).populate("seller").populate("reviews").exec().then(product => {
     let averageRating = null;
     if (product.reviews.length > 0) {
-      averageRating = product.reviews.map(review => review.rating).reduce((x, y) => x + y, 0) / product.reviews.length
+      averageRating = product.reviews.map(review => review.rating).reduce((x, y) => x + y, 0) / product.reviews.length;
     }
     
     if (product === null) {
@@ -60,34 +60,34 @@ router.get("/api/product/:id", (req, res) => {
         db.Order.find({buyer: req.user._id, products: {$elemMatch: {productId: id}}}, (errorMsg, order) => {
           if (errorMsg) throw errorMsg;
           if (order.length === 0) {
-            dbResponse.ordered = false
+            dbResponse.ordered = false;
           } else if (order.length > 0) {
-            dbResponse.ordered = true
+            dbResponse.ordered = true;
           }
   
           db.User.findOne({ _id: req.user._id }, (err, user) => {
             if (err) throw err;
             const WishList = user.wishlist;
             if (WishList.indexOf(id) > -1) {
-              dbResponse.wishlist = true
+              dbResponse.wishlist = true;
             } else {
-              dbResponse.wishlist = false
+              dbResponse.wishlist = false;
             }
             const Cart = user.cart;
             if (Cart.indexOf(id) > -1) {
-              dbResponse.cart = true
+              dbResponse.cart = true;
             } else {
-              dbResponse.cart = false
+              dbResponse.cart = false;
             }
-            res.json(dbResponse)
+            return res.json(dbResponse);
           })
         })
       } else {
-        res.json({product: product, signedin: false, averageRating: averageRating})
+        return res.json({product: product, signedin: false, averageRating: averageRating});
       }
     }
   }).catch(() => {
-    return res.json(404)
+    return res.json(404);
   })
 });
 
