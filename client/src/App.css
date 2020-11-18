@@ -39,6 +39,10 @@ code {
   display: none;
 }
 
+.editProfileOpt, .merchantCard, .reviewCard {
+  border-bottom: 1px solid rgba(0,0,0,0.125)
+}
+
 
 @media screen and (max-width: 991px) {
   .cartListBodyMiddle {

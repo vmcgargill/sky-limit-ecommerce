@@ -4,20 +4,24 @@ const isAuthenticated = require("../../config/middleware/isAuthenticated");
 
 router.get("/api/review/:id", (req, res) => {
   const id = req.params.id
-  db.Review.findById(id, (err, review) => {
-    if (err) throw err;
-    if (review) {
-      res.json(review)
-    }
+  db.Review.findById(id).populate("product").populate("reviewer").populate("seller").exec().then(review => {
+    console.log(review)
+    return res.json(review);
+  }).catch(() => {
+    return res.json(404);
   })
 })
 
 router.post("/api/postReview/:id", isAuthenticated, (req, res) => {
   const review = req.body;
   const productId = req.params.id;
+  review.product = productId;
   const userId = req.user._id;
+  review.reviewer = userId;
 
   db.Product.findById(productId, (err, product) => {
+    if (err) throw err;
+    review.seller = product.seller;
     if (product.seller.toString() === userId) {
       return res.json(404);
     } else {
