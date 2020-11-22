@@ -30,6 +30,7 @@ import ConfirmOrder from "./pages/Order/ConfirmOrder"
 import Order from "./pages/Order/Order"
 import Review from "./pages/Review/Review"
 import PostNewReview from "./pages/Review/PostNewReview"
+import ProductReviews from "./pages/Review/ProductReviews"
 import NoMatch from "./pages/NoMatch";
 import GoBack from "./components/Buttons/GoBack"
 import Cancel from "./components/Buttons/Cancel"
@@ -83,7 +84,12 @@ const  App = () => {
             <Merchant/>
           </Route>
           <Route exact path="/review/:id" >
+            <GoBack/>
             <Review/>
+          </Route>
+          <Route exact path="/product/reviews/:id" >
+            <GoBack/>
+            <ProductReviews/>
           </Route>
           <Route exact path="/postProduct" >
             {!authStatus ? <Redirect to="/login/postProduct" /> : <PostNewProduct/>}

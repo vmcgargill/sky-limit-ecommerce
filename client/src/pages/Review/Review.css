@@ -4,4 +4,17 @@
   margin-left: auto;
   margin-right: auto;
   display: block;
+  margin-bottom: 10%;
+}
+
+.reviewListCard {
+  border: 3px black solid;
+}
+
+p.description {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: center;
 }

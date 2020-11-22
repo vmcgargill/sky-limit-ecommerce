@@ -43,6 +43,11 @@ code {
   border-bottom: 1px solid rgba(0,0,0,0.125)
 }
 
+pre {
+  white-space: pre-wrap;
+  overflow: hidden;
+}
+
 
 @media screen and (max-width: 991px) {
   .cartListBodyMiddle {

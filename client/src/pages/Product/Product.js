@@ -136,7 +136,10 @@ function Product() {
           </div>
           <ul className="list-group list-group-flush">
             <li className="list-group-item">Overall Rating: <br/>
-            <Rating name="rating" precision={0.1} value={rating} readOnly /></li>
+            <Rating name="rating" precision={0.1} value={rating} readOnly /><br/>
+            <button className="btn btn-primary" onClick={() => {
+              window.location.href = "/product/reviews/" + id
+            }}>See All Reviews</button></li>
             <li className="list-group-item">Category: {category}</li>
             <li className="list-group-item">Price: ${price}</li>
           </ul>

@@ -12,6 +12,16 @@ router.get("/api/review/:id", (req, res) => {
   })
 })
 
+router.get("/api/product/reviews/:id", (req, res) => {
+  const id = req.params.id;
+  db.Product.findById(id).populate("reviews").exec().then(product => {
+    console.log(product)
+    return res.json(product)
+  }).catch(() => {
+    return res.json(404);
+  })
+})
+
 router.post("/api/postReview/:id", isAuthenticated, (req, res) => {
   const review = req.body;
   const productId = req.params.id;
