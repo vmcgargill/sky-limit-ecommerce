@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
 import { useParams, Link } from "react-router-dom";
+import Error from "../../components/Error/Error"
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassowrd] = useState("");
   const [signupLink, setSignupLink] = useState("/signup")
+  const [error, setError] = useState("");
   let { id, redirect  } = useParams();
 
   useEffect(() => {
@@ -33,6 +35,7 @@ function Login() {
       }
     }).catch(err => {
       console.log(err)
+      setError(<Error message="Error: Email or password is incorrect. Please try again."/>)
     });
   }
 
@@ -60,6 +63,7 @@ function Login() {
           <button type="submit" className="btn btn-default">Login</button>
         </form>
         <br/>
+        {error}
         <p>Or sign up <Link to={signupLink}>here</Link></p>
       </div>
     </div>
