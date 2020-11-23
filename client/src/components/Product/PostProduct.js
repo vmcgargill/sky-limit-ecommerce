@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CreatableSelect from 'react-select/creatable';
 import SmallLoadingIcon from "../SmallLoadingIcon/SmallLoadingIcon"
+import Error from "../Error/Error"
 import API from "../../utils/API"
 
 function PostProduct(props) {
@@ -10,6 +11,7 @@ function PostProduct(props) {
   const [price, setPrice] = useState ("");
   const [image, setImage] = useState ("");
   const [load, setLoad] = useState("");
+  const [error, setError] = useState("");
 
   const options = [
     {value: "Entertainment", label: "Entertainment"},
@@ -38,42 +40,55 @@ function PostProduct(props) {
   const PostProduct = (event) => {
     event.preventDefault()
     setLoad(SmallLoadingIcon)
-    
-    let product = new FormData();
-    product.append("name", name);
-    product.append("description", description);
-    product.append("category", category.value);
-    product.append("price", price);
-    
-    if (image !== "") {
-      const pic = document.getElementById("image");
-      product.append("image", pic.files[0]);
-    }
-    
-    const query =  {
-      data: product,
-      enctype: "multipart/form-data",
-      processData: false,
-      contentType: false,
-      cache: false,
-      timeout: 600000
-    }
-    
-    if (props.new) {
-      API.postProduct(query).then(res => {
-        if (res.data._id) {
-          window.location.href = "/product/" + res.data._id;
-        }
-      })
+
+    if (name.trim() === "" || description.trim() === "" || !category.value || price.trim() === "") {
+      setLoad("")
+      setError(<Error message="Error: Name, description, category, and price fields are required and cannot be empty."/>)
     } else {
-      API.updateProduct(props.product._id, query).then(res => {
-        if (res.data === 404) {
-          window.location.href = "/404"
-        } else if (res.data._id) {
-          window.location.href = "/product/" + res.data._id;
-        }
-      })
+      let product = new FormData();
+      product.append("name", name);
+      product.append("description", description);
+      product.append("category", category.value);
+      product.append("price", price);
+      
+      if (image !== "") {
+        const pic = document.getElementById("image");
+        product.append("image", pic.files[0]);
+      }
+      
+      const query =  {
+        data: product,
+        enctype: "multipart/form-data",
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 600000
+      }
+      
+      if (props.new) {
+        API.postProduct(query).then(res => {
+          if (res.data._id) {
+            window.location.href = "/product/" + res.data._id;
+          }
+        }).catch(() => {
+          setLoad("")
+          setError(<Error message="Error: Something went wrong. Please check your product details and try again."/>)
+        })
+      } else {
+        API.updateProduct(props.product._id, query).then(res => {
+          if (res.data === 404) {
+            window.location.href = "/404"
+          } else if (res.data._id) {
+            window.location.href = "/product/" + res.data._id;
+          }
+        }).catch(() => {
+          setLoad("")
+          setError(<Error message="Error: Something went wrong. Please check your product details and try again."/>)
+        })
+      }
     }
+    
+
   }
 
   return (
@@ -92,8 +107,9 @@ function PostProduct(props) {
         $ <input type="number" min="0.01" step="0.01" value={price} onChange={(ev) => {setPrice(ev.target.value)}}></input><br/><br/>
         <input type="file" id="image" name="image" onChange={(ev) => {setImage(ev.target.value)}}></input> <br/><br/>
         <button type="submit" className="btn btn-primary submit">Submit</button>
+      </form><br/>
         {load}
-      </form>
+        {error}
       </div>
     </div>
   );

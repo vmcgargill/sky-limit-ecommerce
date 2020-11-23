@@ -3,13 +3,16 @@ const Schema = mongoose.Schema;
 
 const ProductSchema = new Schema({
   name: {
-    type: String
+    type: String,
+    required: true
   },
   category: {
-    type: String
+    type: String,
+    required: true
   },
   price: {
-    type: Number
+    type: Number,
+    required: true
   },
   description: {
     type: String
@@ -20,11 +23,12 @@ const ProductSchema = new Schema({
   },
   seller: { 
     type: Schema.Types.ObjectId, 
-    ref: 'User' 
+    ref: 'User',
+    required: true
   },
   reviews: [{
     type: Schema.Types.ObjectId, 
-    ref: 'Review' 
+    ref: 'Review'
   }]
 });
 
