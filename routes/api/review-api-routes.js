@@ -12,6 +12,19 @@ router.get("/api/review/:id", (req, res) => {
   })
 })
 
+router.get("/api/customerReviews", isAuthenticated, (req, res) => {
+  const id = req.user._id;
+  // db.Review.find({ reviewer: id }, (err, reviews) => {
+  //   if (err) throw err;
+  //   return res.json(reviews);
+  // })
+  db.Review.find({ reviewer: id }).populate("product").exec().then(reviews => {
+    return res.json(reviews);
+  }).catch(() => {
+    return res.json([]);
+  })
+})
+
 router.get("/api/product/reviews/:id", (req, res) => {
   const id = req.params.id;
   db.Product.findById(id).populate("reviews").exec().then(product => {

@@ -32,6 +32,8 @@ import Review from "./pages/Review/Review"
 import PostNewReview from "./pages/Review/PostNewReview"
 import ProductReviews from "./pages/Review/ProductReviews"
 import CustomerReviews from "./pages/User/Account/CustomerReviews"
+import EditReviews from "./pages/Review/EditReview"
+import DeleteReview from "./pages/Review/DeleteReview"
 import NoMatch from "./pages/NoMatch";
 import GoBack from "./components/Buttons/GoBack"
 import Cancel from "./components/Buttons/Cancel"
@@ -162,6 +164,12 @@ const  App = () => {
           </Route>
           <Route exact path="/customerReviews" >
             {!authStatus ? <Redirect to="/login/customerReviews" /> : <CustomerReviews/>}
+          </Route>
+          <Route exact path="/editReview/:id" >
+            {!authStatus ? <Redirect to="/login/customerReviews" /> : <EditReviews/>}
+          </Route>
+          <Route exact path="/deleteReview/:id" >
+            {!authStatus ? <Redirect to="/login/customerReviews" /> : <DeleteReview/>}
           </Route>
           <Route>
             <GoBack/>
