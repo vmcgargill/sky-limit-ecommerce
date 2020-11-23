@@ -99,4 +99,29 @@ router.put("/api/editReview/:id", isAuthenticated, (req, res) => {
   })
 })
 
+router.delete("/api/deleteReview/:id", isAuthenticated, (req, res) => {
+  const id = req.params.id;
+  db.Review.findById(id, (err, review) => {
+    if (err) throw err;
+    const product = review.product;
+    db.Product.findByIdAndUpdate(product, {
+      $pull: {reviews: id}
+    }, (error, product) => {
+      if (error) throw error;
+      if (product) {
+        db.Review.findByIdAndDelete(id, (errorMsg, reviewDeleted) => {
+          if (errorMsg) throw errorMsg;
+          if (reviewDeleted) {
+            return res.json(200)
+          }
+        })
+      }
+    }).catch(() => {
+      return res.json(404)
+    })
+  }).catch(() => {
+    return res.json(404)
+  })
+})
+
 module.exports = router;

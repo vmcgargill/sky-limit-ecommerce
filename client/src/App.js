@@ -167,9 +167,11 @@ const  App = () => {
           </Route>
           <Route exact path="/editReview/:id" >
             {!authStatus ? <Redirect to="/login/customerReviews" /> : <EditReviews/>}
+            <Cancel/>
           </Route>
           <Route exact path="/deleteReview/:id" >
             {!authStatus ? <Redirect to="/login/customerReviews" /> : <DeleteReview/>}
+            <Cancel/>
           </Route>
           <Route>
             <GoBack/>

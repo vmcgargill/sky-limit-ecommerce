@@ -122,6 +122,9 @@ const API = {
   },
   editReview: (id, data) => {
     return axios.put("/api/editReview/" + id, data);
+  },
+  deleteReview: (id) => {
+    return axios.delete("/api/deleteReview/" + id);
   }
 };
 
