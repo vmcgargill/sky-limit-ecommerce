@@ -112,10 +112,16 @@ const API = {
     return axios.get("/api/product/reviews/" + id)
   },
   getCustomerReviews: () => {
-    return axios.get("/api/customerReviews")
+    return axios.get("/api/customerReviews");
+  },
+  getCustomerReview: (id) => {
+    return axios.get("/api/customerReview/" + id);
   },
   postReview: (id, data) => {
     return axios.post("/api/postReview/" + id, data);
+  },
+  editReview: (id, data) => {
+    return axios.put("/api/editReview/" + id, data);
   }
 };
 

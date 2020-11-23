@@ -11,8 +11,6 @@ const PostReview = (props) => {
 
   const PostReview = (event) => {
     event.preventDefault()
-    console.log("Review has been posted.")
-    // console.log(rating, title, description)
     setLoad(SmallLoadingIcon)
     if (props.new) {
       API.postReview(props.product._id, {
@@ -20,11 +18,27 @@ const PostReview = (props) => {
         description: description,
         rating: rating
       }).then(res => {
-        console.log(res)
-        if (res.data === 404) {
+        if (res.data === 401) {
+          window.location.href = "/login/postReview/" + props.product._id
+        } else if (res.data === 404) {
           window.location.href = "/404"
         } else if (res.data.review) {
           window.location.href = "/review/" + res.data.review._id
+        }
+      })
+    } else {
+      API.editReview(props.review._id, {
+        title: title,
+        description: description,
+        rating: rating
+      }).then(res => {
+        console.log(res)
+        if (res.data === 401) {
+          window.location.href = "/login/editReview/" + props.review._id
+        } else if (res.data === 404) {
+          window.location.href = "/404"
+        } else if (res.data._id) {
+          window.location.href = "/review/" + res.data._id
         }
       })
     }
@@ -32,11 +46,12 @@ const PostReview = (props) => {
 
   useEffect(() => {
     if (!props.new) {
-      console.log("We are editing an existing review.")
-    } else {
-      console.log("We are creating a new review.")
+      const review = props.review;
+      setTitle(review.title);
+      setDescription(review.description);
+      setRating(review.rating);
     }
-  })
+  }, [props])
 
   return (
     <div clasName="row">

@@ -14,14 +14,20 @@ router.get("/api/review/:id", (req, res) => {
 
 router.get("/api/customerReviews", isAuthenticated, (req, res) => {
   const id = req.user._id;
-  // db.Review.find({ reviewer: id }, (err, reviews) => {
-  //   if (err) throw err;
-  //   return res.json(reviews);
-  // })
   db.Review.find({ reviewer: id }).populate("product").exec().then(reviews => {
     return res.json(reviews);
   }).catch(() => {
     return res.json([]);
+  })
+})
+
+router.get("/api/customerReview/:id", isAuthenticated, (req, res) => {
+  const id = req.params.id;
+  db.Review.findById(id, (err, review) => {
+    if (err) throw err;
+    return res.json(review);
+  }).catch(() => {
+    return res.json(404);
   })
 })
 
@@ -77,6 +83,19 @@ router.post("/api/postReview/:id", isAuthenticated, (req, res) => {
         }
       })
     }
+  })
+})
+
+router.put("/api/editReview/:id", isAuthenticated, (req, res) => {
+  const id = req.params.id;
+  console.log(req.body)
+  db.Review.findByIdAndUpdate(id, req.body, (err, review) => {
+    if (err) throw err;
+    if (review) {
+      return res.json(review);
+    }
+  }).catch(() => {
+    return res.json(404)
   })
 })
 
