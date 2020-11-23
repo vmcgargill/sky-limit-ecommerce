@@ -35,12 +35,18 @@ function Review() {
           } else {
             setImage(<img src={"/Default.jpg"} className="card-img-top productImg" alt='ProductImage'/>)
           }
+        } else if (res.data.product === null) {
+          setImage("This product is no longer avilable.")
         }
         if (res.data.reviewer) {
           setReviewer(res.data.reviewer)
+        } else if (res.data.reviewer === null) {
+          setReviewer({name: "This reviewer is no longer avilable."})
         }
         if (res.data.seller) {
           setSeller(res.data.seller)
+        } else if (res.data.seller === null) {
+          setSeller({name: "This seller is no longer avilable.", _id: "404"})
         }
       }
     })

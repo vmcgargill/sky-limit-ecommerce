@@ -14,12 +14,21 @@ const CustomerReviews = () => {
           setReviews(<h5>You have no posted any reviews yet!</h5>)
         } else {
           const customerReviews = res.data.map(review => {
+
+            let product = ""
+
+            if (review.product === null) {
+              product = "This product is no longer available."
+            } else {
+              product = review.product.name
+            }
+            
             return (
               <div className="row">
                 <div className="col-sm-12 col-md-12 col-lg-12">
                   <div className="card">
                     <div className="card-body">
-                      <h5 class="card-title">Review for: {review.product.name}</h5><br/>
+                      <h5 class="card-title">Review for: {product}</h5><br/>
                       <h6 class="card-subtitle"><Rating name="rating" precision={0.1} value={review.rating} readOnly/></h6><br/>
                       <button className="btn btn-primary" onClick={() => {
                         window.location.href = "/editReview/" + review._id

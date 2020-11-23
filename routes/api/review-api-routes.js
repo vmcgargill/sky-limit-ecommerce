@@ -6,7 +6,6 @@ const isReviewOwner = require("../../config/middleware/isReviewOwner")
 router.get("/api/review/:id", (req, res) => {
   const id = req.params.id
   db.Review.findById(id).populate("product").populate("reviewer").populate("seller").exec().then(review => {
-    console.log(review)
     return res.json(review);
   }).catch(() => {
     return res.json(404);
@@ -35,7 +34,6 @@ router.get("/api/customerReview/:id", isAuthenticated, isReviewOwner, (req, res)
 router.get("/api/product/reviews/:id", (req, res) => {
   const id = req.params.id;
   db.Product.findById(id).populate("reviews").exec().then(product => {
-    console.log(product)
     return res.json(product)
   }).catch(() => {
     return res.json(404);
@@ -62,7 +60,6 @@ router.post("/api/postReview/:id", isAuthenticated, (req, res) => {
         } else if (orders.length > 0) {
           db.Review.findOne({ reviewer: userId, product: productId }, (errMsg, existingReview) => {
             if (errMsg) throw errMsg;
-            console.log("Result: " + existingReview)
             if (existingReview !== null) {
               return res.json(404)
             } else {
@@ -89,7 +86,6 @@ router.post("/api/postReview/:id", isAuthenticated, (req, res) => {
 
 router.put("/api/editReview/:id", isAuthenticated, isReviewOwner, (req, res) => {
   const id = req.params.id;
-  console.log(req.body)
   db.Review.findByIdAndUpdate(id, req.body, (err, review) => {
     if (err) throw err;
     if (review) {
@@ -105,11 +101,14 @@ router.delete("/api/deleteReview/:id", isAuthenticated, isReviewOwner, (req, res
   db.Review.findById(id, (err, review) => {
     if (err) throw err;
     const product = review.product;
+
     db.Product.findByIdAndUpdate(product, {
       $pull: {reviews: id}
     }, (error, product) => {
       if (error) throw error;
-      if (product) {
+      console.log("===========================" + product)
+
+      if (product || product === null) {
         db.Review.findByIdAndDelete(id, (errorMsg, reviewDeleted) => {
           if (errorMsg) throw errorMsg;
           if (reviewDeleted) {
@@ -117,6 +116,7 @@ router.delete("/api/deleteReview/:id", isAuthenticated, isReviewOwner, (req, res
           }
         })
       }
+
     }).catch(() => {
       return res.json(404)
     })
