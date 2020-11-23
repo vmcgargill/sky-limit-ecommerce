@@ -23,7 +23,6 @@ router.get("/api/userOrders", isAuthenticated, (req, res) => {
 router.post("/api/placeOrder", isAuthenticated, (req, res) => {
   const id = req.user._id;
   const comparePrice = req.body.comparePrice;
-  console.log(comparePrice)
   db.User.findOne({ _id: id }, 'cart', (err, user) => {
     if (err) throw err;
     const Cart = user.cart;

@@ -106,7 +106,6 @@ router.delete("/api/deleteReview/:id", isAuthenticated, isReviewOwner, (req, res
       $pull: {reviews: id}
     }, (error, product) => {
       if (error) throw error;
-      console.log("===========================" + product)
 
       if (product || product === null) {
         db.Review.findByIdAndDelete(id, (errorMsg, reviewDeleted) => {

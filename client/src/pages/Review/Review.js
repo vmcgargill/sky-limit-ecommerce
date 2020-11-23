@@ -19,7 +19,6 @@ function Review() {
 
   useEffect(() => {
     API.getReview(id).then(res => {
-      console.log(res)
       if (res.data === 404) {
         return window.location.href = "/404";
       } else if (res.data._id) {

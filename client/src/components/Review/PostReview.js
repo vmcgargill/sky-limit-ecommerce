@@ -32,7 +32,6 @@ const PostReview = (props) => {
         description: description,
         rating: rating
       }).then(res => {
-        console.log(res)
         if (res.data === 401) {
           window.location.href = "/login/editReview/" + props.review._id
         } else if (res.data === 404) {

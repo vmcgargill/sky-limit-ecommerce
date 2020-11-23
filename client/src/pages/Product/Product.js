@@ -50,7 +50,6 @@ function Product() {
   }
 
   const updateWishlist = () => {
-    console.log(wishlist.onWishlist)
     if (wishlist.onWishlist) {
       API.removeWishlist(id).then(res => {
         if (res.data === 401) {
@@ -111,7 +110,6 @@ function Product() {
 
             // Already Ordered
             if (response.data.ordered) {
-              console.log(response.data)
 
               // Reviewed
               if (!response.data.reviewed) {

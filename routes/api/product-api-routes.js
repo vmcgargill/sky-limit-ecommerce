@@ -89,8 +89,6 @@ router.get("/api/product/:id", (req, res) => {
               } else {
                 dbResponse.reviewed = false;
               }
-
-              console.log(dbResponse)
               return res.json(dbResponse);
             })
           })

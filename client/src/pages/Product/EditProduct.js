@@ -9,7 +9,6 @@ const EditProduct = () => {
 
   useEffect(() => {
     API.getSellerProduct(id).then(res => {
-      console.log(res)
       if (res.data === 401) {
         window.location.href = "/login/editProduct/" + id
       } else if (res.data.product) {
