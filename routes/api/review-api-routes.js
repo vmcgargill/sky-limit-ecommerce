@@ -1,6 +1,7 @@
 const db = require("../../models");
 const router = require("express").Router();
 const isAuthenticated = require("../../config/middleware/isAuthenticated");
+const isReviewOwner = require("../../config/middleware/isReviewOwner")
 
 router.get("/api/review/:id", (req, res) => {
   const id = req.params.id
@@ -21,7 +22,7 @@ router.get("/api/customerReviews", isAuthenticated, (req, res) => {
   })
 })
 
-router.get("/api/customerReview/:id", isAuthenticated, (req, res) => {
+router.get("/api/customerReview/:id", isAuthenticated, isReviewOwner, (req, res) => {
   const id = req.params.id;
   db.Review.findById(id, (err, review) => {
     if (err) throw err;
@@ -86,7 +87,7 @@ router.post("/api/postReview/:id", isAuthenticated, (req, res) => {
   })
 })
 
-router.put("/api/editReview/:id", isAuthenticated, (req, res) => {
+router.put("/api/editReview/:id", isAuthenticated, isReviewOwner, (req, res) => {
   const id = req.params.id;
   console.log(req.body)
   db.Review.findByIdAndUpdate(id, req.body, (err, review) => {
@@ -99,7 +100,7 @@ router.put("/api/editReview/:id", isAuthenticated, (req, res) => {
   })
 })
 
-router.delete("/api/deleteReview/:id", isAuthenticated, (req, res) => {
+router.delete("/api/deleteReview/:id", isAuthenticated, isReviewOwner, (req, res) => {
   const id = req.params.id;
   db.Review.findById(id, (err, review) => {
     if (err) throw err;
