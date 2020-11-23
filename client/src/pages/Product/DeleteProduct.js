@@ -35,7 +35,7 @@ function DeleteProduct() {
     <div>
       <h2>Are you sure you want to delete this product?</h2>
       <h5>Please type the name of the product '{name}' to confirm.</h5>
-      <input className="form-control" placeholder="Product Name" value={confirmName} onChange={handleChange}></input>
+      <input className="form-control" placeholder="Product Name" value={confirmName} onChange={handleChange}></input><br/>
       <button className="btn btn-danger" onClick={deleteProduct}>I understand that deleting a product is permenant and confirm deleting this product.</button>
     </div>
   );
