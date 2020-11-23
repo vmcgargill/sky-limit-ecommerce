@@ -51,13 +51,15 @@ router.get("/api/product/:id", (req, res) => {
       return res.json(404);
     } else {
       if (req.user) {
+        const userId = req.user._id;
+
         const dbResponse = {
           product: product,
           signedin: true,
           averageRating: averageRating
         }
   
-        db.Order.find({buyer: req.user._id, products: {$elemMatch: {productId: id}}}, (errorMsg, order) => {
+        db.Order.find({buyer: userId, products: {$elemMatch: {productId: id}}}, (errorMsg, order) => {
           if (errorMsg) throw errorMsg;
           if (order.length === 0) {
             dbResponse.ordered = false;
@@ -65,7 +67,7 @@ router.get("/api/product/:id", (req, res) => {
             dbResponse.ordered = true;
           }
   
-          db.User.findOne({ _id: req.user._id }, (err, user) => {
+          db.User.findOne({ _id: userId }, (err, user) => {
             if (err) throw err;
             const WishList = user.wishlist;
             if (WishList.indexOf(id) > -1) {
@@ -79,7 +81,18 @@ router.get("/api/product/:id", (req, res) => {
             } else {
               dbResponse.cart = false;
             }
-            return res.json(dbResponse);
+
+            db.Review.find({reviewer: userId, product: id}, (errorMessage, review) => {
+              if (errorMessage) throw errorMessage;
+              if (review.length > 0) {
+                dbResponse.reviewed = true;
+              } else {
+                dbResponse.reviewed = false;
+              }
+
+              console.log(dbResponse)
+              return res.json(dbResponse);
+            })
           })
         })
       } else {

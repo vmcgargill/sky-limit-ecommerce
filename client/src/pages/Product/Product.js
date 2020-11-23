@@ -94,21 +94,33 @@ function Product() {
           }
 
           if (response.data.signedin) {
+
+            // Wishlist
             if (response.data.wishlist) {
               SetWhishlist({btnName: "Remove from Wishlist", onWishlist: true})
             } else {
               SetWhishlist({btnName: "Add to Wishlist", onWishlist: false})
             }
+
+            // Cart
             if (response.data.cart) {
               SetCart({btnName: "Remove from Cart", onCart: true})
             } else {
               SetCart({btnName: "Add to Cart", onCart: false})
             }
 
+            // Already Ordered
             if (response.data.ordered) {
-              setReviewBtn(<div><br/><button className="btn btn-primary" onClick={() => {
-                window.location.href = "/productReview/" + id;
-              }}>Write a Review</button></div>)
+              console.log(response.data)
+
+              // Reviewed
+              if (!response.data.reviewed) {
+                setReviewBtn(<div><br/><button className="btn btn-primary" onClick={() => {
+                  window.location.href = "/productReview/" + id;
+                }}>Write a Review</button></div>)
+              }
+
+              // Buy Again Button
               if (!response.data.cart) {
                 SetCart({btnName: "Buy Again", onCart: false})
               }
