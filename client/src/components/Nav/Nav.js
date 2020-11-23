@@ -22,7 +22,7 @@ function Nav({authStatus, Suggestions}) {
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <Link to={`/accountSettings`} className="dropdown-item">Account Settings</Link>
-              <Link to={`/userOrders`} className="dropdown-item">Orders</Link>
+              <Link to={`/orders`} className="dropdown-item">Orders</Link>
               <Link to={`/wishList`} className="dropdown-item">Wishlist</Link>
               <Link to={`/postProduct`} className="dropdown-item">Sell</Link>
               <Link onClick={async () => {
@@ -32,7 +32,7 @@ function Nav({authStatus, Suggestions}) {
             </div>
           </li>
           <li className="nav-item active" id="HomeItem">
-            <Link to={`/userCart`} className="nav-link">Cart</Link>
+            <Link to={`/cart`} className="nav-link">Cart</Link>
           </li>
         </ul>
       </div>

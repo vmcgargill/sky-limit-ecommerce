@@ -31,6 +31,7 @@ import Order from "./pages/Order/Order"
 import Review from "./pages/Review/Review"
 import PostNewReview from "./pages/Review/PostNewReview"
 import ProductReviews from "./pages/Review/ProductReviews"
+import CustomerReviews from "./pages/User/Account/CustomerReviews"
 import NoMatch from "./pages/NoMatch";
 import GoBack from "./components/Buttons/GoBack"
 import Cancel from "./components/Buttons/Cancel"
@@ -139,25 +140,28 @@ const  App = () => {
           <Route exact path="/wishList" >
             {!authStatus ? <Redirect to="/login/wishList" /> : <WishList/>}
           </Route>
-          <Route exact path="/userCart" >
-            {!authStatus ? <Redirect to="/login/userCart" /> : <Cart/>}
+          <Route exact path="/cart" >
+            {!authStatus ? <Redirect to="/login/cart" /> : <Cart/>}
           </Route>
           <Route exact path="/cartAdded/:id" >
             <GoBack/>
-            {!authStatus ? <Redirect to="/login/userCart" /> : <CartAdded/>}
+            {!authStatus ? <Redirect to="/login/cart" /> : <CartAdded/>}
           </Route>
           <Route exact path="/confirmOrder/:id">
-            {!authStatus ? <Redirect to="/login/userCart" /> : <ConfirmOrder/>}
+            {!authStatus ? <Redirect to="/login/cart" /> : <ConfirmOrder/>}
           </Route>
           <Route exact path="/order/:id" >
-            {!authStatus ? <Redirect to="/login/userOrders" /> : <Order/>}
+            {!authStatus ? <Redirect to="/login/orders" /> : <Order/>}
             <GoBack/>
           </Route>
-          <Route exact path="/userOrders" >
-            {!authStatus ? <Redirect to="/login/userOrders" /> : <UserOrders/>}
+          <Route exact path="/orders" >
+            {!authStatus ? <Redirect to="/login/orders" /> : <UserOrders/>}
           </Route>
           <Route exact path="/productReview/:id" >
-            {!authStatus ? <Redirect to="/login/userOrders" /> : <PostNewReview/>}
+            {!authStatus ? <Redirect to="/login/orders" /> : <PostNewReview/>}
+          </Route>
+          <Route exact path="/customerReviews" >
+            {!authStatus ? <Redirect to="/login/customerReviews" /> : <CustomerReviews/>}
           </Route>
           <Route>
             <GoBack/>
