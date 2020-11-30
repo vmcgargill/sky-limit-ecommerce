@@ -17,13 +17,23 @@ router.get("/api/userProfile", isAuthenticated, (req, res) => {
 });
 
 router.get("/api/merchant/:id", (req, res) => {
-  db.User.findOne({ _id: req.params.id }, (err, merchant) => {
+  const id = req.params.id;
+  db.User.findOne({ _id: id }, (err, merchant) => {
     if (err) throw err;
-    db.Product.find({ seller: req.params.id }, (error, products) => {
+    db.Product.find({ seller: id }, (error, products) => {
       if (error) throw error;
-      res.json({
-        merchant: merchant,
-        products: products
+      db.Review.find({ seller: id }, (errMsg, reviews) => {
+        if (errMsg) throw errMsg;
+        let averageRating = null;
+        if (reviews.length > 0) {
+          averageRating = reviews.map(review => review.rating).reduce((x, y) => x + y, 0) / reviews.length;
+        }
+
+        return res.json({
+          merchant: merchant,
+          products: products,
+          rating: averageRating
+        })
       })
     })
   })

@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import ProductList from "../../components/Product/ProductList";
 import LoadingIcon from "../../components/LoadingIcon/LoadingIcon"
 import API from "../../utils/API";
+import Rating from '@material-ui/lab/Rating';
 import "./User.css";
 
 const Merchant = () => {
@@ -10,12 +11,18 @@ const Merchant = () => {
   const [merchant, setMerchant] = useState({});
   const [products, setProducts] = useState([]);
   const [load, setLoad] = useState(LoadingIcon);
+  const [rating, setRating] = useState(null);
 
   useEffect(() => {
     API.getMerchant(id).then(res => {
       if (res.data.merchant) {
         setLoad("")
         setMerchant(res.data.merchant);
+        if (res.data.rating === null) {
+          setRating("Seller has not yet been rated!")
+        } else {
+          setRating(<Rating name="rating" precision={0.1} value={res.data.rating} readOnly />);
+        }
         if (res.data.products) {
           setProducts(res.data.products);
         } else {
@@ -25,7 +32,7 @@ const Merchant = () => {
         window.location.href = "/404"
       }
     });
-  }, [id]);
+  }, [id]); 
   
   return(
     <div>
@@ -38,8 +45,8 @@ const Merchant = () => {
         <a href={"mailto:" + merchant.email} className="btn btn-primary">Contact</a>
       </div>
       <div className="card-body merchantCard">
-        <h5 className="card-title">Overall Seller Rating</h5>
-        <p className="card-text">5/5 Stars</p>
+        <h5 className="card-title">Overall Seller Rating:</h5>
+        <p className="card-text">{rating}</p>
       </div>
       <div className="card-body">
           <h5 className="card-title">Current Products:</h5>
