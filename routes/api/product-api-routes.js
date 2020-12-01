@@ -105,11 +105,13 @@ router.get("/api/product/:id", (req, res) => {
 router.get("/api/sellerProduct/:id", isAuthenticated, isProductOwner, (req, res) => {
   const id = req.params.id;
   db.Product.findById(id, (err, product) => {
-    if (err) throw err;
+    if (err) {
+      return res.json(404)
+    };
     if (product) {
-      res.json({product: product});
+      return res.json({product: product});
     } else {
-      res.json(404)
+      return res.json(404)
     }
   })
 })
@@ -121,7 +123,7 @@ router.get("/api/userWishlist", isAuthenticated, (req, res) => {
     const WishList = user.wishlist;
     db.Product.find().where('_id').in(WishList).exec((error, products) => {
       if (error) throw err;
-      res.json({products});
+      return res.json({products});
     });
   })
 })
@@ -133,7 +135,7 @@ router.get("/api/userCart", isAuthenticated, (req, res) => {
     const Cart = user.cart;
     db.Product.find().where('_id').in(Cart).exec((error, products) => {
       if (error) throw err;
-      res.json({products});
+      return res.json({products});
     });
   })
 })
@@ -152,7 +154,7 @@ router.post("/api/postProduct", isAuthenticated, upload.single("image"), (req, r
     if (req.file) {
       fs.unlinkSync(path.join(__dirname + '/../../upload/' + req.file.filename));
     }
-    res.json(created)
+    return res.json(created)
   })
 });
 
@@ -170,7 +172,7 @@ router.put("/api/editProduct/:id", isAuthenticated, isProductOwner, upload.singl
     if (req.file) {
       fs.unlinkSync(path.join(__dirname + '/../../upload/' + req.file.filename));
     }
-    res.json(updated)
+    return res.json(updated)
   });
 });
 
@@ -178,7 +180,7 @@ router.delete("/api/deleteProduct/:id", isAuthenticated, isProductOwner, (req, r
   const id = req.params.id;
   db.Product.deleteOne({ _id: id }, (err, deleted) => {
     if (err) throw err;
-    res.json(deleted)
+    return res.json(deleted)
   })
 })
 

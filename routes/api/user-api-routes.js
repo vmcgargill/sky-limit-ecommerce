@@ -8,7 +8,7 @@ router.get("/api/userProfile", isAuthenticated, (req, res) => {
     if (err) throw err;
     db.Product.find({ seller: id }, (error, products) => {
       if (error) throw error;
-      res.json({
+      return res.json({
         user: user,
         products: products
       })
@@ -45,7 +45,7 @@ router.get("/api/merchantProducts", isAuthenticated, (req, res) => {
   const id = req.user._id;
   db.Product.find({ seller: id }, (err, products) => {
     if (err) throw err;
-    res.json({
+    return res.json({
       products: products
     })
   })
@@ -55,7 +55,7 @@ router.get("/api/userAddresses", isAuthenticated, (req, res) => {
   const id = req.user._id
   db.User.findOne({ _id: id }, 'address', (err, userAddresses) => {
     if (err) throw err;
-    res.json(userAddresses);
+    return res.json(userAddresses);
   })
 })
 
@@ -64,7 +64,7 @@ router.put("/api/updateUser", isAuthenticated, (req, res) => {
   const data = req.body;
   db.User.findByIdAndUpdate(id, {$set: data}, (err, user) => {
     if (err) throw err;
-    res.json({message: "Success!"})
+    return res.json({message: "Success!"})
   })
 })
 
@@ -77,11 +77,11 @@ router.put("/api/updatePassword", isAuthenticated, (req, res) => {
     user.comparePassword(oldPassword, (error, match) => {
       if (error) throw error;
       if (!match) {
-        res.json(401, {error: "Wrong password"})
+        return res.json(401, {error: "Wrong password"})
       } else {
         db.User.findByIdAndUpdate(id, {$set: {password: newPassword}}, (errorMsg, resUser) => {
           if (errorMsg) throw errorMsg;
-          res.json(200, {message: "Password Changed"})
+          return res.json(200, {message: "Password Changed"})
         })
       }
     })
@@ -95,7 +95,7 @@ router.post("/api/creatAddress", isAuthenticated, (req, res) => {
   }, (err, updated) => {
     if (err) throw err;
     if (updated) {
-      res.json({message: "Success!"})
+      return res.json({message: "Success!"})
     }
   })
 })
@@ -107,7 +107,7 @@ router.put("/api/updateAddress/:id", isAuthenticated, (req, res) => {
   }, (err, updated) => {
     if (err) throw err;
     if (updated) {
-      res.json({message: "Success!"})
+      return res.json({message: "Success!"})
     }
   })
 })
@@ -121,7 +121,7 @@ router.put("/api/removeAddress/:id", isAuthenticated, (req, res) => {
   }, (err, user) => {
     if (err) throw err;
     if (user) {
-      res.json({message: "Success!"})
+      return res.json({message: "Success!"})
     }
   })
 })
@@ -143,7 +143,7 @@ router.put("/api/setDefaultAddress/:id", isAuthenticated, (req, res) => {
       }, (err, user) => {
         if (err) throw err;
         if (user) {
-          res.json({message: "Success!"})
+          return res.json({message: "Success!"})
         }
       })
     }
@@ -160,7 +160,7 @@ router.post("/api/wishList/:id", isAuthenticated, (req, res) => {
   }, (err, updated) => {
     if (err) throw err;
     if (updated) {
-      res.json({message: "Success!"})
+      return res.json({message: "Success!"})
     }
   })
 });
@@ -173,7 +173,7 @@ router.put("/api/removeWishList/:id", isAuthenticated, (req, res) => {
   }, (err, updated) => {
     if (err) throw err;
     if (updated) {
-      res.json({message: "Success!"})
+      return res.json({message: "Success!"})
     }
   })
 });
@@ -186,7 +186,7 @@ router.post("/api/addCart/:id", isAuthenticated, (req, res) => {
   }, (err, updated) => {
     if (err) throw err;
     if (updated) {
-      res.json({message: "Success!"})
+      return res.json({message: "Success!"})
     }
   })
 });
@@ -199,7 +199,7 @@ router.put("/api/removeCart/:id", isAuthenticated, (req, res) => {
   }, (err, updated) => {
     if (err) throw err;
     if (updated) {
-      res.json({message: "Success!"})
+      return res.json({message: "Success!"})
     }
   })
 });
