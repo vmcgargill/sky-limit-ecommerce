@@ -16,7 +16,7 @@ const Cart = () => {
     const LoadCart = () => {
       API.loadCart().then(res => {
         if (res.data === 401) {
-          window.location.href = "/login/userCart"
+          window.location.href = "/login/cart"
         }
         if (res.data.products) {
           if (res.data.products.length === 0) {

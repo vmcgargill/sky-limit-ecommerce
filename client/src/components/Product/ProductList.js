@@ -16,10 +16,10 @@ function ProductList(props) {
       productImg = "data:image/jpeg;base64," + ConvertImage(product.image.data.data);
     }
 
-    let productRating = "Product has not yet been reviewed."
+    let productRating = <p className="card-text productDescription">Product has not yet been reviewed.</p>
     if (product.reviews.length > 0) {
       const averageRating = product.reviews.map(review => review.rating).reduce((x, y) => x + y, 0) / product.reviews.length;
-      productRating = (<div>Overall Rating: <br/><Rating name="rating" precision={0.1} value={averageRating} readOnly /></div>);
+      productRating = (<p className="card-text productDescription">Overall Rating: <br/><Rating name="rating" precision={0.1} value={averageRating} readOnly /></p>);
     }
 
     return (
@@ -34,7 +34,7 @@ function ProductList(props) {
               <h5 className="card-title">{product.name}</h5>
               <p className="card-text">${product.price}</p>
               <p className="card-text productDescription">{product.description}</p>
-              <p className="card-text productDescription">{productRating}</p>
+              {productRating}
               <p className="card-text"><small className="text-muted">Posted 2 days ago</small></p>
             </div>
           </div>

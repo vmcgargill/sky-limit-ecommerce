@@ -8,7 +8,7 @@ const UserOrder = () => {
   useEffect(() => {
     API.getOrderHistory().then(res => {
       if (res.data === 401) {
-        window.location.href = "/login/userOrders"
+        window.location.href = "/login/orders"
       } else if (res.data.orders.length === 0) {
         setOrders(<h5>You have not yet placed any orders!</h5>)
       } else if (res.data.orders.length > 0) {
@@ -16,21 +16,19 @@ const UserOrder = () => {
           const orderDate = new Date(order.purchaseDate).toString()
           const productNameString = order.products.map(product => {
             return (
-              <div>
-                {product.originalName} <br/>
-              </div>
+              <p className="card-text" key={product.productId}>{product.originalName}<br/></p>
             )
           })
           return (
-            <div class="card">
-              <div class="card-header">
+            <div className="card" key={order._id}>
+              <div className="card-header">
                 Order #{order._id}
               </div>
-              <div class="card-body">
-                <h5 class="card-title">Something here.</h5>
-                <p class="card-text">{productNameString}</p>
+              <div className="card-body">
+                <h5 className="card-title">Something here.</h5>
+                {productNameString}
                 <p className="card-text"><small className="text-muted">Order Placed on {orderDate}</small></p>
-                <button class="btn btn-primary" onClick={() => {
+                <button className="btn btn-primary" onClick={() => {
                   window.location.href = "/order/" + order._id
                 }}>View Order details</button>
               </div>
