@@ -31,6 +31,7 @@ const Cart = () => {
               API.placeOrder(currentCartTotal).then(res => {
                 if (!res.data.orderStatus) {
                   setError(<Error message={res.data.message}/>)
+                  LoadCart()
                 } else if (res.data.orderStatus) {
                   window.location.href = "/confirmOrder/" + res.data.id;
                 }
