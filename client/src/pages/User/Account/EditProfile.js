@@ -42,9 +42,6 @@ const EditProfile = () => {
         } else {
           userData.address = "Change Default Address"
         }
-        if (res.data.user.payment === undefined) {
-          userData.payment = "Add payment method"
-        }
         setUser(userData)
       }
     });
@@ -81,12 +78,6 @@ const EditProfile = () => {
           <h5 className="card-title">Default Shipping Address</h5>
           <p className="card-text">{user.address}</p>
           <button onClick={() => {window.location.href="/updateAddress"}} className="btn btn-primary">Change Default Address</button>
-        </div>
-        <div className="card-body editProfileOpt">
-          <h5 className="card-title">Payment Methods</h5>
-          <p className="card-text">Default Payment Method:</p>
-          <p className="card-text">{user.payment}</p>
-          <button onClick={() => {window.location.href="/updatePayment"}} className="btn btn-primary">Manage Payment Methods</button>
         </div>
         <div className="card-body editProfileOpt">
           <h5 className="card-title">Delete Account</h5>

@@ -21,7 +21,6 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "react": "^17.0.1",
-    "react-credit-card-input": "^1.1.5",
     "react-dom": "^17.0.1",
     "react-dropdown-select": "^4.6.1",
     "react-phone-input-2": "^2.13.9",

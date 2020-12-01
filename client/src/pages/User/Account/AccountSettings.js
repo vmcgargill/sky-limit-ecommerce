@@ -41,7 +41,7 @@ const Profile = () => {
           <div className="card edit-profile">
             <div className="card-body ">
               <h5 className="card-title">Profile</h5>
-              <p className="card-text">Manage your personal information: name, email, payment details, default shipping address, or password.</p>
+              <p className="card-text">Manage your personal information: name, email, default shipping address, or password.</p>
               <button onClick={() => {window.location.href = "/editProfile";}} className="btn btn-primary">Edit Profile</button>
             </div>
           </div>

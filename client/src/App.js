@@ -18,7 +18,6 @@ import UpdateEmail from './pages/User/Account/UpdateEmail';
 import UpdatePassword from './pages/User/Account/UpdatePassword';
 import UpdatePhone from './pages/User/Account/UpdatePhone'
 import UpdateAddress from './pages/User/Account/UpdateAddress'
-import UpdatePayment from './pages/User/Account/UpdatePayment'
 import DeleteAccount from './pages/User/Account//DeleteAccount'
 import SellingAccount from './pages/User/Account/SellingAccount';
 import WishList from './pages/User/WishList';
@@ -127,10 +126,6 @@ const  App = () => {
           </Route>          
           <Route exact path="/updateAddress" >
             {!authStatus ? <Redirect to="/login/updateAddress" /> : <UpdateAddress/>}
-            <GoBack/>
-          </Route>
-          <Route exact path="/updatePayment" >
-            {!authStatus ? <Redirect to="/login/updatePayment" /> : <UpdatePayment/>}
             <GoBack/>
           </Route>
           <Route exact path="/deleteAccount" >

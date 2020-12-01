@@ -7,7 +7,7 @@ const OrderDetail = ({order}) => {
 
   const orderDetails = order.products.map(product => {
     return (
-      <div className="card-body">
+      <div className="card-body" key={product.productId}>
         <div className="container">
           <div className="row">
             <div className="col-sm-4 col-md-4 col-lg-4">

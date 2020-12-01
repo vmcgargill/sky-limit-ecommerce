@@ -72,9 +72,6 @@ const API = {
     query.url = "/api/editProduct/" + id;
     return axios(query);
   },
-  postPaymenyMethod: (data) => {
-    return axios.post("/api/addPaymentMethod", data);
-  },
   loadCart: () => {
     return axios.get("/api/userCart");
   },
