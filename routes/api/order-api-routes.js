@@ -52,7 +52,7 @@ router.post("/api/placeOrder", isAuthenticated, (req, res) => {
         }, (errMsg, order) => {
           if (errMsg) throw errMsg;
           if (order) {
-            db.User.findOneAndUpdate(id, {
+            db.User.findByIdAndUpdate(id, {
               $set: {cart: []}
             }, (errorMsg, updatedCart) => {
               if (errorMsg) throw errorMsg;
