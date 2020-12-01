@@ -87,9 +87,9 @@ function Product() {
           setDescription(product.description)
           setSeller(product.seller)
           if (product.image) {
-            setImage(<img src={"data:image/jpeg;base64," + ConvertImage(product.image.data.data)} className="card-img-top productImg" alt='ProductImage'/>)
+            setImage(<div className="productImg"><img src={"data:image/jpeg;base64," + ConvertImage(product.image.data.data)} className="card-img-top" alt='ProductImage'/></div>)
           } else {
-            setImage(<img src={"/Default.jpg"} className="card-img-top productImg" alt='ProductImage'/>)
+            setImage(<div className="productImg"><img src={"/Default.jpg"} className="card-img-top productImg" alt='ProductImage'/></div>)
           }
 
           if (response.data.signedin) {
