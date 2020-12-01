@@ -46,6 +46,9 @@ const WishList = () => {
                           window.location.href = "/cartAdded/" + product._id
                         });
                       }}>Add to Cart</button><br/><br/>
+                      <button className="btn btn-primary" onClick={() => {
+                          window.location.href = "/product/" + product._id
+                        }}>View Item</button><br/><br/>
                       <button className="btn btn-danger" onClick={() => {
                         API.removeWishlist(product._id).then(() => {
                           LoadWishlist();

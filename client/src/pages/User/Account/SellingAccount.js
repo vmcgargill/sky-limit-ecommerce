@@ -44,6 +44,7 @@ const SellingAccount = () => {
               <p className="card-text merchantDescription">{product.description}</p>
               <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
               <button className="btn btn-primary" onClick={() => {window.location.href = "/editProduct/" + product._id;}}>Edit Product</button><br/><br/>
+              <button className="btn btn-primary" onClick={() => {window.location.href = "/product/" + product._id;}}>View Product</button><br/><br/>
               <button className="btn btn-danger" onClick={() => {window.location.href = "/deleteProduct/" + product._id;}}>Delete Product</button>
             </div>
           </div>

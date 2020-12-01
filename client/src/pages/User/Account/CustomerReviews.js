@@ -33,6 +33,9 @@ const CustomerReviews = () => {
                       <button className="btn btn-primary" onClick={() => {
                         window.location.href = "/editReview/" + review._id
                       }}>Edit Review</button><br/><br/>
+                      <button className="btn btn-primary" onClick={() => {
+                        window.location.href = "/product/" + review.product._id
+                      }}>View Product</button><br/><br/>
                       <button className="btn btn-danger" onClick={() => {
                         window.location.href = "/deleteReview/" + review._id
                       }}>Delete Review Review</button>

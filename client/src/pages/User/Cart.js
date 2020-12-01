@@ -54,12 +54,15 @@ const Cart = () => {
                     </div>
                     <div className="col-sm-12 col-md-12 col-lg-4">
                       <div className="card-body  cartListBodyMiddle">
-                        <h5 className="card-title">{product.name}</h5>
+                        <h5 className="card-title">{product.name}</h5><br/>
                         <button className="btn btn-danger" onClick={() => {
                           API.removeCart(product._id).then(() => {
                             LoadCart();
                           })
-                        }}>Remove from Cart</button>
+                        }}>Remove from Cart</button><br/><br/>
+                        <button className="btn btn-primary" onClick={() => {
+                          window.location.href = "/product/" + product._id
+                        }}>View Item</button>
                       </div>
                     </div>
                     <div className="col-sm-12 col-md-12 col-lg-4">
