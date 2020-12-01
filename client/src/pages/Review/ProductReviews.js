@@ -9,6 +9,7 @@ function PostNewReview() {
   const { id } = useParams();
   const [name, setName] = useState("");
   const [reviews, setReviews] = useState("");
+  const [reviewMsg, setReviewMsg] = useState("");
 
   useEffect(() => {
     API.getProductReviews(id).then(res => {
@@ -16,6 +17,11 @@ function PostNewReview() {
         window.location.href = "/404"
       } else {
         setName(res.data.name);
+
+        if (res.data.reviews.length === 0) {
+          setReviewMsg(<h5>There are currently no reviews for this product.</h5>)
+        }
+
         const reviewListItems = res.data.reviews.map(review => {
           return (
             <div className="row" key={review._id}>
@@ -36,6 +42,7 @@ function PostNewReview() {
             </div>
           )
         });
+
         setReviews(reviewListItems);
       }
     })
@@ -44,6 +51,7 @@ function PostNewReview() {
   return (
     <div className="container">
       <h2>Reviews for {name}</h2><br/>
+      {reviewMsg}
       {reviews}
     </div>
   );

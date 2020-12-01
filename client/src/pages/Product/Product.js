@@ -16,6 +16,7 @@ function Product() {
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
+  const [ratingMsg, setRatingMsg] = useState("");
   const [image, setImage] = useState(LoadingIcon);
   const [seller, setSeller] = useState({});
   const [wishlist, SetWhishlist] = useState({
@@ -80,6 +81,9 @@ function Product() {
           window.location.href = "/404"
         } else if (response.data.product) {
           const product = response.data.product;
+          if (response.data.averageRating === null) {
+            setRatingMsg(<p>Product has not yet been reviewed.</p>)
+          }
           setRating(response.data.averageRating)
           seName(product.name)
           setCategory(product.category)
@@ -146,6 +150,7 @@ function Product() {
           </div>
           <ul className="list-group list-group-flush">
             <li className="list-group-item">Overall Rating: <br/>
+            {ratingMsg}
             <Rating name="rating" precision={0.1} value={rating} readOnly /><br/>
             <button className="btn btn-primary" onClick={() => {
               window.location.href = "/product/reviews/" + id
