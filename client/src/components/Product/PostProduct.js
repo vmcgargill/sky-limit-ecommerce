@@ -40,8 +40,12 @@ function PostProduct(props) {
   const PostProduct = (event) => {
     event.preventDefault()
     setLoad(SmallLoadingIcon)
+    console.log(price)
 
-    if (name.trim() === "" || description.trim() === "" || !category.value || price.trim() === "") {
+    if (name.trim() === "" || 
+    description.trim() === "" || 
+    !category.value || 
+    price === "") {
       setLoad("")
       setError(<Error message="Error: Name, description, category, and price fields are required and cannot be empty."/>)
     } else {
