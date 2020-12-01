@@ -20,21 +20,21 @@ router.get("/api/merchant/:id", (req, res) => {
   const id = req.params.id;
   db.User.findOne({ _id: id }, (err, merchant) => {
     if (err) throw err;
-    db.Product.find({ seller: id }, (error, products) => {
-      if (error) throw error;
+    db.Product.find({ seller: id }).populate("reviews").exec().then(products => {
       db.Review.find({ seller: id }, (errMsg, reviews) => {
         if (errMsg) throw errMsg;
         let averageRating = null;
         if (reviews.length > 0) {
           averageRating = reviews.map(review => review.rating).reduce((x, y) => x + y, 0) / reviews.length;
         }
-
         return res.json({
           merchant: merchant,
           products: products,
           rating: averageRating
         })
       })
+    }).catch(() => {
+      return res.json(401);
     })
   })
 });
