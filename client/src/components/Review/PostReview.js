@@ -5,9 +5,9 @@ import API from "../../utils/API";
 import Error from "../Error/Error"
 
 const PostReview = (props) => {
-  const [title, setTitle] = useState("");
+  let [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [rating, setRating] = React.useState(null);
+  const [rating, setRating] = useState(null);
   const [load, setLoad] = useState("");
   const [error, setError] = useState("");
 
@@ -63,14 +63,16 @@ const PostReview = (props) => {
   useEffect(() => {
     if (!props.new) {
       const review = props.review;
-      setTitle(review.title);
-      setDescription(review.description);
-      setRating(review.rating);
+      if (props.review._id) {
+        setTitle(review.title);
+        setDescription(review.description);
+        setRating(review.rating);
+      }
     }
-  }, [props])
+  }, [props, setTitle, setDescription, setRating])
 
   return (
-    <div clasName="row">
+    <div className="row">
       <div className="col-sm-12 col-md-12 col-lg-12">
       <form onSubmit={PostReview}>
         <label htmlFor="title">Title of Review:</label>

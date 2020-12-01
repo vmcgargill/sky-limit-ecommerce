@@ -24,12 +24,12 @@ const CustomerReviews = () => {
             }
             
             return (
-              <div className="row">
+              <div className="row" key={review._id}>
                 <div className="col-sm-12 col-md-12 col-lg-12">
                   <div className="card">
                     <div className="card-body">
-                      <h5 class="card-title">Review for: {product}</h5><br/>
-                      <h6 class="card-subtitle"><Rating name="rating" precision={0.1} value={review.rating} readOnly/></h6><br/>
+                      <h5 className="card-title">Review for: {product}</h5><br/>
+                      <h6 className="card-subtitle"><Rating name="rating" precision={0.1} value={review.rating} readOnly/></h6><br/>
                       <button className="btn btn-primary" onClick={() => {
                         window.location.href = "/editReview/" + review._id
                       }}>Edit Review</button><br/><br/>

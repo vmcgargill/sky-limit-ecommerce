@@ -52,7 +52,7 @@ function Review() {
   }, [id])
 
   return (
-    <div className="row">
+    <div className="row" key={reviewer._id}>
       <div className="col">
         <div className="card">
           <div className="card-body reviewCard">
