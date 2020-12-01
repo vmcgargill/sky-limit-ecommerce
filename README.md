@@ -2,6 +2,22 @@
 
 Deploy Link: https://skylimit-ecommerce.herokuapp.com/
 
+## Description
+
+A ecommerce website where buyers can shop for items, make purchases, leave reviews for products, and view average rating for both products and sellers.
+
+# Table of Contents
+- [Installation](#installation)
+- [Features](#features)
+- [Usage](#usage)
+- [Questions](#questions)
+
+## Installation
+To install, run the following command:
+```
+npm i
+```
+
 ## Features
 
 Skylimit Ecommerce has the following features:
@@ -49,7 +65,20 @@ Skylimit Ecommerce has the following features:
 - App uses an handful of media queries, not too many to optimize mobile responsiveness.
 - App uses the following dependencies: @material-ui/core, @material-ui/lab, axios, bcrypt, express, express-session, mongoose, mongoose-bcrypt, multer, passport, passport-local, react, react-dropdown-select, react-phone-input-2, react-phone-number-input, react-select and more. 
 
+Features to be Added:
 
-## Features to be Added
+- The option to make real payments using Stripe is still a feature that needs to be added.
+- Request for your account be be closed.
 
-The option to make real payments using Stripe is still a feature that needs to be added.
+## Usage
+Run 
+```
+npm start
+```
+ 
+## Questions
+If you have any questions feel free to contact: 
+ 
+[GitHub](https://github.com/vmcgargill) 
+ 
+Email: [vincentmcgargill@gmail.com](mailto:vincentmcgargill@gmail.com)
