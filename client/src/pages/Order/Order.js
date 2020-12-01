@@ -10,8 +10,11 @@ const UserOrder = () => {
 
   useEffect(() => {
     API.getOrder(id).then(res => {
+      console.log(res)
       if (res.data === 401) {
-        window.location.href = "/login/confirmOrder/" + id
+        window.location.href = "/login/order/" + id
+      } else if (res.data === 404 || res.data === null) {
+        window.location.href = "/404"
       } else if (res.data.products) {
         setOrder(<OrderDetails order={res.data}/>)
       }

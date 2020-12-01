@@ -5,8 +5,12 @@ const isAuthenticated = require("../../config/middleware/isAuthenticated");
 router.get("/api/order/:id", isAuthenticated, (req, res) => {
   const id = req.params.id;
   db.Order.findOne({ _id: id }, (err, order) => {
-    if (err) throw err;
-    res.json(order)
+    if (err) {
+      return res.json(404)
+    };
+    return res.json(order)
+  }).catch(() => {
+    return res.json(404)
   })
 })
 

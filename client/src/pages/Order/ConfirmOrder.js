@@ -12,6 +12,8 @@ const UserOrder = () => {
     API.getOrder(id).then(res => {
       if (res.data === 401) {
         window.location.href = "/login/confirmOrder/" + id
+      } else if (res.data === 404 || res.data === null) {
+        window.location.href = "/404"
       } else if (res.data.products) {
         setOrder(<OrderDetails order={res.data}/>)
       }
