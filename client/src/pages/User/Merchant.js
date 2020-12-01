@@ -15,6 +15,9 @@ const Merchant = () => {
 
   useEffect(() => {
     API.getMerchant(id).then(res => {
+      if (res.data === 404) {
+        window.location.href = "/404"
+      }
       if (res.data.merchant) {
         setLoad("")
         setMerchant(res.data.merchant);

@@ -34,8 +34,10 @@ router.get("/api/merchant/:id", (req, res) => {
         })
       })
     }).catch(() => {
-      return res.json(401);
+      return res.json(404);
     })
+  }).catch(() => {
+    return res.json(404);
   })
 });
 
