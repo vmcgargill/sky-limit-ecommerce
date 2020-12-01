@@ -10,7 +10,6 @@ const UserOrder = () => {
 
   useEffect(() => {
     API.getOrder(id).then(res => {
-      console.log(res)
       if (res.data === 401) {
         window.location.href = "/login/order/" + id
       } else if (res.data === 404 || res.data === null) {

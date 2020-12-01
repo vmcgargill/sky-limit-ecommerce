@@ -40,7 +40,6 @@ function PostProduct(props) {
   const PostProduct = (event) => {
     event.preventDefault()
     setLoad(SmallLoadingIcon)
-    console.log(price)
 
     if (name.trim() === "" || 
     description.trim() === "" || 

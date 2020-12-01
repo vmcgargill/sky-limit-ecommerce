@@ -11,7 +11,6 @@ router.post("/api/login", passport.authenticate("local"), (req, res) => {
 router.post("/api/signup", (req, res) => {
   db.User.findOne({email: req.body.email}, (error, existingUser) => {
     if (error) throw error;
-    console.log(existingUser)
     if (existingUser !== null) {
       return res.json({error: "This email is already in use."})
     } else {

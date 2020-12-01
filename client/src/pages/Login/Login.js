@@ -34,7 +34,6 @@ function Login() {
         }
       }
     }).catch(err => {
-      console.log(err)
       setError(<Error message="Error: Email or password is incorrect. Please try again."/>)
     });
   }
