@@ -146,7 +146,7 @@ const  App = () => {
             {!authStatus ? <Redirect to="/login/cart" /> : <CartAdded/>}
           </Route>
           <Route>
-            <Checkout/>
+            <Checkout exact path="/checkout"/>
           </Route>
           <Route exact path="/confirmOrder/:id">
             {!authStatus ? <Redirect to="/login/cart" /> : <ConfirmOrder/>}

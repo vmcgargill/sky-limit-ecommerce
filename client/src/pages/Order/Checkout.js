@@ -1,5 +1,5 @@
 import React from "react"
-
+// import API from "../../utils/API";
 import {Elements, CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
@@ -19,6 +19,15 @@ const CheckoutForm = () => {
     if (!error) {
       console.log(paymentMethod)
     }
+
+    // API.placeOrder(currentCartTotal).then(res => {
+    //   if (!res.data.orderStatus) {
+    //     setError(<Error message={res.data.message}/>)
+    //     LoadCart()
+    //   } else if (res.data.orderStatus) {
+    //     window.location.href = "/confirmOrder/" + res.data.id;
+    //   }
+    // })
 
   }
 
