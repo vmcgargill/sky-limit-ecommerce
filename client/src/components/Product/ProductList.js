@@ -35,7 +35,6 @@ function ProductList(props) {
               <p className="card-text">${product.price}</p>
               <p className="card-text productDescription">{product.description}</p>
               {productRating}
-              <p className="card-text"><small className="text-muted">Posted 2 days ago</small></p>
             </div>
           </div>
         </div>

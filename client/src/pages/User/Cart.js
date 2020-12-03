@@ -6,7 +6,7 @@ import './Cart.css';
 
 const Cart = () => {
   const [cart, setCart] = useState("");
-  const [orderBtn, setOrderBtn] = useState("");
+  const [checkoutBtn, setCheckoutBtn] = useState("");
   const [cartTotal, setCartTotal] = useState("");
   const [load, setLoad] = useState(LoadingIcon);
   
@@ -20,12 +20,13 @@ const Cart = () => {
           if (res.data.products.length === 0) {
             setLoad("")
             setCart("");
-            setOrderBtn(<h5>Your cart is currently empty.</h5>);
+            setCheckoutBtn(<h5>Your cart is currently empty.</h5>);
+            setCartTotal("0.00");
           } else {
             const currentCartTotal = res.data.products.map(product => product.price).reduce((x, y) => x + y, 0);
             setCartTotal(currentCartTotal.toString());
 
-            setOrderBtn(<button className="btn btn-primary" onClick={() => {window.location.href = "/checkout"}}>Go to Checkout</button>);
+            setCheckoutBtn(<button className="btn btn-primary" onClick={() => {window.location.href = "/checkout"}}>Go to Checkout</button>);
   
             const cartList = res.data.products.map((product) => {
               let productImg = "";
@@ -46,7 +47,11 @@ const Cart = () => {
                         <h5 className="card-title">{product.name}</h5><br/>
                         <button className="btn btn-danger" onClick={() => {
                           API.removeCart(product._id).then(() => {
-                            LoadCart();
+                            if (res.data === 401) {
+                              window.location.href = "/login/cart"
+                            } else {
+                              LoadCart();
+                            }
                           })
                         }}>Remove from Cart</button><br/><br/>
                         <button className="btn btn-primary" onClick={() => {
@@ -80,7 +85,7 @@ const Cart = () => {
       {load}
       {cart}
       <h5>Cart Total: ${cartTotal}</h5>
-      {orderBtn}
+      {checkoutBtn}
     </div>
   )
 

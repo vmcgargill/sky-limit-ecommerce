@@ -63,7 +63,7 @@ function Login() {
         </form>
         <br/>
         {error}
-        <p>Or sign up <Link to={signupLink}>here</Link></p>
+        <p>Or sign up <Link className="signup" to={signupLink}>here</Link></p>
       </div>
     </div>
   );

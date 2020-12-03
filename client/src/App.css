@@ -3,12 +3,24 @@
 }
 
 body {
-  background-color: silver;
+  background-color: rgba(137, 137, 137, 0.755);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+a {
+  color: black;
+}
+
+a:hover {
+  color: rgba(20, 20, 94, 0.816);
+}
+
+a.login, a.signup {
+  color: rgba(55, 202, 144, 0.973);
 }
 
 .imageDiv {
@@ -24,14 +36,13 @@ code {
 }
 
 .mainContainer {
-  border: 6px;
+  border: 4px;
   border-width: 100%;
   border-color: rgb(30, 30, 97); 
   border-style: solid;
-  border-radius: 30px 30px 30px 30px;
   box-shadow: 0 0 15px 2px;
   background-color: white;
-  min-height: 350px;
+  min-height: 500px;
   padding: 30px;
 }
 

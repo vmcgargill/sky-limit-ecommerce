@@ -84,7 +84,7 @@ function Signup() {
         </form>
         <br />
         {error}
-        <p>Or log in <Link to={loginLink}>here</Link></p>
+        <p>Or log in <Link className="login" to={loginLink}>here</Link></p>
       </div>
 </div>
   );

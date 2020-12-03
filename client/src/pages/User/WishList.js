@@ -40,7 +40,6 @@ const WishList = () => {
                       <h5 className="card-title">{product.name}</h5>
                       <p className="card-text">${product.price}</p>
                       <p className="card-text wishlistDescription">{product.description}</p>
-                      <p className="card-text"><small className="text-muted">Added to wishlist 10 days ago.</small></p>
                       <button className="btn btn-primary" onClick={() => {
                         API.addCart(product._id).then(() => {
                           window.location.href = "/cartAdded/" + product._id

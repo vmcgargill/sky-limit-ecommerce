@@ -22,10 +22,9 @@ const UserOrder = () => {
           return (
             <div className="card" key={order._id}>
               <div className="card-header">
-                Order #{order._id}
+                <h5 className="card-title">Order #{order._id}</h5>
               </div>
               <div className="card-body">
-                <h5 className="card-title">Something here.</h5>
                 {productNameString}
                 <p className="card-text"><small className="text-muted">Order Placed on {orderDate}</small></p>
                 <button className="btn btn-primary" onClick={() => {

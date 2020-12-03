@@ -6,6 +6,12 @@ Deploy Link: https://skylimit-ecommerce.herokuapp.com/
 
 A ecommerce website where buyers can shop for items, make purchases, leave reviews for products, and view average rating for both products and sellers.
 
+
+
+![Skylimit Ecommerce](./skylimitecom.gif)
+
+
+
 # Table of Contents
 - [Installation](#installation)
 - [Features](#features)

@@ -39,7 +39,6 @@ const Cart = () => {
       <h5>{name}</h5><br/>
       <h5>$ {price}</h5>
       <div className="cartAdded"><img className="productImg" alt="..." src={image}></img></div><br/>
-      <h5>New Cart Total: $1,000,000</h5><br/>
       <button className="btn btn-primary" onClick={() => {window.location.href = "/checkout"}}>Go to Checkout</button><br/><br/>
       <button className="btn btn-primary" onClick={() => {window.location.href = "/cart"}}>Go to Cart</button><br/><br/>
       <button className="btn btn-danger" onClick={removeCart}>Remove from Cart</button>
