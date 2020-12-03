@@ -28,15 +28,16 @@ const Cart = () => {
             setCartTotal(currentCartTotal.toString());
 
             setOrderBtn(<button className="btn btn-primary" onClick={() => {
-              API.placeOrder(currentCartTotal).then(res => {
-                if (!res.data.orderStatus) {
-                  setError(<Error message={res.data.message}/>)
-                  LoadCart()
-                } else if (res.data.orderStatus) {
-                  window.location.href = "/confirmOrder/" + res.data.id;
-                }
-              })
-            }}>Place Order</button>);
+              // API.placeOrder(currentCartTotal).then(res => {
+              //   if (!res.data.orderStatus) {
+              //     setError(<Error message={res.data.message}/>)
+              //     LoadCart()
+              //   } else if (res.data.orderStatus) {
+              //     window.location.href = "/confirmOrder/" + res.data.id;
+              //   }
+              // })
+              window.location.href = "/checkout"
+            }}>Go to Checkout</button>);
   
             const cartList = res.data.products.map((product) => {
               let productImg = "";

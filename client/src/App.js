@@ -23,6 +23,7 @@ import SellingAccount from './pages/User/Account/SellingAccount';
 import WishList from './pages/User/WishList';
 import Cart from './pages/User/Cart';
 import CartAdded from './pages/User/CartAdded';
+import Checkout from "./pages/Order/Checkout"
 import SearchResualts from "./pages/Product/SearchResults";
 import UserOrders from "./pages/Order/UserOrders";
 import ConfirmOrder from "./pages/Order/ConfirmOrder"
@@ -143,6 +144,9 @@ const  App = () => {
           <Route exact path="/cartAdded/:id" >
             <GoBack/>
             {!authStatus ? <Redirect to="/login/cart" /> : <CartAdded/>}
+          </Route>
+          <Route>
+            <Checkout/>
           </Route>
           <Route exact path="/confirmOrder/:id">
             {!authStatus ? <Redirect to="/login/cart" /> : <ConfirmOrder/>}
