@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import API from "../../../utils/API";
+import AddressForm from "../../../components/Order/BillingDetailsForm"
 
 const UpdateAddress = () => {
   const [addAddressForm, setAddressForm] = useState("");
@@ -26,7 +27,7 @@ const UpdateAddress = () => {
 
     const addAddress = () => {
       setAddressBtn(<button className="btn btn-success" onClick={creatAddress}>Create</button>)
-      setAddressForm(AddressForm)
+      setAddressForm(<AddressForm CancelButton={CancelButton}/>)
     }
 
     const AddAddressButton = (<button onClick={addAddress} className="btn btn-primary">Add Address</button>)
@@ -59,25 +60,6 @@ const UpdateAddress = () => {
         }
       })
     }
-
-    const AddressForm = (
-      <div>
-        <label htmlFor="country">Country</label>
-        <input id="country" placeholder="Enter Country" type="text" className="form-control" maxLength="50"></input>
-        <label htmlFor="name">Full Name (First and Last)</label>
-        <input id="name" placeholder="Enter Full Name" type="text" className="form-control" maxLength="50"></input>
-        <label htmlFor="address">Street Address</label>
-        <input id="address1" placeholder="Address 1" type="text" className="form-control" maxLength="50"></input><br/>
-        <input id="address2" placeholder="Address 2" type="text" className="form-control" maxLength="50"></input>
-        <label htmlFor="city">City</label>
-        <input id="city" placeholder="Enter City" type="text" className="form-control" maxLength="50"></input>
-        <label htmlFor="state">State / Province / Region</label>
-        <input id="state" placeholder="Enter State" type="text" className="form-control" maxLength="50"></input>
-        <label htmlFor="zip">Zip code</label>
-        <input id="zip" placeholder="Enter Zip" type="text" className="form-control" maxLength="50"></input><br/><br/>
-        {CancelButton}
-      </div>
-    )
 
     const LoadAddresses = () => {
       API.getUserAddresses().then(res => {
@@ -132,7 +114,7 @@ const UpdateAddress = () => {
                         }
                       })
                     }}>Update Address</button>)
-                    await setAddressForm(AddressForm)
+                    await setAddressForm(<AddressForm CancelButton={CancelButton}/>)
                     document.getElementById("country").value = address.country
                     document.getElementById("name").value = address.name
                     document.getElementById("address1").value = address.addressLine1

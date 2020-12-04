@@ -1,4 +1,5 @@
 import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
+import BillingDetailsForm from "./BillingDetailsForm"
 // import API from "../../utils/API";
 
 const CheckoutForm = () => {
@@ -30,7 +31,9 @@ const CheckoutForm = () => {
 
   return (
     <form style={{maxWidth: "400px", margin: "0 auto"}} onSubmit={handleSubmit}>
+      <label>Card</label>
       <CardElement/><br/>
+      <BillingDetailsForm CancelButton={""}/>
       <button type="submit" className="btn btn-success">Submit order</button>
     </form>
   )
