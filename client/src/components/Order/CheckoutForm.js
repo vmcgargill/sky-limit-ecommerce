@@ -1,10 +1,13 @@
+import {useState} from "react";
 import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 import BillingDetailsForm from "./BillingDetailsForm"
 import API from "../../utils/API";
+import Error from "../Error/Error"
 
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
+  const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -30,9 +33,15 @@ const CheckoutForm = () => {
       const {id} = paymentMethod;
       try {
         const res = await API.placeOrder(id)
-        console.log(res)
+        if (res.data === 401) {
+          window.location.href = "/login/checkout"
+        } else if (res.data === 400) {
+          setError(<Error message={"Error: Payment meothod was invalid. Please try again."}/>)
+        } else if (res.data.orderStatus) {
+          window.location.href = "/confirmOrder/" + res.data.id
+        }
       } catch (error) {
-        console.log(error)
+        setError(<Error message={"Error: Payment meothod was invalid. Please try again."}/>)
       }
     }
 
@@ -47,6 +56,7 @@ const CheckoutForm = () => {
       <label>Card</label>
       <CardElement options={cardOptions}/><br/>
       <BillingDetailsForm CancelButton={""}/>
+      {error}
       <button type="submit" className="btn btn-success">Submit order</button>
     </form>
   )

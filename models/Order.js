@@ -18,7 +18,8 @@ const OrderSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  total: Number
+  total: Number,
+  successfulPurchase: Boolean
 });
 
 const Order = mongoose.model("Order", OrderSchema);
