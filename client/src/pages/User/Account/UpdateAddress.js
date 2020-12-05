@@ -41,7 +41,6 @@ const UpdateAddress = () => {
 
     const creatAddress = () => {
       const data = {
-        country: document.getElementById("country").value,
         name: document.getElementById("name").value,
         addressLine1: document.getElementById("address1").value,
         addressLine2: document.getElementById("address2").value,
@@ -86,7 +85,6 @@ const UpdateAddress = () => {
               return (
                 <tr key={address._id}>
                   <th scope="row">
-                    {address.country}<br/>
                     {address.name}<br/>
                     {address.addressLine1}<br/>
                     {address.addressLine2}
@@ -96,7 +94,6 @@ const UpdateAddress = () => {
                   <td><button className="btn btn-primary" onClick={async () => {
                     await setAddressBtn(<button className="btn btn-success" onClick={() => {
                       const updateData = {
-                        "address.$.country": document.getElementById("country").value,
                         "address.$.name": document.getElementById("name").value,
                         "address.$.addressLine1": document.getElementById("address1").value,
                         "address.$.addressLine2": document.getElementById("address2").value,
@@ -115,7 +112,6 @@ const UpdateAddress = () => {
                       })
                     }}>Update Address</button>)
                     await setAddressForm(<AddressForm CancelButton={CancelButton}/>)
-                    document.getElementById("country").value = address.country
                     document.getElementById("name").value = address.name
                     document.getElementById("address1").value = address.addressLine1
                     document.getElementById("address2").value = address.addressLine2

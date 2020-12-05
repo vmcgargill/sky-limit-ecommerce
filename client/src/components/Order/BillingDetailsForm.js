@@ -3,8 +3,6 @@ import React from "react";
 const BillingDetailsForm = ({CancelButton}) => {
   return (
     <div>
-      <label htmlFor="country">Country</label>
-      <input id="country" placeholder="Enter Country" type="text" className="form-control" maxLength="50"></input>
       <label htmlFor="name">Full Name (First and Last)</label>
       <input id="name" placeholder="Enter Full Name" type="text" className="form-control" maxLength="50"></input>
       <label htmlFor="address">Street Address</label>
