@@ -99,8 +99,8 @@ const API = {
   loadcheckout: () => {
     return axios.get("/api/loadCheckout")
   },
-  placeOrder: (id) => {
-    return axios.post("/api/placeOrder", {id: id})
+  placeOrder: (id, orderTotal) => {
+    return axios.post("/api/placeOrder", {id: id, orderTotal: orderTotal})
   },
   deleteProduct: (id) => {
     return axios.delete("/api/deleteProduct/" + id);

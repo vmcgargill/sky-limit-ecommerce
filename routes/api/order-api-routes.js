@@ -1,4 +1,3 @@
-// import Stripe from "stripe";
 const Stripe = require("stripe")
 const db = require("../../models");
 const router = require("express").Router();
@@ -18,7 +17,7 @@ router.get("/api/order/:id", isAuthenticated, (req, res) => {
 
 router.get("/api/userOrders", isAuthenticated, (req, res) => {
   const id = req.user._id;
-  db.Order.find({ buyer: id }, (err, orders) => {
+  db.Order.find({ buyer: id, successfulPurchase: true }, (err, orders) => {
     if (err) throw err;
     if (orders) {
       res.json({orders: orders})
@@ -44,9 +43,9 @@ router.get("/api/loadCheckout", isAuthenticated, (req, res) => {
 })
 
 router.post("/api/placeOrder", isAuthenticated, (req, res) => {
-  const stripe = new Stripe(process.env.SECRET_KEY)
+  const stripe = new Stripe(process.env.SECRET_KEY);
   const userId = req.user._id;
-  const paymentId = req.body.id
+  const paymentId = req.body.id;
   const orderTotal = req.body.orderTotal;
 
   db.User.findOne({ _id: userId }, 'cart', (err, user) => {
