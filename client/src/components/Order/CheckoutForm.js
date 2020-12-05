@@ -3,15 +3,19 @@ import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 import BillingDetailsForm from "./BillingDetailsForm"
 import API from "../../utils/API";
 import Error from "../Error/Error"
+import SmallLoadingIcon from "../SmallLoadingIcon/SmallLoadingIcon"
 
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState("");
   const [orderTotal, setOrderTotal] = useState("");
+  const [load, setLoad] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    document.getElementById("submitOrder").disabled = 'true';
+    setLoad(SmallLoadingIcon);
 
     const billingDetails = {
       name: document.getElementById("name").value,
@@ -37,15 +41,21 @@ const CheckoutForm = () => {
         if (res.data === 401) {
           window.location.href = "/login/checkout"
         } else if (res.data.status === 400) {
+          setLoad("");
           setError(<Error message={res.data.error}/>)
+          document.getElementById("submitOrder").disabled = '';
         } else if (res.data.orderStatus) {
           window.location.href = "/confirmOrder/" + res.data.id
         }
       } catch (error) {
-        setError(<Error message={"Error: Payment meothod was invalid. Please try again."}/>)
+        setLoad("");
+        setError(<Error message={"Error: Payment meothod was invalid. Please try again."}/>);
+        document.getElementById("submitOrder").disabled = '';
       }
     } else {
-      setError(<Error message={"Error: Payment meothod was invalid. Please try again."}/>)
+      setLoad("");
+      setError(<Error message={"Error: Payment meothod was invalid. Please try again."}/>);
+      document.getElementById("submitOrder").disabled = '';
     }
   }
 
@@ -75,7 +85,8 @@ const CheckoutForm = () => {
       <CardElement options={{hidePostalCode: true}}/><br/>
       <BillingDetailsForm CancelButton={""}/>
       {error}
-      <button type="submit" className="btn btn-success">Submit order</button>
+      <button type="submit" className="btn btn-success" id="submitOrder">Submit order</button><br/>
+      {load}
     </form>
   )
 }
