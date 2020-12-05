@@ -66,8 +66,8 @@ function Review() {
             <pre className="card-text">{description}</pre>
           </div>
           <div className="card-body">
-            <h6>Review for: <Link to={"/product/" + product._id}>{product.name}</Link></h6>
-            Seller: <Link to={"/merchant/" + seller._id}>{seller.name}</Link>
+            <h6>Review for: <Link className="item" to={"/product/" + product._id}>{product.name}</Link></h6>
+            Seller: <Link className="item" to={"/merchant/" + seller._id}>{seller.name}</Link>
           </div>
         </div>
       </div>

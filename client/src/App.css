@@ -19,7 +19,7 @@ a:hover {
   color: rgba(20, 20, 94, 0.816);
 }
 
-a.login, a.signup {
+a.login, a.signup, a.item {
   color: rgba(55, 202, 144, 0.973);
 }
 

@@ -35,7 +35,7 @@ function PostNewReview() {
                     <li className="list-group-item"><p className="description">Description: {review.description}</p></li>
                   </ul>
                   <div className="card-body">
-                    <Link to={"/review/" + review._id}>View Full Review</Link>
+                    <Link className="item" to={"/review/" + review._id}>View Full Review</Link>
                   </div>
                 </div><br/><br/>
               </div>

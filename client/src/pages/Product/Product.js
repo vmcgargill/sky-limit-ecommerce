@@ -146,7 +146,7 @@ function Product() {
           <div className="card-body">
             <h2 className="card-title">{name}</h2>
             {image}<br/>
-            <Link to={"/merchant/" + seller._id}><h5>Seller: {seller.name}</h5></Link>
+            <Link className="item" to={"/merchant/" + seller._id}><h5>Seller: {seller.name}</h5></Link>
           </div>
           <ul className="list-group list-group-flush">
             <li className="list-group-item">Overall Rating: <br/>

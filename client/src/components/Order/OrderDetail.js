@@ -14,7 +14,7 @@ const OrderDetail = ({order}) => {
               {product.originalName}
             </div>
             <div className="col-sm-4 col-md-4 col-lg-4">
-              <Link to={"/product/" + product.productId}>View Item</Link>
+              <Link className="item" to={"/product/" + product.productId}>View Item</Link>
             </div>
             <div className="col-sm-4 col-md-4 col-lg-4">
               ${product.buyPrice}
