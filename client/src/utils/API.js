@@ -95,7 +95,10 @@ const API = {
   },
   getOrderHistory: () => {
     return axios.get("/api/userOrders")
-  }, 
+  },
+  loadcheckout: () => {
+    return axios.get("/api/loadCheckout")
+  },
   placeOrder: (id) => {
     return axios.post("/api/placeOrder", {id: id})
   },
