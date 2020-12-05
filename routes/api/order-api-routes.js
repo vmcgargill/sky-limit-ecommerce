@@ -62,7 +62,10 @@ router.post("/api/placeOrder", isAuthenticated, (req, res) => {
             })
             if (payment.status === 'succeeded') {
               db.Order.findByIdAndUpdate(order._id, {
-                $set: {successfulPurchase: true}
+                $set: {
+                  successfulPurchase: true,
+                  stripeId: payment.id
+                }
               }, (errorMessage, successfulOrder) => {
                 if (errorMessage) throw errorMessage;
                 if (successfulOrder) {

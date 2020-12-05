@@ -19,7 +19,8 @@ const OrderSchema = new Schema({
     default: Date.now
   },
   total: Number,
-  successfulPurchase: Boolean
+  successfulPurchase: Boolean,
+  stripeId: String
 });
 
 const Order = mongoose.model("Order", OrderSchema);
