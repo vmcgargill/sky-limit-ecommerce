@@ -96,8 +96,8 @@ const API = {
   getOrderHistory: () => {
     return axios.get("/api/userOrders")
   }, 
-  placeOrder: (comparePrice) => {
-    return axios.post("/api/placeOrder", {comparePrice: comparePrice})
+  placeOrder: (id) => {
+    return axios.post("/api/placeOrder", {id: id})
   },
   deleteProduct: (id) => {
     return axios.delete("/api/deleteProduct/" + id);
