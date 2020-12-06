@@ -21,7 +21,7 @@ const SearchResults = () => {
   }, [search])
 
   return (
-    <div>
+    <div className="card mainCard">
       <h2>Search Results for '{search}'</h2>
       {load}
       <ProductList products={products}/>
