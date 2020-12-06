@@ -4,6 +4,7 @@ import BillingDetailsForm from "./BillingDetailsForm"
 import API from "../../utils/API";
 import Error from "../Error/Error"
 import SmallLoadingIcon from "../SmallLoadingIcon/SmallLoadingIcon"
+import USDformatter from "../../USDformatter"
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -80,7 +81,7 @@ const CheckoutForm = () => {
 
   return (
     <form style={{maxWidth: "400px", margin: "0 auto"}} onSubmit={handleSubmit}>
-      <h5>Order total: ${orderTotal}</h5>
+      <h5>Order total: {USDformatter.format(orderTotal)}</h5>
       <label>Card</label>
       <CardElement options={{hidePostalCode: true}}/><br/>
       <BillingDetailsForm CancelButton={""}/>

@@ -96,9 +96,11 @@ const  App = () => {
           </Route>
           <Route exact path="/postProduct" >
             {!authStatus ? <Redirect to="/login/postProduct" /> : <PostNewProduct/>}
+            <Cancel/>
           </Route>
           <Route exact path="/editProduct/:id" >
             {!authStatus ? <Redirect to="/login/sellingAccount" /> : <EditProduct/>}
+            <Cancel/>
           </Route>
           <Route exact path="/deleteProduct/:id" >
             {!authStatus ? <Redirect to="/login/sellingAccount" /> : <DeleteProduct/>}

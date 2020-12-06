@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import LoadingIcon from "../../components/LoadingIcon/LoadingIcon"
 import API from "../../utils/API";
+import USDformatter from "../../USDformatter"
 
 const UserOrder = () => {
   const [orders, setOrders] = useState(LoadingIcon);
@@ -25,7 +26,8 @@ const UserOrder = () => {
                 <h5 className="card-title">Order #{order._id}</h5>
               </div>
               <div className="card-body">
-                {productNameString}
+                <p className="card-text">{productNameString}</p>
+                <p className="card-text">Total: {USDformatter.format(order.total)}</p>
                 <p className="card-text"><small className="text-muted">Order Placed on {orderDate}</small></p>
                 <button className="btn btn-primary" onClick={() => {
                   window.location.href = "/order/" + order._id

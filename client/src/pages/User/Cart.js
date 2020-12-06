@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
 import ConvertImage from '../../ConvertImage'
 import LoadingIcon from "../../components/LoadingIcon/LoadingIcon"
+import USDformatter from "../../USDformatter"
 import './Cart.css';
 
 const Cart = () => {
@@ -61,7 +62,7 @@ const Cart = () => {
                     </div>
                     <div className="col-sm-12 col-md-12 col-lg-4">
                     <div className="card-body cartListBody">
-                        <h5 className="card-title">${product.price}</h5>
+                        <h5 className="card-title">{USDformatter.format(product.price)}</h5>
                       </div>
                     </div>
                   </div>
@@ -84,7 +85,7 @@ const Cart = () => {
       <h2>Cart</h2>
       {load}
       {cart}
-      <h5>Cart Total: ${cartTotal}</h5>
+      <h5>Cart Total: {USDformatter.format(cartTotal)}</h5>
       {checkoutBtn}
     </div>
   )

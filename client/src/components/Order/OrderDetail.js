@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom"
+import USDformatter from "../../USDformatter"
 
 const OrderDetail = ({order}) => {
   const total = order.total
@@ -17,7 +18,7 @@ const OrderDetail = ({order}) => {
               <Link className="item" to={"/product/" + product.productId}>View Item</Link>
             </div>
             <div className="col-sm-4 col-md-4 col-lg-4">
-              ${product.buyPrice}
+              {USDformatter.format(product.buyPrice)}
             </div>
           </div>
         </div>
@@ -29,7 +30,7 @@ const OrderDetail = ({order}) => {
     <div>
       {orderDetails}
       <div className="card-body">
-        Grand Total: ${total}
+        Grand Total: {USDformatter.format(total)}
         <p className="card-text"><small className="text-muted">Order Placed on {date}</small></p>
       </div>
     </div>

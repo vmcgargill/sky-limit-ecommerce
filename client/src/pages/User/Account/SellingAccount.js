@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import API from "../../../utils/API";
 import ConvertImage from '../../../ConvertImage'
 import LoadingIcon from "../../../components/LoadingIcon/LoadingIcon"
+import USDformatter from "../../../USDformatter"
 
 const SellingAccount = () => {
   const [products, setProducts] = useState([]);
@@ -40,7 +41,7 @@ const SellingAccount = () => {
           <div className="col-sm-12 col-md-8 col-lg-8">
             <div className="card-body SellingListBody">
               <h5 className="card-title">{product.name}</h5>
-              <p className="card-text">${product.price}</p>
+              <p className="card-text">{USDformatter.format(product.price)}</p>
               <p className="card-text merchantDescription">{product.description}</p>
               <button className="btn btn-primary" onClick={() => {window.location.href = "/editProduct/" + product._id;}}>Edit Product</button><br/><br/>
               <button className="btn btn-primary" onClick={() => {window.location.href = "/product/" + product._id;}}>View Product</button><br/><br/>

@@ -7,6 +7,7 @@ import Success from "../../components/Success/Success"
 import LoadingIcon from "../../components/LoadingIcon/LoadingIcon"
 import Rating from '@material-ui/lab/Rating';
 import Select from 'react-select';
+import USDformatter from "../../USDformatter"
 import './Product.css';
 
 function Product() {
@@ -89,7 +90,7 @@ function Product() {
           setRating(response.data.averageRating)
           seName(product.name)
           setCategory(product.category)
-          setPrice(product.price)
+          setPrice(USDformatter.format(product.price))
           setDescription(product.description)
           setSeller(product.seller)
           if (product.keywords) {
@@ -180,7 +181,7 @@ function Product() {
               window.location.href = "/product/reviews/" + id
             }}>See All Reviews</button></li>
             <li className="list-group-item">Category: {category}</li>
-            <li className="list-group-item">Price: ${price}</li>
+            <li className="list-group-item">Price: {price}</li>
             <li className="list-group-item">Keywords: <br/><br/><Select
               value={keywords}
               isMulti
