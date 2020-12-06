@@ -6,6 +6,7 @@ import API from "../../utils/API";
 import Success from "../../components/Success/Success"
 import LoadingIcon from "../../components/LoadingIcon/LoadingIcon"
 import Rating from '@material-ui/lab/Rating';
+import Select from 'react-select';
 import './Product.css';
 
 function Product() {
@@ -14,6 +15,7 @@ function Product() {
   const [message, setMessage] = useState("")
   const [name, seName] = useState("");
   const [category, setCategory] = useState("");
+  const [keywords, setKeywords] = useState([]);
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [ratingMsg, setRatingMsg] = useState("");
@@ -90,6 +92,13 @@ function Product() {
           setPrice(product.price)
           setDescription(product.description)
           setSeller(product.seller)
+          if (product.keywords) {
+            const keywordList = [];
+            product.keywords.forEach(keyword => {
+              keywordList.push({label: keyword.label, value: keyword.value, isFixed: true})
+            })
+            setKeywords(keywordList)
+          }
           if (product.image) {
             setImage(<div className="productImg"><img src={"data:image/jpeg;base64," + ConvertImage(product.image.data.data)} className="card-img-top" alt='ProductImage'/></div>)
           } else {
@@ -138,6 +147,21 @@ function Product() {
       }
     });
   }, [id])
+
+  const styles = {
+    multiValue: (base, state) => {
+      return state.data.isFixed ? { ...base, backgroundColor: 'gray' } : base;
+    },
+    multiValueLabel: (base, state) => {
+      return state.data.isFixed
+        ? { ...base, fontWeight: 'bold', color: 'white', paddingRight: 6 }
+        : base;
+    },
+    multiValueRemove: (base, state) => {
+      return state.data.isFixed ? { ...base, display: 'none' } : base;
+    },
+
+  };
   
   return (
     <div className="row">
@@ -157,6 +181,15 @@ function Product() {
             }}>See All Reviews</button></li>
             <li className="list-group-item">Category: {category}</li>
             <li className="list-group-item">Price: ${price}</li>
+            <li className="list-group-item">Keywords: <br/><br/><Select
+              value={keywords}
+              isMulti
+              styles={styles}
+              isClearable={false}
+              isDisabled={true}
+              isOptionDisabled={true}
+              placeholder="There are no keywords for this product."
+            /><br/></li>
           </ul>
           <div className="card-body">
             <pre className="card-text">{description}</pre>

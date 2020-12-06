@@ -10,6 +10,10 @@ const ProductSchema = new Schema({
     type: String,
     required: true
   },
+  keywords: [{
+    value: { type: String },
+    label: { type: String }
+  }],
   price: {
     type: Number,
     required: true

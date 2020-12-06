@@ -3,6 +3,7 @@ import CreatableSelect from 'react-select/creatable';
 import SmallLoadingIcon from "../SmallLoadingIcon/SmallLoadingIcon"
 import Error from "../Error/Error"
 import API from "../../utils/API"
+import SearchSuggestions from "../Nav/SearchSuggestions"
 
 function PostProduct(props) {
   const [name, setName] = useState ("");
@@ -12,6 +13,7 @@ function PostProduct(props) {
   const [image, setImage] = useState ("");
   const [load, setLoad] = useState("");
   const [error, setError] = useState("");
+  const [keywords, setKeywords] = useState([]);
 
   const options = [
     {value: "Entertainment", label: "Entertainment"},
@@ -27,18 +29,29 @@ function PostProduct(props) {
     {value: "Clothing & Jewelry", label: "Clothing & Jewelry"}
   ]
 
+  const keywordOptions = [];
+  SearchSuggestions.forEach(suggestion => {
+    keywordOptions.push({
+      value: suggestion,
+      label: suggestion
+    })
+  })
+  
   useEffect(() => {
     if (!props.new && props.product._id) {
       setName(props.product.name);
-      setDescription(props.product.description)
+      setDescription(props.product.description);
       setPrice(props.product.price);
-      const currentCategory = {value: props.product.category, label: props.product.category}
-      setCategory(currentCategory)
+      const currentCategory = {value: props.product.category, label: props.product.category};
+      setCategory(currentCategory);
+      setKeywords(props.product.keywords)
     }
   }, [props, setName, setDescription, setPrice, setCategory])
   
   const PostProduct = (event) => {
     event.preventDefault()
+    
+
     setLoad(SmallLoadingIcon)
 
     if (name.trim() === "" || 
@@ -53,6 +66,9 @@ function PostProduct(props) {
       product.append("description", description);
       product.append("category", category.value);
       product.append("price", price);
+      product.append("keywords", JSON.stringify(keywords));
+
+      console.log(product.keywords)
       
       if (image !== "") {
         const pic = document.getElementById("image");
@@ -90,8 +106,6 @@ function PostProduct(props) {
         })
       }
     }
-    
-
   }
 
   return (
@@ -100,13 +114,16 @@ function PostProduct(props) {
       <form onSubmit={PostProduct}>
         <label htmlFor="name">Name:</label>
         <input placeholder="Name of Product" type="text" className="form-control" 
-        maxLength="50" value={name} onChange={(ev) => {setName(ev.target.value)}}></input>
+        maxLength="50" value={name} onChange={(ev) => {setName(ev.target.value)}}></input><br/>
         <label htmlFor="description">Description:</label>
         <textarea placeholder="Description of Product" className="form-control" rows="10" maxLength="100000" 
-        value={description} onChange={(ev) => {setDescription(ev.target.value)}}></textarea>
+        value={description} onChange={(ev) => {setDescription(ev.target.value)}}></textarea><br/>
         <label htmlFor="category">Select Product Category</label>
         <CreatableSelect isClearable onChange={(ev) => {setCategory(ev)}}
-        options={options} value={category} placeholder="Select or Enter Category"/><br/>
+        options={options} value={category} placeholder="Select or create a category.."/><br/>
+        <label htmlFor="keywords">Keywords:</label>
+        <CreatableSelect isMulti options={keywordOptions} name="keywords" id="keywords" placeholder="Create list of keywords..."
+        closeMenuOnSelect={false} value={keywords} onChange={(ev) => {setKeywords(ev)}}/><br/>
         $ <input type="number" min="0.01" step="0.01" value={price} onChange={(ev) => {setPrice(ev.target.value)}}></input><br/><br/>
         <input type="file" id="image" name="image" onChange={(ev) => {setImage(ev.target.value)}}></input> <br/><br/>
         <button type="submit" className="btn btn-primary submit">Submit</button>

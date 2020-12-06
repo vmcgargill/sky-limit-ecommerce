@@ -4,7 +4,8 @@ const fs = require('fs');
 const path = require('path'); 
 const router = require("express").Router();
 const isAuthenticated = require("../../config/middleware/isAuthenticated");
-const isProductOwner = require("../../config/middleware/isProductOwner")
+const isProductOwner = require("../../config/middleware/isProductOwner");
+const { timeStamp } = require("console");
 
 router.get("/api/products", (req, res) => {
   db.Product.find({}).populate("reviews").exec().then(products => {
@@ -30,6 +31,8 @@ router.get("/api/searchProducts/:search", (req, res) => {
           category: {
             $regex: new RegExp(search, "i")
           }
+        }, {
+          keywords: { $elemMatch: {value: { $regex: new RegExp(search, "i") } } }
         }
       ]
     }).populate("reviews").exec().then(products => {
@@ -142,6 +145,8 @@ router.get("/api/userCart", isAuthenticated, (req, res) => {
 
 router.post("/api/postProduct", isAuthenticated, upload.single("image"), (req, res) => {
   const product = new db.Product(req.body);
+  const keywords = JSON.parse(req.body.keywords) 
+  product.keywords = keywords
   product.assignSeller(req.user._id)
   if (req.file) {
     product.image = {
@@ -161,6 +166,8 @@ router.post("/api/postProduct", isAuthenticated, upload.single("image"), (req, r
 router.put("/api/editProduct/:id", isAuthenticated, isProductOwner, upload.single("image"), (req, res) => {
   const id = req.params.id;
   const product = req.body;
+  const keywords = JSON.parse(req.body.keywords) 
+  product.keywords = keywords
   if (req.file) {
     product.image = {
       data: fs.readFileSync(path.join(__dirname + '/../../upload/' + req.file.filename)), 
