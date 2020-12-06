@@ -10,11 +10,3 @@
 .reviewListCard {
   border: 3px black solid;
 }
-
-p.description {
-  display: block;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  text-align: center;
-}

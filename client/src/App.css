@@ -44,6 +44,7 @@ a.login, a.signup, a.item {
   background-color: white;
   min-height: 500px;
   padding: 30px;
+  white-space: pre-wrap;
 }
 
 .hidden {
@@ -57,6 +58,13 @@ a.login, a.signup, a.item {
 pre {
   white-space: pre-wrap;
   overflow: hidden;
+}
+
+.productDescription, a.productDescription, .merchantDescription, p.description {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 

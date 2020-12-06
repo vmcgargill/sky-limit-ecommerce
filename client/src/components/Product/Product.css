@@ -2,11 +2,3 @@
   max-width: 150px; 
   max-height: 150px;
 }
-
-a.productDescription {
-  display: block;
-  width: 300px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
