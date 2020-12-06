@@ -43,11 +43,20 @@ router.get("/api/merchant/:id", (req, res) => {
 
 router.get("/api/merchantProducts", isAuthenticated, (req, res) => {
   const id = req.user._id;
-  db.Product.find({ seller: id }, (err, products) => {
-    if (err) throw err;
-    return res.json({
-      products: products
+  db.Product.find({ seller: id }).populate("reviews").exec().then(products => {
+    db.Review.find({ seller: id }, (err, reviews) => {
+      if (err) throw err;
+      let averageRating = null;
+      if (reviews.length > 0) {
+        averageRating = reviews.map(review => review.rating).reduce((x, y) => x + y, 0) / reviews.length;
+      }
+      return res.json({
+        products: products,
+        rating: averageRating
+      })
     })
+  }).catch(() => {
+    return res.json(404)
   })
 })
 
