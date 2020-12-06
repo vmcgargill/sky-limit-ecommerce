@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ConvertImage from '../../ConvertImage';
 import { useParams } from "react-router";
 import API from "../../utils/API";
+import USDformatter from "../../USDformatter"
 import './Cart.css';
 
 const Cart = () => {
@@ -39,7 +40,7 @@ const Cart = () => {
       <button className="btn btn-primary" onClick={() => {window.location.href = "/checkout"}}>Go to Checkout</button><br/><br/>
       <button className="btn btn-danger" onClick={removeCart}>Remove from Cart</button><br/><br/>
       <h5>{name}</h5><br/>
-      <h5>$ {price}</h5>
+      <h5>{USDformatter.format(price)}</h5>
       <div className="cartAdded"><img className="productImg" alt="..." src={image}></img></div>
     </div>
   )
