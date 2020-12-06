@@ -4,6 +4,7 @@ import API from "../../utils/API";
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import SearchSuggestions from "./SearchSuggestions"
+import ProductNav from "./ProductNav"
 import './Nav.css';
 
 function Nav({authStatus, Suggestions}) {
@@ -69,11 +70,12 @@ function Nav({authStatus, Suggestions}) {
 
 
   return (
-    <nav className="navbar navbar-expand-lg">
+    <div>
+      <nav className="navbar navbar-expand-lg">
         <Link className="navbar-brand" to={"/"}>Sky Limit Ecommerce</Link>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Menu<br/>
-       <div className="menuIcon"><img src="/menuicon.png" alt="..." width="50" height="50" ></img></div> 
+        <div className="menuIcon"><img src="/menuicon.png" alt="..." width="50" height="50" ></img></div> 
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <form className="form-inline my-2 my-lg-0">
@@ -100,7 +102,9 @@ function Nav({authStatus, Suggestions}) {
           </form>
           {NavOptions}
         </div>
-    </nav>
+      </nav>
+      <ProductNav active="home"/>
+    </div>
   );
 }
 

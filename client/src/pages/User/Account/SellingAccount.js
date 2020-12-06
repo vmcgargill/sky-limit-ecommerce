@@ -16,6 +16,9 @@ const SellingAccount = () => {
       if (res.data === 401) {
         window.location.href = "/login/sellingAccount"
       }
+      if (res.data === 404) {
+        window.location.href = "/404"
+      }
       if (res.data.products) {
         setLoad("")
         setProducts(res.data.products)
@@ -95,17 +98,21 @@ const SellingAccount = () => {
 
   return (
     <div className="container">
-      <h2>Selling Account</h2>
-      {load}
-      <div className="card">
+      <div className="card mainCard">
         <div className="card-body">
-          <button className="btn btn-success" onClick={() => {
-            window.location.href = "/postProduct"
-          }}>Post Product</button><br/>
-          {overallRating}
+          <h2>Selling Account</h2>
+          {load}
+          <div className="card">
+            <div className="card-body">
+              <button className="btn btn-success" onClick={() => {
+                window.location.href = "/postProduct"
+              }}>Post Product</button><br/>
+              {overallRating}
+            </div>
+          </div><br/>
+          {merchantItems}
         </div>
-      </div><br/>
-      {merchantItems}
+      </div>
     </div>
   );
 }

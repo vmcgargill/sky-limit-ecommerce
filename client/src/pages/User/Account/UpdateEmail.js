@@ -29,7 +29,7 @@ const UpdateEmail = () => {
       <h2>Update Email</h2>
       <div className="row">
         <div className="col-sm-12 col-md-12 col-lg-12">
-          <div className="card edit-profile">
+          <div className="card edit-profile mainCard">
             <div className="card-body">
               <input placeholder="Enter Name" type="email" className="form-control" maxLength="50" value={email} onChange={(ev) => {setEmail(ev.target.value)}}></input><br/>
               <button onClick={updateEmail} className="btn btn-primary">Update Email</button>

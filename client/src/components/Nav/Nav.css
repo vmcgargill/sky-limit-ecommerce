@@ -2,7 +2,11 @@
   background-color: rgb(30, 30, 97);
   text-align: center;
   box-shadow: 0 0 15px 4px;
+}
+
+.bottomNav {
   margin-bottom: 3%;
+  box-shadow: -1px 6px 8px
 }
 
 .nav-item {
@@ -44,4 +48,8 @@
 .menuIcon {
   margin-left: auto;
   margin-right: auto;
+}
+
+.btn-group {
+  flex-wrap: wrap;
 }

@@ -67,6 +67,43 @@ const  App = () => {
       <Nav authStatus={navStatus} Suggestions={Suggestions} />
       <div className="container mainContainer">
         <Switch>
+          {/* Home */}
+          <Route exact path="/" >
+            <Home/>
+          </Route>
+          {/* Holiday Gifts */}
+          <Route exact path="/" >
+            <Home/>
+          </Route>
+          {/* Clothing & Accessories*/}
+          <Route exact path="/" >
+            <Home/>
+          </Route>
+          {/* Electronics */}
+          <Route exact path="/" >
+            <Home/>
+          </Route>
+          {/* Computers & Laptops */}
+          <Route exact path="/" >
+            <Home/>
+          </Route>
+          {/* Entertainment */}
+          <Route exact path="/" >
+            <Home/>
+          </Route>
+          {/* Movies & TV Shows */}
+          <Route exact path="/" >
+            <Home/>
+          </Route>
+          {/* Video Games */}
+          <Route exact path="/" >
+            <Home/>
+          </Route>
+          {/* Toys */}
+          <Route exact path="/" >
+            <Home/>
+          </Route>
+          {/* Smart Phones */}
           <Route exact path="/" >
             <Home/>
           </Route>
@@ -162,6 +199,7 @@ const  App = () => {
           </Route>
           <Route exact path="/productReview/:id" >
             {!authStatus ? <Redirect to="/login/orders" /> : <PostNewReview/>}
+            <Cancel/>
           </Route>
           <Route exact path="/customerReviews" >
             {!authStatus ? <Redirect to="/login/customerReviews" /> : <CustomerReviews/>}

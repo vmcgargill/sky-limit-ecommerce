@@ -176,7 +176,7 @@ function Product() {
   return (
     <div className="row">
       <div className="col">
-        <div className="card">
+        <div className="card mainCard">
           <div className="card-body">
             <h2 className="card-title">{name}</h2>
             {image}<br/>

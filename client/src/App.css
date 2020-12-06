@@ -3,7 +3,7 @@
 }
 
 body {
-  background-color: rgba(137, 137, 137, 0.755);
+  background-color: #919696dc;
 }
 
 code {
@@ -60,13 +60,16 @@ pre {
   overflow: hidden;
 }
 
-.productDescription, a.productDescription, .merchantDescription, p.description {
+.productDescription, .merchantDescription, p.description {
   display: block;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
+.mainCard {
+  border: 4px solid black;
+}
 
 @media screen and (max-width: 991px) {
   .cartListBodyMiddle {

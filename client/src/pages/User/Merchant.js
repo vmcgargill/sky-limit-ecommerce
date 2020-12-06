@@ -38,26 +38,24 @@ const Merchant = () => {
   }, [id]); 
   
   return(
-    <div>
-      <div className="card">
-      <h5 className="card-header">Merchant</h5>
-      <div className="card-body merchantCard">
-        <h5 className="card-title">Contact Information</h5>
-        <p className="card-text">Name: {merchant.name}</p>
-        <p className="card-text">Email: {merchant.email}</p>
-        <a href={"mailto:" + merchant.email} className="btn btn-primary">Contact</a>
-      </div>
-      <div className="card-body merchantCard">
-        <h5 className="card-title">Overall Seller Rating:</h5>
-        <p className="card-text">{rating}</p>
-      </div>
-      <div className="card-body">
+      <div className="card mainCard">
+        <h5 className="card-header">Merchant</h5>
+        <div className="card-body merchantCard">
+          <h5 className="card-title">Contact Information</h5>
+          <p className="card-text">Name: {merchant.name}</p>
+          <p className="card-text">Email: {merchant.email}</p>
+          <a href={"mailto:" + merchant.email} className="btn btn-primary">Contact</a>
+        </div>
+        <div className="card-body merchantCard">
+          <h5 className="card-title">Overall Seller Rating:</h5>
+          <p className="card-text">{rating}</p>
+        </div>
+        <div className="card-body">
           <h5 className="card-title">Current Products:</h5>
           {load}
           <ProductList products={products}/>
         </div>
       </div>
-    </div>
   )
 }
 

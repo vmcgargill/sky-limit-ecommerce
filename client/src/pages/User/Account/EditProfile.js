@@ -50,7 +50,7 @@ const EditProfile = () => {
   return(
     <div>
       {message}
-      <div className="card text-center">
+      <div className="card text-center mainCard">
         <div className="card-header">
           <h2>Edit Profile</h2>
         </div>

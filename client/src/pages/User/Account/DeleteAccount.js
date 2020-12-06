@@ -16,6 +16,7 @@ const DeleteAccount = () => {
   return (
     <div>
       <h2>Delete Account</h2>
+      <h5>This feature is not available at this time.</h5>
     </div>
   )
 

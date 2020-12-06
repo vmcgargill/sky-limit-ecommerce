@@ -54,7 +54,7 @@ function Review() {
   return (
     <div className="row" key={reviewer._id}>
       <div className="col">
-        <div className="card">
+        <div className="card mainCard">
           <div className="card-body reviewCard">
             <h3>"{title}"</h3><br/>
             <div className="reviewImg">{image}</div>
