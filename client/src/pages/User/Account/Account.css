@@ -2,13 +2,6 @@
   min-height: 250px;
 }
 
-.merchantDescription {
-  display: block;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
 .PhoneInput {
   margin-left: 33.3333%;
 }

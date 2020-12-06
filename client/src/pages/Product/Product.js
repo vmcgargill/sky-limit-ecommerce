@@ -33,7 +33,9 @@ function Product() {
   const [reviewBtn, setReviewBtn] = useState("")
   
   const updateCart = () => { 
-    if (cart.onCart) {
+    if (cart.onCart === undefined) {
+      window.location.href = "/editProduct/" + id
+    } else if (cart.onCart) {
       API.removeCart(id).then(res => {
         if(res.data === 401) {
           window.location.replace("/login/product/" + id);
@@ -54,7 +56,9 @@ function Product() {
   }
 
   const updateWishlist = () => {
-    if (wishlist.onWishlist) {
+    if (wishlist.onWishlist === undefined) {
+      window.location.href = "/sellingAccount"
+    } else if (wishlist.onWishlist) {
       API.removeWishlist(id).then(res => {
         if (res.data === 401) {
           window.location.href = "/login/product/" + id;
@@ -107,41 +111,46 @@ function Product() {
           }
 
           if (response.data.signedin) {
-
-            // Wishlist
-            if (response.data.wishlist) {
-              SetWhishlist({btnName: "Remove from Wishlist", onWishlist: true})
-            } else {
-              SetWhishlist({btnName: "Add to Wishlist", onWishlist: false})
-            }
-
-            // Cart
-            if (response.data.cart) {
-              SetCart({btnName: "Remove from Cart", onCart: true})
-            } else {
-              SetCart({btnName: "Add to Cart", onCart: false})
-            }
-
-            // Already Ordered
-            if (response.data.ordered) {
-
-              // Reviewed
-              if (!response.data.reviewed) {
-                setReviewBtn(<div><br/><button className="btn btn-primary" onClick={() => {
-                  window.location.href = "/productReview/" + id;
-                }}>Write a Review</button></div>)
+            // Sart
+            if (response.data.isSeller) {
+              SetCart({btnName: "Edit Product", onCart: undefined})
+              SetWhishlist({btnName: "Go to Selling Account", onWishlist: undefined})
+              setReviewBtn("")
+            } else if (!response.data.isSeller) {
+              // Wishlist
+              if (response.data.wishlist) {
+                SetWhishlist({btnName: "Remove from Wishlist", onWishlist: true})
+              } else {
+                SetWhishlist({btnName: "Add to Wishlist", onWishlist: false})
               }
-
-              // Buy Again Button
-              if (!response.data.cart) {
-                SetCart({btnName: "Buy Again", onCart: false})
+  
+              // Cart
+              if (response.data.cart) {
+                SetCart({btnName: "Remove from Cart", onCart: true})
+              } else {
+                SetCart({btnName: "Add to Cart", onCart: false})
+              }
+  
+              // Already Ordered
+              if (response.data.ordered) {
+  
+                // Reviewed
+                if (!response.data.reviewed) {
+                  setReviewBtn(<div><br/><button className="btn btn-primary" onClick={() => {
+                    window.location.href = "/productReview/" + id;
+                  }}>Write a Review</button></div>)
+                }
+  
+                // Buy Again Button
+                if (!response.data.cart) {
+                  SetCart({btnName: "Buy Again", onCart: false})
+                }
               }
             }
           } else {
             SetCart({btnName: "Add to Cart", onCart: false})
             SetWhishlist({btnName: "Add to Wishlist", onWishlist: false})
           }
-
         } else {
           window.location.href = "/404"
         }
@@ -197,8 +206,8 @@ function Product() {
           </div>
           <div className="card-body">
             {message}
-            <button onClick={updateCart} className="btn btn-primary">{cart.btnName}</button><br/><br/>
-            <button onClick={updateWishlist} className="btn btn-primary" value={wishlist.onWishlist}>{wishlist.btnName}</button>
+            <button onClick={updateCart} className="btn btn-success">{cart.btnName}</button><br/><br/>
+            <button onClick={updateWishlist} className="btn btn-success" value={wishlist.onWishlist}>{wishlist.btnName}</button>
             {reviewBtn}
           </div>
         </div>

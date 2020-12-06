@@ -61,6 +61,12 @@ router.get("/api/product/:id", (req, res) => {
           signedin: true,
           averageRating: averageRating
         }
+
+        if (product.seller._id.toString() === userId) {
+          dbResponse.isSeller = true;
+        } else {
+          dbResponse.isSeller = false;
+        }
   
         db.Order.find({buyer: userId, products: {$elemMatch: {productId: id}}}, (errorMsg, order) => {
           if (errorMsg) throw errorMsg;
