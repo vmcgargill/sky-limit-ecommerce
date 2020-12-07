@@ -28,7 +28,7 @@ function Nav({authStatus, Suggestions}) {
               <Link to={`/postProduct`} className="dropdown-item">Sell</Link>
               <Link onClick={async () => {
                 const logout = await API.Logout();
-                if (await logout.data.message === false) {
+                if (await logout.data.message === true) {
                   window.location.reload("/");
                 }
               }} to="" className="dropdown-item">Logout</Link>
