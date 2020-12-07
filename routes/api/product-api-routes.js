@@ -48,13 +48,9 @@ router.post("/api/browseProducts", (req, res) => {
 
   keywordArray.forEach(keyword => {
     query.push({
-      name: {
-        $regex: new RegExp(keyword, "i")
-      }
+      name: keyword
     }, {
-      category: {
-        $regex: keyword
-      }
+      category: keyword
     }, {
       keywords: { $elemMatch: {value: keyword } }
     })
@@ -89,11 +85,9 @@ router.get("/api/product/:id", (req, res) => {
       let relatedProductQuery = [];
       relatedProductArray.forEach(keyword => {
         relatedProductQuery.push({
-          category: {
-            $regex: new RegExp(keyword, "i")
-          }
+          category: keyword
         }, {
-          keywords: { $elemMatch: {value: { $regex: new RegExp(keyword, "i") } } }
+          keywords: { $elemMatch: {value: keyword } }
         })
       })
 
