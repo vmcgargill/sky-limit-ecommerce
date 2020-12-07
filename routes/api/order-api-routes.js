@@ -53,9 +53,19 @@ router.post("/api/placeOrder", isAuthenticated, (req, res) => {
     const Cart = user.cart;
     db.Product.find().where("_id").in(Cart).exec((error, products) => {
       if (error) throw error;
-      const totalPrice = products.map(product => product.price).reduce((x, y) => x + y, 0);
 
-      if (totalPrice !== orderTotal) {
+      const USDformatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      })
+      const price = products.map(product => product.price).reduce((x, y) => x + y, 0)
+
+      const totalPrice = USDformatter.format(price).substring(1, price.length)
+
+      console.log(totalPrice * 100)
+
+
+      if (totalPrice !== USDformatter.format(orderTotal).substring(1, orderTotal.length)) {
         return res.json({
           status: 400,
           error: "Error: it looks like the total price of you cart was recently changed. Please review your cart before making a purchase."
@@ -122,6 +132,10 @@ router.post("/api/placeOrder", isAuthenticated, (req, res) => {
           }
         })
       }
+
+
+
+
     })
   })
 })
