@@ -53,10 +53,10 @@ router.post("/api/browseProducts", (req, res) => {
       }
     }, {
       category: {
-        $regex: new RegExp(keyword, "i")
+        $regex: keyword
       }
     }, {
-      keywords: { $elemMatch: {value: { $regex: new RegExp(keyword, "i") } } }
+      keywords: { $elemMatch: {value: keyword } }
     })
   })
 
