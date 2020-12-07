@@ -8,7 +8,7 @@ const isProductOwner = require("../../config/middleware/isProductOwner");
 const { timeStamp } = require("console");
 
 router.get("/api/products", (req, res) => {
-  db.Product.find({}).populate("reviews").exec().then(products => {
+  db.Product.find().sort({_id: -1}).limit(5).populate("reviews").exec().then(products => {
     return res.json(products);
   }).catch(() => {
     return res.json([]);
@@ -45,7 +45,7 @@ router.get("/api/searchProducts/:search", (req, res) => {
 router.post("/api/browseProducts", (req, res) => {
   const keywordArray = req.body.array;
   let query = []
-  
+
   keywordArray.forEach(keyword => {
     query.push({
       name: {
