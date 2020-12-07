@@ -85,7 +85,7 @@ const CheckoutForm = () => {
 
   return (
     <form style={{maxWidth: "400px", margin: "0 auto"}} onSubmit={handleSubmit}>
-      <h5>Order total: {USDformatter.format(orderTotal)}</h5>
+      <h5>Order total: {USDformatter.format(orderTotal / 100)}</h5>
       <label>Card</label>
       <CardElement options={{hidePostalCode: true}}/><br/>
       <BillingDetailsForm CancelButton={""}/>

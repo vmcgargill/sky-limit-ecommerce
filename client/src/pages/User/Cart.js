@@ -62,7 +62,7 @@ const Cart = () => {
                     </div>
                     <div className="col-sm-12 col-md-12 col-lg-4">
                     <div className="card-body cartListBody">
-                        <h5 className="card-title">{USDformatter.format(product.price)}</h5>
+                        <h5 className="card-title">{USDformatter.format(product.price / 100)}</h5>
                       </div>
                     </div>
                   </div>
@@ -85,7 +85,7 @@ const Cart = () => {
       <h2>Cart</h2>
       {load}
       {cart}
-      <h5>Cart Total: {USDformatter.format(cartTotal)}</h5>
+      <h5>Cart Total: {USDformatter.format(cartTotal / 100)}</h5>
       {checkoutBtn}
     </div>
   )

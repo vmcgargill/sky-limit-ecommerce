@@ -60,12 +60,9 @@ router.post("/api/placeOrder", isAuthenticated, (req, res) => {
     } else if (Cart.length > 0) {
       db.Product.find().where("_id").in(Cart).exec((error, products) => {
         if (error) throw error;
+        const totalPrice = products.map(product => product.price).reduce((x, y) => x + y, 0)
   
-        const USDformatter = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'})
-        const price = products.map(product => product.price).reduce((x, y) => x + y, 0)
-        const totalPrice = USDformatter.format(price).substring(1, price.length)
-  
-        if (totalPrice !== USDformatter.format(orderTotal).substring(1, orderTotal.length)) {
+        if (totalPrice !== orderTotal) {
           return res.json({
             status: 400,
             error: "Error: it looks like the total price of you cart was recently changed. Please review your cart before making a purchase."
@@ -88,7 +85,7 @@ router.post("/api/placeOrder", isAuthenticated, (req, res) => {
             if (await order) {
               try {
                 const payment = await stripe.paymentIntents.create({
-                  amount: totalPrice * 100,
+                  amount: totalPrice,
                   currency: "USD",
                   description: "Order ID #" + order._id,
                   payment_method: paymentId,

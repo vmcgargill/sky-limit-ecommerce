@@ -65,7 +65,7 @@ function PostProduct(props) {
       product.append("name", name);
       product.append("description", description);
       product.append("category", category.value);
-      product.append("price", price);
+      product.append("price", Math.round(price * 100));
       product.append("keywords", JSON.stringify(keywords));
 
       console.log(product.keywords)

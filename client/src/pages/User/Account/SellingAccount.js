@@ -84,7 +84,7 @@ const SellingAccount = () => {
             <div className="card-body SellingListBody">
               <h5 className="card-title">{product.name}</h5>
               {productRating}
-              <p className="card-text">{USDformatter.format(product.price)}</p>
+              <p className="card-text">{USDformatter.format(product.price / 100)}</p>
               <p className="card-text merchantDescription">{product.description}</p>
               <button className="btn btn-primary" onClick={() => {window.location.href = "/editProduct/" + product._id;}}>Edit Product</button><br/><br/>
               <button className="btn btn-primary" onClick={() => {window.location.href = "/product/" + product._id;}}>View Product</button><br/><br/>

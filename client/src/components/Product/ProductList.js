@@ -33,7 +33,7 @@ function ProductList(props) {
           <div className="col-sm-8 col-md-8 col-lg-8">
             <div className="card-body productListBody">
               <h5 className="card-title">{product.name}</h5>
-              <p className="card-text">{USDformatter.format(product.price)}</p>
+              <p className="card-text">{USDformatter.format(product.price / 100)}</p>
               <p className="card-text productDescription">{product.description}</p>
               {productRating}
             </div>

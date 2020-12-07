@@ -27,7 +27,7 @@ const UserOrder = () => {
               </div>
               <div className="card-body">
                 <p className="card-text">{productNameString}</p>
-                <p className="card-text">Total: {USDformatter.format(order.total)}</p>
+                <p className="card-text">Total: {USDformatter.format(order.total / 100)}</p>
                 <p className="card-text"><small className="text-muted">Order Placed on {orderDate}</small></p>
                 <button className="btn btn-primary" onClick={() => {
                   window.location.href = "/order/" + order._id

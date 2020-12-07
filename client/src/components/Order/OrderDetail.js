@@ -18,7 +18,7 @@ const OrderDetail = ({order}) => {
               <Link className="item" to={"/product/" + product.productId}>View Item</Link>
             </div>
             <div className="col-sm-4 col-md-4 col-lg-4">
-              {USDformatter.format(product.buyPrice)}
+              {USDformatter.format(product.buyPrice / 100)}
             </div>
           </div>
         </div>
@@ -30,7 +30,7 @@ const OrderDetail = ({order}) => {
     <div>
       {orderDetails}
       <div className="card-body">
-        Grand Total: {USDformatter.format(total)}
+        Grand Total: {USDformatter.format(total / 100)}
         <p className="card-text"><small className="text-muted">Order Placed on {date}</small></p>
       </div>
     </div>

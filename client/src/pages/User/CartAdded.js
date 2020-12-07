@@ -36,11 +36,12 @@ const Cart = () => {
   return (
     <div className="container cartAdded">
       <h2>Item has been added to cart.</h2><br/>
+      <button className="btn btn-success" onClick={() => {window.location.href = "/"}}>Continue Shopping</button><br/><br/>
       <button className="btn btn-primary" onClick={() => {window.location.href = "/cart"}}>Go to Cart</button><br/><br/>
       <button className="btn btn-primary" onClick={() => {window.location.href = "/checkout"}}>Go to Checkout</button><br/><br/>
       <button className="btn btn-danger" onClick={removeCart}>Remove from Cart</button><br/><br/>
       <h5>{name}</h5><br/>
-      <h5>{USDformatter.format(price)}</h5>
+      <h5>{USDformatter.format(price / 100)}</h5>
       <div className="cartAdded"><img className="productImg" alt="..." src={image}></img></div>
     </div>
   )

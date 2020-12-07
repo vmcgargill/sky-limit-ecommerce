@@ -96,7 +96,7 @@ function Product() {
           setRating(response.data.averageRating)
           seName(product.name)
           setCategory(product.category)
-          setPrice(USDformatter.format(product.price))
+          setPrice(USDformatter.format(product.price / 100))
           setDescription(product.description)
           setSeller(product.seller)
           if (response.data.relatedProducts.length > 0) {
