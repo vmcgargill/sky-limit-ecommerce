@@ -80,7 +80,7 @@ function Signup() {
             <label htmlFor="exampleInputPassword1">Password</label>
             <input type="password" className="form-control" id="password-input" placeholder="Password" value={password} onChange={handlePasswordChange}></input>
           </div>
-          <button type="submit" className="btn btn-default">Sign Up</button>
+          <button type="submit" className="btn btn-success">Sign Up</button>
         </form>
         <br />
         {error}

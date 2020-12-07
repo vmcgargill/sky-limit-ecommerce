@@ -41,7 +41,7 @@ function PostProduct(props) {
     if (!props.new && props.product._id) {
       setName(props.product.name);
       setDescription(props.product.description);
-      setPrice(props.product.price);
+      setPrice(props.product.price / 100);
       const currentCategory = {value: props.product.category, label: props.product.category};
       setCategory(currentCategory);
       setKeywords(props.product.keywords)
