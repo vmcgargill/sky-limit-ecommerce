@@ -74,23 +74,23 @@ const  App = () => {
           <Route exact path="/holiday-gifts" >
             <Browse mainHeader={"Featured Holiday Gifts"}
             subHeader={"Here are some featured holiday gifts for the whole family."}
-            keywords={["holiday", "season", "gift", "christmas"]}/>
+            keywords={["Holiday", "Season", "Gift", "Christmas"]}/>
           </Route>
           <Route exact path="/clothing-accessories" >
             <Browse mainHeader={"The Latest Fashion"}
             subHeader={"See the latest trending fashion options available."}
-            keywords={["clothing", "jewelry", "clothes", "shirt", "pants", "shoes", "socks", "shorts", "sweater"]}/>
+            keywords={["Clothing", "Jewelry", "Clothes", "Shirt", "Pants", "Shoes", "Socks", "Shorts", "Sweater", "Clothing & Jewelry"]}/>
           </Route>
           <Route exact path="/electronics" >
             <Browse mainHeader={"Gadgets & Electronics"}
               subHeader={"Shop for the latest gadgets and electronics in the technology section."}
-              keywords={["electronic", "gadget", "tablet", "iPad", "smart speaker", 
-              "smart watch", "speaker", "watch", "webcam", "mouse", "keyboard"]}/>
+              keywords={["electronic", "Electronic", "Gadget", "Gablet", "iPad", "Smart Speaker", 
+              "Smart Watch", "Speaker", "Watch", "Webcam", "Mouse", "Keyboard"]}/>
           </Route>
           <Route exact path="/computers" >
             <Browse mainHeader={"Computer & Laptops"}
               subHeader={"Get the newest and latest models of your favorite computer brand."}
-              keywords={["laptop", "desktop", "Windows", "Windows 10", "Apple", "Mac", "Macbook", "HP", "Dell", "XPS", "Lenovo", "Samsung"]}/>
+              keywords={["Laptop", "Desktop", "Windows", "Windows 10", "Apple Computer", "Macbook", "HP", "Dell", "XPS", "Lenovo"]}/>
           </Route>
           <Route exact path="/entertainment" >
             <Browse mainHeader={"Entertainment"}
@@ -106,19 +106,19 @@ const  App = () => {
           <Route exact path="/videogames" >
             <Browse mainHeader={"Video Games"}
               subHeader={"Get the latest games"}
-              keywords={["Video Game", "Sony", "Microsoft", "Nintendo", "Playstation", "Xbox", 
+              keywords={["Video Game", "Sony", "Microsoft", "Nintendo", "Playstation", "Playstation 5", "Playstation 4", "Xbox", "Xbox Series X", "Xbox One", 
               "Nintendo Switch", "Xbox Series X", "Xbox 360", "PS5", "PS4", "PS3", "PS2", "PS1", "Wii",
               "console", "controller", "system"]}/>
           </Route>
           <Route exact path="/toys" >
             <Browse mainHeader={"Toys & Games"}
               subHeader={"See the latest toys and games for children."}
-              keywords={["toy", "children", "board game"]}/>
+              keywords={["toy", "Toy", "Toys", "toys", "Children", "Board game"]}/>
           </Route>
           <Route exact path="/smartphones" >
             <Browse mainHeader={"Smart Phones"}
               subHeader={"Get the latest and greatest smart phone."}
-              keywords={["phone", "cellphone", "smart phone", "iPhone", "Samsung Phone", "Galaxy Phone", 
+              keywords={["Phone", "Cellphone", "Smart Phone", "iPhone", "Samsung Phone", "Galaxy Phone", 
               "Google Pixel", "Android Phone", "iOS", "Motorola Phone", "Nokia Phone"]}/>
           </Route>
           <Route exact path={["/signup", "/signup/:redirect", "/signup/:redirect/:id"]} >
