@@ -25,8 +25,8 @@ router.post("/api/signup", (req, res) => {
 });
 
 router.get("/api/logout", async (req, res) => {
-  await req.logout();
-  if (await !req.user) {
+  await req.logOut();
+  if (await req.user === null) {
     return res.json({message: false})
   }
 });
