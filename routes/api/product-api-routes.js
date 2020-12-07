@@ -42,6 +42,36 @@ router.get("/api/searchProducts/:search", (req, res) => {
     })
 });
 
+router.post("/api/browseProducts", (req, res) => {
+  const keywordArray = req.body.array;
+  let query = []
+  
+  keywordArray.forEach(keyword => {
+    query.push({
+      name: {
+        $regex: new RegExp(keyword, "i")
+      }
+    }, {
+      description: {
+        $regex: new RegExp(keyword, "i")
+      }
+    }, {
+      category: {
+        $regex: new RegExp(keyword, "i")
+      }
+    }, {
+      keywords: { $elemMatch: {value: { $regex: new RegExp(keyword, "i") } } }
+    })
+  })
+
+  db.Product.find({
+    $or: query
+  }).populate("reviews").exec((error, products) => {
+    if (error) throw error;
+    return res.json(products);
+  })
+})
+
 router.get("/api/product/:id", (req, res) => {
   const id = req.params.id;
   db.Product.findOne({ _id: id }).populate("seller").populate("reviews").exec().then(product => {

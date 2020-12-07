@@ -3,18 +3,16 @@ import ProductList from "../../components/Product/ProductList"
 import API from "../../utils/API"
 import LoadingIcon from "../../components/LoadingIcon/LoadingIcon"
 
-const HolidayGifts = ({mainHeader, subHeader, keyword}) => {
+const HolidayGifts = ({mainHeader, subHeader, keywords}) => {
   const [products, setProducts] = useState([])
   const [load, setLoad] = useState(LoadingIcon);
 
   useEffect(() => {
-    API.searchProducts(keyword).then(res => {
+    API.browseProducts(keywords).then(res => {
       setLoad("")
       setProducts(res.data)
-      if (res.data.length > 0) {
-      }
     })
-  }, [keyword])
+  }, [keywords])
 
   return (
     <div className="card mainCard">

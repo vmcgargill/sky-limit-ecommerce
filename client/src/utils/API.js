@@ -53,6 +53,11 @@ const API = {
   searchProducts: (search) => {
     return axios.get("/api/searchProducts/" + search);
   },
+  browseProducts: (array) => {
+    return axios.post("/api/browseProducts", {
+      array: array
+    })
+  },
   getProducts: (query) => {
     return axios.get(query);
   },

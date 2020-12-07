@@ -74,47 +74,50 @@ const  App = () => {
           <Route exact path="/holiday-gifts" >
             <Browse mainHeader={"Featured Holiday Gifts"}
             subHeader={"Here are some featured holiday gifts for the whole family."}
-            keyword={"gift"}/>
+            keywords={["holiday", "season", "gift", "christmas", "toys", "Video Games", "TV", "computer", "clothes"]}/>
           </Route>
           <Route exact path="/clothing-accessories" >
             <Browse mainHeader={"The Latest Fashion"}
             subHeader={"See the latest trending fashion options available."}
-            keyword={"clothing"}/>
+            keywords={["clothing", "jewelry", "clothes", "shirt", "pants", "shoes", "socks", "hat", "shorts", "sweater"]}/>
           </Route>
           <Route exact path="/electronics" >
             <Browse mainHeader={"Gadgets & Electronics"}
               subHeader={"Shop for the latest gadgets and electronics in the technology section."}
-              keyword={"clothing"}/>
+              keywords={["electronic", "gadget", "tablet", "iPad", "smart", "speaker", "watch", "webcam", "mouse", "keyboard"]}/>
           </Route>
           <Route exact path="/computers" >
             <Browse mainHeader={"Computer & Laptops"}
               subHeader={"Get the newest and latest models of your favorite computer brand."}
-              keyword={"computer"}/>
+              keywords={["laptop", "desktop", "Windows", "Windows 10", "Apple", "Mac", "Macbook", "HP", "Dell", "XPS", "Lenovo", "Samsung"]}/>
           </Route>
           <Route exact path="/entertainment" >
             <Browse mainHeader={"Entertainment"}
               subHeader={"See what is available in the entertainment section."}
-              keyword={"entertainment"}/>
+              keywords={["TV", "Television", "HD", "4K", "8K", "High Definition", 
+              "Display", "Screen", "Sound", "System", "Bar", "Theatre", "Home Theatre", "Roku", "Fire TV"]}/>
           </Route>
           <Route exact path="/tvmovies" >
             <Browse mainHeader={"Movies & TV"}
               subHeader={"Buy and watch the latest movies and TV shows"}
-              keyword={"Movies & TV"}/>
+              keywords={["Movie", "TV", "Show", "Series", "Episode", "Season", "Netflix", "Hulu", "Amazon Prime"]}/>
           </Route>
           <Route exact path="/videogames" >
             <Browse mainHeader={"Video Games"}
               subHeader={"Get the latest games"}
-              keyword={"Video Games"}/>
+              keywords={["Video Game", "Sony", "Microsoft", "Nintendo", "Playstation", "Xbox", 
+              "Switch", "Series X", "One", "360", "PS5", "PS4", "PS3", "PS2", "PS1", "Wii",
+              "console", "controller", "system"]}/>
           </Route>
           <Route exact path="/toys" >
             <Browse mainHeader={"Toys & Games"}
               subHeader={"See the latest toys and games for children."}
-              keyword={"toys"}/>
+              keywords={["toy", "children", "board game"]}/>
           </Route>
           <Route exact path="/smartphones" >
             <Browse mainHeader={"Smart Phones"}
               subHeader={"Get the latest and greatest smart phone."}
-              keyword={"phone"}/>
+              keywords={["phone", "smart", "iPhone", "Samsung", "Galaxy", "Pixel", "Android", "iOS", "Motorola", "Nokia"]}/>
           </Route>
           <Route exact path={["/signup", "/signup/:redirect", "/signup/:redirect/:id"]} >
             <Signup/>
