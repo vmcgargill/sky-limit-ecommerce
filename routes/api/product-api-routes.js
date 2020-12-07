@@ -98,7 +98,8 @@ router.get("/api/product/:id", (req, res) => {
       })
 
       db.Product.find({
-        $or: relatedProductQuery
+        $or: relatedProductQuery,
+        _id: {$ne: id}
       }).limit(3).sort({_id: -1}).populate("reviews").exec((relatedErr, relatedProducts) => {
         if (relatedErr) throw relatedErr;
         if (req.user) {
