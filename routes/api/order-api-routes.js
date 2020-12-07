@@ -30,15 +30,19 @@ router.get("/api/loadCheckout", isAuthenticated, (req, res) => {
   db.User.findById(id, (err, user) => {
     if (err) throw err;
     const Cart = user.cart;
-    db.Product.find().where('_id').in(Cart).exec((error, products) => {
-      if (error) throw err;
-      const currentTotal = products.map(product => product.price).reduce((x, y) => x + y, 0);
-      const addresses = user.address;
-      return res.json({
-        currentTotal: currentTotal,
-        addresses: addresses
-      })
-    });
+    if (Cart.length === 0) {
+      return res.json({emptyCart: true})
+    } else if (Cart.length > 0) {
+      db.Product.find().where('_id').in(Cart).exec((error, products) => {
+        if (error) throw err;
+        const currentTotal = products.map(product => product.price).reduce((x, y) => x + y, 0);
+        const addresses = user.address;
+        return res.json({
+          currentTotal: currentTotal,
+          addresses: addresses
+        })
+      });
+    }
   })
 })
 
@@ -51,81 +55,85 @@ router.post("/api/placeOrder", isAuthenticated, (req, res) => {
   db.User.findOne({ _id: userId }, 'cart', (err, user) => {
     if (err) throw err;
     const Cart = user.cart;
-    db.Product.find().where("_id").in(Cart).exec((error, products) => {
-      if (error) throw error;
-
-      const USDformatter = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'})
-      const price = products.map(product => product.price).reduce((x, y) => x + y, 0)
-      const totalPrice = USDformatter.format(price).substring(1, price.length)
-
-      if (totalPrice !== USDformatter.format(orderTotal).substring(1, orderTotal.length)) {
-        return res.json({
-          status: 400,
-          error: "Error: it looks like the total price of you cart was recently changed. Please review your cart before making a purchase."
-        })
-      } else {
-        const orderProducts = new Array();
-        products.forEach(product => {
-          orderProducts.push({
-            productId: product._id,
-            originalName: product.name,
-            buyPrice: product.price
+    if (Cart.length === 0) {
+      return res.json({cartEmpty: true})
+    } else if (Cart.length > 0) {
+      db.Product.find().where("_id").in(Cart).exec((error, products) => {
+        if (error) throw error;
+  
+        const USDformatter = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'})
+        const price = products.map(product => product.price).reduce((x, y) => x + y, 0)
+        const totalPrice = USDformatter.format(price).substring(1, price.length)
+  
+        if (totalPrice !== USDformatter.format(orderTotal).substring(1, orderTotal.length)) {
+          return res.json({
+            status: 400,
+            error: "Error: it looks like the total price of you cart was recently changed. Please review your cart before making a purchase."
           })
-        })
-        db.Order.create({
-          buyer: userId,
-          products: orderProducts,
-          total: totalPrice
-        }, async (errMsg, order) => {
-          if (await errMsg) throw errMsg;
-          if (await order) {
-            try {
-              const payment = await stripe.paymentIntents.create({
-                amount: totalPrice * 100,
-                currency: "USD",
-                description: "Order ID #" + order._id,
-                payment_method: paymentId,
-                confirm: true
-              })
-              if (payment.status === 'succeeded') {
-                db.Order.findByIdAndUpdate(order._id, {
-                  $set: {
-                    successfulPurchase: true,
-                    stripeId: payment.id
-                  }
-                }, (errorMessage, successfulOrder) => {
-                  if (errorMessage) throw errorMessage;
-                  if (successfulOrder) {
-                    db.User.findByIdAndUpdate(userId, {
-                      $set: {cart: []}
-                    }, (errorMsg, updatedCart) => {
-                      if (errorMsg) throw errorMsg;
-                      if (updatedCart) {
-                        return res.json({
-                          orderStatus: true,
-                          message: "Success! Order has been placed.",
-                          id: order._id
-                        })
-                      }
-                    })
-                  };
+        } else {
+          const orderProducts = new Array();
+          products.forEach(product => {
+            orderProducts.push({
+              productId: product._id,
+              originalName: product.name,
+              buyPrice: product.price
+            })
+          })
+          db.Order.create({
+            buyer: userId,
+            products: orderProducts,
+            total: totalPrice
+          }, async (errMsg, order) => {
+            if (await errMsg) throw errMsg;
+            if (await order) {
+              try {
+                const payment = await stripe.paymentIntents.create({
+                  amount: totalPrice * 100,
+                  currency: "USD",
+                  description: "Order ID #" + order._id,
+                  payment_method: paymentId,
+                  confirm: true
                 })
-              } else {
+                if (payment.status === 'succeeded') {
+                  db.Order.findByIdAndUpdate(order._id, {
+                    $set: {
+                      successfulPurchase: true,
+                      stripeId: payment.id
+                    }
+                  }, (errorMessage, successfulOrder) => {
+                    if (errorMessage) throw errorMessage;
+                    if (successfulOrder) {
+                      db.User.findByIdAndUpdate(userId, {
+                        $set: {cart: []}
+                      }, (errorMsg, updatedCart) => {
+                        if (errorMsg) throw errorMsg;
+                        if (updatedCart) {
+                          return res.json({
+                            orderStatus: true,
+                            message: "Success! Order has been placed.",
+                            id: order._id
+                          })
+                        }
+                      })
+                    };
+                  })
+                } else {
+                  return res.json({
+                    status: 400,
+                    error: "Error: Invalid payment. Please try again."
+                  })
+                }
+              } catch (error) {
                 return res.json({
                   status: 400,
-                  error: "Error: Invalid payment. Please try again."
+                  error: "Error: Something went wrong with your payment. Please try again."
                 })
               }
-            } catch (error) {
-              return res.json({
-                status: 400,
-                error: "Error: Something went wrong with your payment. Please try again."
-              })
             }
-          }
-        })
-      }
-    })
+          })
+        }
+      })
+    }
   })
 })
 

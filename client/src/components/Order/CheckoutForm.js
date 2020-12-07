@@ -45,6 +45,8 @@ const CheckoutForm = () => {
           setLoad("");
           setError(<Error message={res.data.error}/>)
           document.getElementById("submitOrder").disabled = '';
+        } else if (res.data.cartEmpty === true) {
+          window.location.href = "/cart"
         } else if (res.data.orderStatus) {
           window.location.href = "/confirmOrder/" + res.data.id
         }
@@ -64,6 +66,8 @@ const CheckoutForm = () => {
     API.loadcheckout().then(res => {
       if (res.data === 401) {
         window.location.href = "/login/checkout"
+      } else if (res.data.emptyCart === true) {
+        window.location.href = "/cart"
       } else {
         setOrderTotal(res.data.currentTotal);
         const defaultAddress = res.data.addresses.filter(address => address.default === true)
