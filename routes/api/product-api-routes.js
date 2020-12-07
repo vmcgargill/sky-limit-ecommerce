@@ -24,10 +24,6 @@ router.get("/api/searchProducts/:search", (req, res) => {
             $regex: new RegExp(search, "i")
           }
         }, {
-          description: {
-            $regex: new RegExp(search, "i")
-          }
-        }, {
           category: {
             $regex: new RegExp(search, "i")
           }
