@@ -112,7 +112,7 @@ router.get("/api/product/:id", (req, res) => {
             dbResponse.isSeller = false;
           }
     
-          db.Order.find({buyer: userId, products: {$elemMatch: {productId: id}}}, (errorMsg, order) => {
+          db.Order.find({buyer: userId, products: {$elemMatch: {productId: id}}, successfulPurchase: true}, (errorMsg, order) => {
             if (errorMsg) throw errorMsg;
             if (order.length === 0) {
               dbResponse.ordered = false;

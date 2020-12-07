@@ -54,16 +54,9 @@ router.post("/api/placeOrder", isAuthenticated, (req, res) => {
     db.Product.find().where("_id").in(Cart).exec((error, products) => {
       if (error) throw error;
 
-      const USDformatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD'
-      })
+      const USDformatter = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'})
       const price = products.map(product => product.price).reduce((x, y) => x + y, 0)
-
       const totalPrice = USDformatter.format(price).substring(1, price.length)
-
-      console.log(totalPrice * 100)
-
 
       if (totalPrice !== USDformatter.format(orderTotal).substring(1, orderTotal.length)) {
         return res.json({
@@ -132,10 +125,6 @@ router.post("/api/placeOrder", isAuthenticated, (req, res) => {
           }
         })
       }
-
-
-
-
     })
   })
 })

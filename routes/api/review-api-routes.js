@@ -53,7 +53,7 @@ router.post("/api/postReview/:id", isAuthenticated, (req, res) => {
     if (product.seller.toString() === userId) {
       return res.json(404);
     } else {
-      db.Order.find({buyer: userId, products: {$elemMatch: {productId: productId}}}, (error, orders) => {
+      db.Order.find({buyer: userId, products: {$elemMatch: {productId: productId}}, successfulPurchase: true}, (error, orders) => {
         if (error) throw error;
         if (orders.length === 0) {
           return res.json(404);
