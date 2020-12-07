@@ -35,7 +35,7 @@ router.get("/api/searchProducts/:search", (req, res) => {
           keywords: { $elemMatch: {value: { $regex: new RegExp(search, "i") } } }
         }
       ]
-    }).populate("reviews").exec().then(products => {
+    }).sort({_id: -1}).populate("reviews").exec().then(products => {
       return res.json(products);
     }).catch(() => {
       return res.json([]);
@@ -58,7 +58,7 @@ router.post("/api/browseProducts", (req, res) => {
 
   db.Product.find({
     $or: query
-  }).populate("reviews").exec((error, products) => {
+  }).sort({_id: -1}).populate("reviews").exec((error, products) => {
     if (error) throw error;
     return res.json(products);
   })
@@ -172,7 +172,7 @@ router.get("/api/sellerProduct/:id", isAuthenticated, isProductOwner, (req, res)
 
 router.get("/api/userWishlist", isAuthenticated, (req, res) => {
   const userId = req.user._id;
-  db.User.findOne({ _id: userId }, (err, user) => {
+  db.User.findOne({ _id: userId }).sort({_id: -1}).exec((err, user) => {
     if (err) throw err;
     const WishList = user.wishlist;
     db.Product.find().where('_id').in(WishList).exec((error, products) => {
@@ -184,14 +184,14 @@ router.get("/api/userWishlist", isAuthenticated, (req, res) => {
 
 router.get("/api/userCart", isAuthenticated, (req, res) => {
   const userId = req.user._id;
-  db.User.findOne({ _id: userId }, (err, user) => {
+  db.User.findOne({ _id: userId }).sort({_id: -1}).exec((err, user) => {
     if (err) throw err;
     const Cart = user.cart;
     db.Product.find().where('_id').in(Cart).exec((error, products) => {
       if (error) throw err;
       return res.json({products});
-    });
-  })
+    })
+  }) 
 })
 
 router.post("/api/postProduct", isAuthenticated, upload.single("image"), (req, res) => {
