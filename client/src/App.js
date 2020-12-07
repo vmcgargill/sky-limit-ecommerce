@@ -96,7 +96,7 @@ const  App = () => {
             <Browse mainHeader={"Entertainment"}
               subHeader={"See what is available in the entertainment section."}
               keywords={["TV", "Television", "HD", "4K", "8K", "High Definition", "Entertainment",
-              "Display", "Sound System", "Sound Bar", "Theatre", "Home Theatre", "Roku", "Fire TV", "TVs", "Books", "Home"]}/>
+              "Display", "Sound System", "Sound Bar", "Theatre", "Home Theatre", "Roku", "Fire TV", "TVs", "Books"]}/>
           </Route>
           <Route exact path="/tvmovies" >
             <Browse mainHeader={"Movies & TV"}
@@ -125,11 +125,6 @@ const  App = () => {
             <Browse mainHeader={"Books"}
               subHeader={"Catch up on the latest books."}
               keywords={["Books", "Book", "Reading", "Read", "Writing", "Write"]}/>
-          </Route>
-          <Route exact path="/home-care" >
-            <Browse mainHeader={""}
-              subHeader={"Get home and personal care items."}
-              keywords={["Personal Care", "Home", "Soap", "Body Wash", "Shampoo", "Bathing"]}/>
           </Route>
           <Route exact path={["/signup", "/signup/:redirect", "/signup/:redirect/:id"]} >
             <Signup/>

@@ -24,10 +24,10 @@ router.post("/api/signup", (req, res) => {
   })
 });
 
-router.get("/api/logout", (req, res) => {
-  req.logout();
-  if (!req.user) {
-    res.json({message: false})
+router.get("/api/logout", async (req, res) => {
+  await req.logout();
+  if (await !req.user) {
+    return res.json({message: false})
   }
 });
 
