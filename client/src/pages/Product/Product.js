@@ -8,6 +8,7 @@ import LoadingIcon from "../../components/LoadingIcon/LoadingIcon"
 import Rating from '@material-ui/lab/Rating';
 import Select from 'react-select';
 import USDformatter from "../../USDformatter"
+import ProductList from "../../components/Product/ProductList"
 import './Product.css';
 
 function Product() {
@@ -31,6 +32,7 @@ function Product() {
     onCart: false
   });
   const [reviewBtn, setReviewBtn] = useState("")
+  const [relatedProducts, setRelatedProducts] = useState("");
   
   const updateCart = () => { 
     if (cart.onCart === undefined) {
@@ -97,6 +99,11 @@ function Product() {
           setPrice(USDformatter.format(product.price))
           setDescription(product.description)
           setSeller(product.seller)
+          if (response.data.relatedProducts.length > 0) {
+            setRelatedProducts(<ProductList products={response.data.relatedProducts}/>)
+          } else {
+            setRelatedProducts(<p className="card-text">There are cureently no related products to this item</p>)
+          }
           if (product.keywords) {
             const keywordList = [];
             product.keywords.forEach(keyword => {
@@ -209,6 +216,12 @@ function Product() {
             <button onClick={updateCart} className="btn btn-success">{cart.btnName}</button><br/><br/>
             <button onClick={updateWishlist} className="btn btn-success" value={wishlist.onWishlist}>{wishlist.btnName}</button>
             {reviewBtn}
+          </div>
+          <div className="card">
+            <div className="card-body">
+              <h3>Related Products</h3>
+              {relatedProducts}
+            </div>
           </div>
         </div>
       </div>

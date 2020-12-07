@@ -24,6 +24,10 @@ router.get("/api/searchProducts/:search", (req, res) => {
             $regex: new RegExp(search, "i")
           }
         }, {
+          description: {
+            $regex: new RegExp(search, "i")
+          }
+        }, {
           category: {
             $regex: new RegExp(search, "i")
           }
@@ -45,10 +49,6 @@ router.post("/api/browseProducts", (req, res) => {
   keywordArray.forEach(keyword => {
     query.push({
       name: {
-        $regex: new RegExp(keyword, "i")
-      }
-    }, {
-      description: {
         $regex: new RegExp(keyword, "i")
       }
     }, {
@@ -79,58 +79,82 @@ router.get("/api/product/:id", (req, res) => {
     if (product === null) {
       return res.json(404);
     } else {
-      if (req.user) {
-        const userId = req.user._id;
 
-        const dbResponse = {
-          product: product,
-          signedin: true,
-          averageRating: averageRating
-        }
+      let relatedProductArray = [];
+      relatedProductArray.push(product.category)
+      product.keywords.forEach(keyword => {
+        relatedProductArray.push(keyword.value);
+      })
 
-        if (product.seller._id.toString() === userId) {
-          dbResponse.isSeller = true;
-        } else {
-          dbResponse.isSeller = false;
-        }
+      let relatedProductQuery = [];
+      relatedProductArray.forEach(keyword => {
+        relatedProductQuery.push({
+          category: {
+            $regex: new RegExp(keyword, "i")
+          }
+        }, {
+          keywords: { $elemMatch: {value: { $regex: new RegExp(keyword, "i") } } }
+        })
+      })
+
+      db.Product.find({
+        $or: relatedProductQuery
+      }).limit(3).sort({_id: -1}).populate("reviews").exec((relatedErr, relatedProducts) => {
+        if (relatedErr) throw relatedErr;
+        if (req.user) {
+          const userId = req.user._id;
   
-        db.Order.find({buyer: userId, products: {$elemMatch: {productId: id}}}, (errorMsg, order) => {
-          if (errorMsg) throw errorMsg;
-          if (order.length === 0) {
-            dbResponse.ordered = false;
-          } else if (order.length > 0) {
-            dbResponse.ordered = true;
+          const dbResponse = {
+            product: product,
+            signedin: true,
+            averageRating: averageRating,
+            relatedProducts: relatedProducts
           }
   
-          db.User.findOne({ _id: userId }, (err, user) => {
-            if (err) throw err;
-            const WishList = user.wishlist;
-            if (WishList.indexOf(id) > -1) {
-              dbResponse.wishlist = true;
-            } else {
-              dbResponse.wishlist = false;
+          if (product.seller._id.toString() === userId) {
+            dbResponse.isSeller = true;
+          } else {
+            dbResponse.isSeller = false;
+          }
+    
+          db.Order.find({buyer: userId, products: {$elemMatch: {productId: id}}}, (errorMsg, order) => {
+            if (errorMsg) throw errorMsg;
+            if (order.length === 0) {
+              dbResponse.ordered = false;
+            } else if (order.length > 0) {
+              dbResponse.ordered = true;
             }
-            const Cart = user.cart;
-            if (Cart.indexOf(id) > -1) {
-              dbResponse.cart = true;
-            } else {
-              dbResponse.cart = false;
-            }
-
-            db.Review.find({reviewer: userId, product: id}, (errorMessage, review) => {
-              if (errorMessage) throw errorMessage;
-              if (review.length > 0) {
-                dbResponse.reviewed = true;
+    
+            db.User.findOne({ _id: userId }, (err, user) => {
+              if (err) throw err;
+              const WishList = user.wishlist;
+              if (WishList.indexOf(id) > -1) {
+                dbResponse.wishlist = true;
               } else {
-                dbResponse.reviewed = false;
+                dbResponse.wishlist = false;
               }
-              return res.json(dbResponse);
+              const Cart = user.cart;
+              if (Cart.indexOf(id) > -1) {
+                dbResponse.cart = true;
+              } else {
+                dbResponse.cart = false;
+              }
+  
+              db.Review.find({reviewer: userId, product: id}, (errorMessage, review) => {
+                if (errorMessage) throw errorMessage;
+                if (review.length > 0) {
+                  dbResponse.reviewed = true;
+                } else {
+                  dbResponse.reviewed = false;
+                }
+                return res.json(dbResponse);
+              })
             })
           })
-        })
-      } else {
-        return res.json({product: product, signedin: false, averageRating: averageRating});
-      }
+        } else {
+          return res.json({product: product, relatedProducts: relatedProducts, signedin: false, averageRating: averageRating});
+        }
+      })
     }
   }).catch(() => {
     return res.json(404);
