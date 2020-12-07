@@ -12,6 +12,8 @@ const ProductNav = () => {
         <button type="button" className="btn btn-dark" onClick={() => {window.location.href = "/videogames"}} >Video Games</button>
         <button type="button" className="btn btn-dark" onClick={() => {window.location.href = "/toys"}} >Toys</button>
         <button type="button" className="btn btn-dark" onClick={() => {window.location.href = "/smartphones"}} >Smart Phones</button>
+        <button type="button" className="btn btn-dark" onClick={() => {window.location.href = "/books"}} >Books</button>
+        <button type="button" className="btn btn-dark" onClick={() => {window.location.href = "/home-care"}} >Home & Personal Care</button>
       </div>
     </nav>
   )
