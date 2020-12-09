@@ -1,7 +1,7 @@
 const ProductNav = () => {
   return (
     <nav className="navbar justify-content-center bottomNav">
-      <div class="btn-group" role="group" aria-label="Basic example">
+      <div className="btn-group" role="group" aria-label="Basic example">
         <button type="button" className="btn btn-dark" onClick={() => {window.location.href = "/"}} >Home</button>
         <button type="button" className="btn btn-dark" onClick={() => {window.location.href = "/holiday-gifts"}} >Holiday Gifts</button>
         <button type="button" className="btn btn-dark" onClick={() => {window.location.href = "/clothing-accessories"}} >Clothing & Accessories</button>

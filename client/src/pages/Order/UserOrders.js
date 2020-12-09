@@ -26,7 +26,7 @@ const UserOrder = () => {
                 <h5 className="card-title">Order #{order._id}</h5>
               </div>
               <div className="card-body">
-                <p className="card-text">{productNameString}</p>
+                {productNameString}
                 <p className="card-text">Total: {USDformatter.format(order.total / 100)}</p>
                 <p className="card-text"><small className="text-muted">Order Placed on {orderDate}</small></p>
                 <button className="btn btn-primary" onClick={() => {

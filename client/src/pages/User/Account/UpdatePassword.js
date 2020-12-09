@@ -41,13 +41,13 @@ const UpdatePassword = () => {
         <div className="col-sm-12 col-md-12 col-lg-12">
           <div className="card edit-profile mainCard">
             <div className="card-body ">
-              <label for="exampleInputPassword1">Enter Current Password:</label>
+              <label htmlFor="exampleInputPassword1">Enter Current Password:</label>
               <input placeholder="Enter Current Password" type="password" className="form-control" maxLength="50" 
               value={currentPassword} onChange={(ev) => {setCurrentPassword(ev.target.value)}}></input><br/>
-              <label for="exampleInputPassword1">Enter New Password:</label>
+              <label htmlFor="exampleInputPassword1">Enter New Password:</label>
               <input placeholder="Enter New Password" type="password" className="form-control" maxLength="50" 
               value={password1} onChange={(ev) => {setPassword1(ev.target.value)}}></input><br/>
-              <label for="exampleInputPassword1">Confirm New Password:</label>
+              <label htmlFor="exampleInputPassword1">Confirm New Password:</label>
               <input placeholder="Confirm New Password" type="password" className="form-control" maxLength="50" 
               value={password2} onChange={comparePassword}></input><br/>
               <button onClick={updatePassword} className="btn btn-primary">Update Password</button><br/>

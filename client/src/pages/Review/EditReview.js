@@ -21,7 +21,7 @@ const EditReview = () => {
 
   return(
     <div>
-      <h2>Edit your review here #{id}</h2>
+      <h5>Edit your review here #{id}</h5>
       <PostReview new={false} review={review}/>
     </div>
   )
