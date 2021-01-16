@@ -45,22 +45,21 @@ const  App = () => {
   const [navStatus, setNavStatus] = useState(undefined);
   const [Suggestions, setSuggestions] = useState([]);
   
-  useEffect(() => {
-    const getLoginStatus = async () => {
-      const res = await API.getUserData();
-      setSuggestions(res.data.SearchSuggestions);
+  const getLoginStatus = async () => {
+    const res = await API.getUserData();
+    setSuggestions(res.data.SearchSuggestions);
 
-      if (await res.data.message) {
-        await setAuthStatus(true)
-        await setNavStatus(true)
-      }
-      else {
-        await setAuthStatus(false)
-        await setNavStatus(false)
-      }
+    if (await res.data.message === true) {
+      await setAuthStatus(true)
+      await setNavStatus(true)
     }
-    getLoginStatus()
-  }, [])
+    else if (await res.data.message === false) {
+      await setAuthStatus(false)
+      await setNavStatus(false)
+    }
+  }
+
+  useEffect(getLoginStatus, [getLoginStatus])
 
   return (
     <div className="App">
