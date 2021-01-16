@@ -15,9 +15,8 @@ function Home() {
         setHome(
           <div className="card mainCard seasonCard">
             <div className="card=body">
-              <h2>Shop for the Holidays</h2>
-              <h5>The holiday season is here!</h5>
-              <Link to={"/holiday-gifts"} className="btn btn-primary">Shop Holiday Gifts</Link><br/>
+              <h2>Shop Electronics</h2>
+              <Link to={"/electronics"} className="btn btn-primary">Shop for Electroncis</Link><br/>
             </div>
           </div>
         )

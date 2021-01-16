@@ -70,11 +70,6 @@ const  App = () => {
           <Route exact path="/" >
             <Home/>
           </Route>
-          <Route exact path="/holiday-gifts" >
-            <Browse mainHeader={"Featured Holiday Gifts"}
-            subHeader={"Here are some featured holiday gifts for the whole family."}
-            keywords={["Holiday", "Season", "Gift", "Christmas"]}/>
-          </Route>
           <Route exact path="/clothing-accessories" >
             <Browse mainHeader={"The Latest Fashion"}
             subHeader={"See the latest trending fashion options available."}
