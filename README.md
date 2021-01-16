@@ -4,7 +4,7 @@ Deploy Link: https://skylimit-ecommerce.herokuapp.com/
 
 ## Description
 
-A ecommerce commercial website where buyers can shop for items, search for items by a keyword, browse for items via category, add items to their cart or wishlist, make purchases for products, leave reviews for products, and view average rating for both products and sellers.
+A ecommerce website where buyers can shop for items, search for items by a keyword, browse for items via category, add items to their cart or wishlist, make purchases for products, leave reviews for products, and view average rating for both products and sellers.
 
 
 
